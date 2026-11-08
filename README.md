@@ -10,49 +10,41 @@ npm run build && npm start
 
 ## Routes
 
-| Route | Page |
+`/` · `/about` · `/services/creatives` · `/services/ai-video-production` · `/services/app-development` · `/services/web-development` · `/work` · `/contact`
+
+## Adding portfolio projects
+
+Open **`src/content/portfolio.ts`** — it has one list per service and a copy-paste example at the top.
+
+1. Drop files into `public/portfolio/<service>/` (folders already exist).
+2. Add an entry: `title`, `cover` (required) plus any of `client`, `year`, `description`,
+   `video` (an .mp4 path or a YouTube/Vimeo link), `images` (extra images) and `url` (live site / store link).
+
+Each project shows on its service page **and** on Work (with filters), and opens in a lightbox that plays the
+video or flips through the images. Until a service has projects, its page shows three "coming soon" slots.
+
+## Other content
+
+| What | Where |
 |---|---|
-| `/` | Home — animated projector hero, intro, services, work, clients, process, why AQRO, CTA |
-| `/about` | About — engraved heritage plate, disciplines strip, philosophy, story, capability index, team |
-| `/services/creatives` | Specimen-sheet hero, offer cards, toolkit, process, work, FAQs |
-| `/services/ai-video-production` | Screening-room hero, "Now showing" reel, showreel slot, process, FAQs |
-| `/services/app-development` | Blueprint/technical-drawing hero, spec sheet, process, FAQs |
-| `/services/web-development` | Browser-window hero, source-file offer grid, Core Web Vitals, FAQs |
-| `/work` | Filterable portfolio |
-| `/work/[slug]` | Project detail (overview, client, objective, direction, execution, deliverables, media) |
-| `/contact` | Enquiry form → `POST /api/contact` |
-
-## Adding AQRO's real content
-
-Everything that has to come from AQRO starts empty and is **never invented**. Sections render an honest, designed state until data is added.
-
-| What | Where | Effect when filled |
-|---|---|---|
-| Client logos | `src/content/data.ts` → `clients` (files in `public/clients/`) | Logo archive grid replaces the "archive" note. Monochrome, colour on hover. Use `scale` to balance optical size. |
-| Projects | `src/content/data.ts` → `projects` (media in `public/work/…`) | Cards appear on Home, Work, each service page; `/work/<slug>` pages are generated. |
-| Team | `src/content/data.ts` → `team` | Portrait grid grouped by `group` replaces the director-chair placeholders. |
-| Statistics | `src/content/data.ts` → `stats` (2+ real figures) | Replaces the "04 disciplines" strip on About. |
-| Email / phone / location / socials | `src/content/site.ts` → `site.contact`, `site.social` | Shown in footer and contact page; hidden while empty. |
-| Showreel | `src/content/site.ts` → `site.showreel` | Plays on the AI Video page. |
-| Domain | `src/content/site.ts` → `site.url` | Used for metadata, sitemap and robots. |
+| Client logos | `src/content/data.ts` → `clients` (files in `public/clients/`) |
+| Team | `src/content/data.ts` → `team` |
+| Email / phone / location / socials | `src/content/site.ts` → `site.contact`, `site.social` |
+| Service copy, offers, steps, FAQs | `src/content/site.ts` → `services` |
+| Domain | `src/content/site.ts` → `site.url` |
 
 ## Contact form — integration point
 
-`src/app/api/contact/route.ts` validates every enquiry. Delivery needs **one** of these environment variables (see `.env.example`):
+`src/app/api/contact/route.ts` validates every enquiry. Set **one** of these (see `.env.example`):
 
 - `CONTACT_WEBHOOK_URL` — JSON POST to Zapier / Make / Slack / a CRM, or
 - `RESEND_API_KEY` + `CONTACT_TO_EMAIL` (+ `CONTACT_FROM_EMAIL`) — email via Resend.
 
-Until one is set the API returns `503 not_configured` and the form tells the visitor the message was **not** sent.
+Until then the form clearly tells visitors their message was not sent.
 
-## Brand assets
+## Brand
 
-- `public/brand/aqro-logo.png`, `aqro-logo-reverse.png` — the wordmark, lifted from the element sheets. **Replace with the official logo files** (SVG preferred) and update `Logo` in `src/components/ui.tsx` if dimensions change.
-- `public/illustrations/*.webp` — 64 engraved elements cut out of the supplied sheets onto transparent backgrounds (graphite ink kept as alpha, so they sit on any surface). `etch-white` / `etch-ivory` classes re-ink them for blue and graphite sections. Sizes are registered in `src/lib/illustrations.ts`.
-- The projector reels spin by rotating circular windows of the original engraving about each hub (`src/components/Projector.tsx`).
-
-## Notes
-
-- All motion respects `prefers-reduced-motion` (reels, film strips and reveals stop).
-- Fonts are self-hosted via Fontsource: Bricolage Grotesque (display), Instrument Serif (statements), Instrument Sans (body), JetBrains Mono (slate labels).
-- Budget ranges on the form are in INR — adjust in `ContactForm.tsx` and the API route together.
+- `public/brand/aqro-logo.svg` (blue + red, for light backgrounds) and `aqro-logo-reverse.svg` (white + red, for blue/dark), vectorised from the supplied logo. Favicon: `src/app/icon.svg`.
+- Visual elements are built from the logo itself: the red corner mark (`Mark`), and the ring/stem/shoulder shapes in the hero (`Composition`). Service glyphs live in `src/components/Glyph.tsx`.
+- Fonts (self-hosted): Sora for headings, Instrument Sans for body.
+- All motion respects `prefers-reduced-motion`.

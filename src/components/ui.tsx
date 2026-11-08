@@ -1,82 +1,80 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-/** The AQRO wordmark. Swap /public/brand/aqro-logo*.png for the official files. */
+/** The official AQRO wordmark (traced from the supplied logo). */
 export function Logo({ reverse = false, className = "h-8" }: { reverse?: boolean; className?: string }) {
   return (
-    <Image
-      src={reverse ? "/brand/aqro-logo-reverse.png" : "/brand/aqro-logo.png"}
-      alt="AQRO"
-      width={684}
-      height={272}
-      priority
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={reverse ? "/brand/aqro-logo-reverse.svg" : "/brand/aqro-logo.svg"}
+      alt="aqro"
+      width={888}
+      height={302}
       className={`w-auto ${className}`}
     />
   );
 }
 
 /**
- * Slate label — AQRO's section marker, borrowed from the film clapperboard:
- * a scene number and a title in small mono caps, with a red tally dot.
+ * The red corner mark from the "a" in the logo — AQRO's signature shape.
+ * Used as a section marker, bullet and accent throughout the site.
  */
-export function Slate({
-  scene,
-  children,
-  tone = "ink",
-  className = "",
-}: {
-  scene: string;
-  children: ReactNode;
-  tone?: "ink" | "light";
-  className?: string;
-}) {
-  const muted = tone === "light" ? "text-white/75" : "text-graphite/75";
-  const rule = tone === "light" ? "bg-white/30" : "bg-graphite/25";
+export function Mark({ className = "size-3", color = "#ED1C24" }: { className?: string; color?: string }) {
   return (
-    <div className={`flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] ${className}`}>
-      <span className="inline-block size-1.5 rounded-full bg-red" aria-hidden />
-      <span className={`whitespace-nowrap ${muted}`}>Sc. {scene}</span>
-      <span className={`h-px w-8 ${rule}`} aria-hidden />
-      <span className={tone === "light" ? "text-white" : "text-graphite"}>{children}</span>
-    </div>
+    <svg viewBox="0 0 100 94" className={className} aria-hidden>
+      <path d="M0 0H100V94H51V52H0Z" fill={color} />
+    </svg>
+  );
+}
+
+/** Small section label led by the corner mark. */
+export function Eyebrow({ children, light = false }: { children: ReactNode; light?: boolean }) {
+  return (
+    <p
+      className={`flex items-center gap-2.5 text-[13px] font-medium uppercase tracking-[0.16em] ${
+        light ? "text-white/80" : "text-graphite/70"
+      }`}
+    >
+      <Mark className="size-3" />
+      {children}
+    </p>
   );
 }
 
 type BtnProps = {
   href: string;
   children: ReactNode;
-  variant?: "red" | "blue" | "outline" | "outline-light" | "white";
+  variant?: "red" | "blue" | "white" | "outline" | "outline-light";
   className?: string;
 };
 
-/** Pill button. The arrow travels and a fill sweeps in on hover. */
+/** Pill button with a fill that sweeps in on hover. */
 export function Button({ href, children, variant = "red", className = "" }: BtnProps) {
-  const styles: Record<string, string> = {
+  const base: Record<string, string> = {
     red: "bg-red text-white border-red",
     blue: "bg-blue text-white border-blue",
     white: "bg-white text-blue border-white",
-    outline: "border-graphite/30 text-graphite",
+    outline: "border-graphite/25 text-graphite",
     "outline-light": "border-white/40 text-white",
   };
   const sweep: Record<string, string> = {
     red: "bg-graphite",
     blue: "bg-graphite",
-    white: "bg-ivory",
+    white: "bg-red",
     outline: "bg-graphite",
     "outline-light": "bg-white",
   };
   const hoverText: Record<string, string> = {
     red: "group-hover:text-white",
     blue: "group-hover:text-white",
-    white: "group-hover:text-blue",
-    outline: "group-hover:text-ivory",
+    white: "group-hover:text-white",
+    outline: "group-hover:text-white",
     "outline-light": "group-hover:text-blue",
   };
   return (
     <Link
       href={href}
-      className={`group relative inline-flex items-center gap-3 overflow-hidden rounded-full border px-6 py-3.5 text-[15px] font-medium tracking-tight transition-colors duration-500 ${styles[variant]} ${className}`}
+      className={`group relative inline-flex items-center gap-3 overflow-hidden rounded-full border px-6 py-3.5 text-[15px] font-medium transition-colors ${base[variant]} ${className}`}
     >
       <span
         aria-hidden
@@ -89,7 +87,7 @@ export function Button({ href, children, variant = "red", className = "" }: BtnP
         className={`relative size-4 transition-all duration-500 group-hover:translate-x-1 ${hoverText[variant]}`}
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.6"
+        strokeWidth="1.8"
       >
         <path d="M4 10h11M11 5l5 5-5 5" />
       </svg>
@@ -97,34 +95,25 @@ export function Button({ href, children, variant = "red", className = "" }: BtnP
   );
 }
 
-/** Underlined text link with an arrow. */
 export function TextLink({ href, children, light = false }: { href: string; children: ReactNode; light?: boolean }) {
   return (
-    <Link
-      href={href}
-      className={`group inline-flex items-center gap-2 text-sm font-medium ${light ? "text-white" : "text-graphite"}`}
-    >
+    <Link href={href} className={`group inline-flex items-center gap-2 text-[15px] font-medium ${light ? "text-white" : "text-graphite"}`}>
       <span className="relative">
         {children}
-        <span className="absolute -bottom-1 left-0 h-px w-full origin-left bg-current opacity-30" />
+        <span className="absolute -bottom-1 left-0 h-px w-full bg-current opacity-25" />
         <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-red transition-transform duration-500 group-hover:scale-x-100" />
       </span>
-      <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-1">→</span>
+      <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-1">
+        →
+      </span>
     </Link>
   );
 }
 
-/** Ornamental hairline divider using the engraved flower mark. */
-export function Ornament({ className = "" }: { className?: string }) {
-  return (
-    <div className={`flex items-center gap-4 ${className}`} aria-hidden>
-      <span className="h-px flex-1 bg-graphite/20" />
-      <Image src="/illustrations/flower.webp" alt="" width={60} height={55} className="h-6 w-auto opacity-70" />
-      <span className="h-px flex-1 bg-graphite/20" />
-    </div>
-  );
+export function Container({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <div className={`mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12 ${className}`}>{children}</div>;
 }
 
-export function Container({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-12 ${className}`}>{children}</div>;
-}
+/** Shared heading scale so every page reads the same. */
+export const H1 = "font-display text-[clamp(2.6rem,6.4vw,5.75rem)] font-semibold leading-[0.98] tracking-[-0.04em] text-balance";
+export const H2 = "font-display text-[clamp(2rem,4.2vw,3.6rem)] font-semibold leading-[1.02] tracking-[-0.035em] text-balance";

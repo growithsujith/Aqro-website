@@ -61,7 +61,7 @@ export function ContactForm() {
         role="status"
         className="border border-graphite/15 bg-paper p-10"
       >
-        <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-red-ink">● That&apos;s a wrap</span>
+        <span className="text-xs font-medium uppercase tracking-[0.14em] text-red-ink">Received</span>
         <p className="mt-4 font-display text-4xl font-semibold tracking-tight">Thank you — your message is with us.</p>
         <p className="mt-3 max-w-md text-graphite/70">We read every enquiry personally and will reply to the email you gave us.</p>
         <button type="button" onClick={() => setStatus("idle")} className="mt-8 text-sm underline decoration-red underline-offset-4">
@@ -87,7 +87,7 @@ export function ContactForm() {
       </div>
 
       <fieldset>
-        <legend className="mb-4 flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.22em] text-graphite/70">
+        <legend className="mb-4 flex items-baseline justify-between text-xs font-medium uppercase tracking-[0.14em] text-graphite/70">
           Service required <span className="text-red-ink">*</span>
         </legend>
         <div className="flex flex-wrap gap-2">
@@ -111,7 +111,7 @@ export function ContactForm() {
       </fieldset>
 
       <div>
-        <label htmlFor="budget" className="mb-3 flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.22em] text-graphite/70">
+        <label htmlFor="budget" className="mb-3 flex items-baseline justify-between text-xs font-medium uppercase tracking-[0.14em] text-graphite/70">
           Project budget <span className="normal-case tracking-normal text-graphite/65">Optional</span>
         </label>
         <select
@@ -211,7 +211,7 @@ function Field({
   };
   return (
     <div className={className}>
-      <label htmlFor={name} className="mb-1 flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.22em] text-graphite/70">
+      <label htmlFor={name} className="mb-1 flex items-baseline justify-between text-xs font-medium uppercase tracking-[0.14em] text-graphite/70">
         <span>
           {label} {required && <span className="text-red-ink">*</span>}
         </span>

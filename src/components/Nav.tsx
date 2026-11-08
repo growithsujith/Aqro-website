@@ -5,11 +5,11 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { services } from "@/content/site";
-import { Etching } from "./Etching";
+import { Glyph } from "./Glyph";
 import { Logo } from "./ui";
 
 /** Routes whose hero is dark (blue/graphite), so the bar starts in white. */
-const DARK_HEROES = ["/", "/services/ai-video-production"];
+const DARK_HEROES = ["/", "/services/ai-video-production", "/services/app-development"];
 
 const links = [
   { label: "Home", href: "/" },
@@ -87,7 +87,7 @@ export function Nav() {
       </a>
       <nav aria-label="Primary" className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12">
         <Link href="/" aria-label="AQRO — home" className="relative z-10 shrink-0">
-          <Logo reverse={dark} className="h-8 sm:h-9" />
+          <Logo reverse={dark} className="h-7 sm:h-8" />
         </Link>
 
         <ul className="hidden items-center gap-1 lg:flex">
@@ -123,7 +123,7 @@ export function Nav() {
                       transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                       className="absolute left-1/2 top-full w-[560px] -translate-x-1/2 pt-3"
                     >
-                      <div className="grain overflow-hidden rounded-2xl border border-graphite/15 bg-paper p-2 text-graphite shadow-[0_30px_60px_-30px_#29292966]">
+                      <div className="overflow-hidden rounded-2xl border border-graphite/15 bg-paper p-2 text-graphite shadow-[0_30px_60px_-30px_#29292966]">
                         <ul className="grid grid-cols-2 gap-1">
                           {services.map((s) => (
                             <li key={s.slug}>
@@ -132,10 +132,10 @@ export function Nav() {
                                 className="group flex items-center gap-4 rounded-xl p-3 transition-colors hover:bg-ivory"
                               >
                                 <span className="grid size-14 shrink-0 place-items-center rounded-lg border border-graphite/10 bg-ivory transition-colors group-hover:bg-white">
-                                  <Etching name={s.icon} className="h-10 w-auto transition-transform duration-500 group-hover:scale-110" sizes="56px" />
+                                  <Glyph slug={s.slug} className="w-11 text-blue" />
                                 </span>
                                 <span>
-                                  <span className="block font-mono text-[10px] tracking-[0.2em] text-red-ink">{s.no}</span>
+                                  <span className="block text-[11px] font-medium text-graphite/60">{s.no}</span>
                                   <span className="block font-display text-[15px] font-semibold leading-tight">{s.name}</span>
                                   <span className="block text-xs text-graphite/70">{s.short}</span>
                                 </span>
@@ -202,7 +202,7 @@ export function Nav() {
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="grain fixed inset-x-0 bottom-0 top-[72px] overflow-y-auto bg-ivory px-5 pb-10 pt-6 text-graphite sm:px-8 lg:hidden"
+            className="fixed inset-x-0 bottom-0 top-[72px] overflow-y-auto bg-ivory px-5 pb-10 pt-6 text-graphite sm:px-8 lg:hidden"
           >
             <ul className="border-t border-graphite/15">
               {links
@@ -217,17 +217,17 @@ export function Nav() {
                   >
                     <Link href={l.href} className="flex items-baseline justify-between py-4 font-display text-4xl font-semibold tracking-tight">
                       {l.label}
-                      <span className="font-mono text-xs text-graphite/65">0{i + 1}</span>
+                      <span className="text-xs text-graphite/60">0{i + 1}</span>
                     </Link>
                   </motion.li>
                 ))}
             </ul>
-            <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.22em] text-graphite/65">Services</p>
+            <p className="mt-8 text-xs font-medium uppercase tracking-[0.14em] text-graphite/60">Services</p>
             <ul className="mt-3 grid grid-cols-2 gap-2">
               {services.map((s) => (
                 <li key={s.slug}>
                   <Link href={s.href} className="flex h-full flex-col gap-2 rounded-xl border border-graphite/15 bg-paper p-3">
-                    <Etching name={s.icon} className="h-12 w-auto self-start" sizes="80px" />
+                    <Glyph slug={s.slug} className="w-14 text-blue" />
                     <span className="font-display text-base font-semibold leading-tight">{s.name}</span>
                   </Link>
                 </li>
