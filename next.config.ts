@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    // Engraved PNGs are already small and pre-cropped; serve them as-is.
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
