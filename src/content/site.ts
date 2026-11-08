@@ -15,6 +15,8 @@ export const site = {
   },
   /** e.g. { label: "Instagram", href: "https://instagram.com/…" } */
   social: [] as { label: string; href: string }[],
+  /** Showreel shown on Home: an .mp4 in /public (e.g. "/media/showreel.mp4") or a YouTube/Vimeo link. */
+  showreel: { src: "", poster: "" },
 };
 
 export type ServiceSlug = "creatives" | "ai-video-production" | "app-development" | "web-development";

@@ -16,6 +16,7 @@
  *    video    – an .mp4 in /public, or a YouTube / Vimeo link. Plays in a lightbox.
  *    images   – extra images shown in the lightbox (creatives, app screens…).
  *    url      – a live link (website, App Store, Play Store). Shows "Visit".
+ *    featured – true to show it as the large featured project on the homepage.
  *
  *  Example (copy, uncomment, edit):
  *
@@ -39,6 +40,7 @@ export type PortfolioItem = {
   video?: string;
   images?: string[];
   url?: string;
+  featured?: boolean;
 };
 
 export const portfolio: Record<ServiceSlug, PortfolioItem[]> = {

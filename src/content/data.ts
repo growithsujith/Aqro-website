@@ -14,5 +14,21 @@ export type Client = {
 export const clients: Client[] = [];
 
 /* ------------------------------------------------------------------- Team */
+export type Founder = { name: string; role: string; photo: string; bio: string };
 export type TeamMember = { name: string; role: string; photo: string };
-export const team: TeamMember[] = [];
+
+/** Founders appear first on About, with a short bio. */
+export const founders: Founder[] = [];
+
+/** The rest of the team, grouped. Rename or add groups freely. */
+export const teamGroups: { title: string; members: TeamMember[] }[] = [
+  { title: "Creative leadership", members: [] },
+  { title: "AI production", members: [] },
+  { title: "Engineering", members: [] },
+  { title: "Operations", members: [] },
+];
+
+/* ------------------------------------------------------------- Statistics */
+/** Real, verified figures only (e.g. { value: "120+", label: "projects delivered" }). */
+export type Stat = { value: string; label: string };
+export const stats: Stat[] = [];

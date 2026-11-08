@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { portfolio, type PortfolioItem } from "@/content/portfolio";
 import { services, type ServiceSlug } from "@/content/site";
 import { Glyph } from "./Glyph";
+import { embedUrl } from "@/lib/media";
 
 type Entry = PortfolioItem & { service: ServiceSlug };
 
@@ -43,7 +44,10 @@ export function Portfolio({ service, filters = false, limit }: { service?: Servi
               {filter === s.slug && (
                 <motion.span layoutId="work-filter" className="absolute inset-0 rounded-full bg-blue" transition={{ type: "spring", stiffness: 400, damping: 34 }} />
               )}
-              <span className="relative">{s.workLabel}</span>
+              <span className="relative">
+                {s.workLabel}{" "}
+                <span className="opacity-60">({s.slug === "all" ? all().length : portfolio[s.slug].length})</span>
+              </span>
             </button>
           ))}
         </div>
@@ -87,7 +91,7 @@ function Card({ p, onOpen }: { p: Entry; onOpen: () => void }) {
   const svc = services.find((s) => s.slug === p.service)!;
   return (
     <button type="button" onClick={onOpen} className="group block w-full text-left">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-graphite/10">
+      <div className="relative aspect-video overflow-hidden rounded-2xl bg-graphite/10">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={p.cover}
@@ -109,7 +113,7 @@ function Card({ p, onOpen }: { p: Entry; onOpen: () => void }) {
       <div className="mt-4 flex items-start justify-between gap-4">
         <div>
           <h3 className="font-display text-lg font-semibold tracking-tight">{p.title}</h3>
-          {p.client && <p className="text-sm text-graphite/70">{p.client}</p>}
+          <p className="text-sm text-graphite/70">{[svc.workLabel, p.client].filter(Boolean).join(" · ")}</p>
         </div>
         <span aria-hidden className="mt-1 text-graphite/50 transition-all duration-500 group-hover:translate-x-1 group-hover:text-red-ink">
           →
@@ -123,8 +127,8 @@ function Slot({ slug, index }: { slug: ServiceSlug; index: number }) {
   const svc = services.find((s) => s.slug === slug)!;
   return (
     <div className="group">
-      <div className="relative flex aspect-[4/3] flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-graphite/15 bg-white/60 text-blue/25 transition-colors hover:border-blue/30 hover:text-blue/40">
-        <Glyph slug={slug} className="w-32" />
+      <div className="relative flex aspect-video flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-graphite/15 bg-white/60 text-blue/25 transition-colors hover:border-blue/30 hover:text-blue/40">
+        <Glyph slug={slug} className="w-28" />
         <span className="absolute left-4 top-4 text-xs font-medium uppercase tracking-[0.14em] text-graphite/60">{svc.workLabel}</span>
       </div>
       <div className="mt-4">
@@ -135,15 +139,38 @@ function Slot({ slug, index }: { slug: ServiceSlug; index: number }) {
   );
 }
 
+/* --------------------------------------------------------------- Featured */
+
+/** The large featured project on Home (first item marked `featured`). Hidden when none. */
+export function FeaturedProject() {
+  const [open, setOpen] = useState<Entry | null>(null);
+  const f = all().find((p) => p.featured);
+  if (!f) return null;
+  const svc = services.find((s) => s.slug === f.service)!;
+  return (
+    <>
+      <button type="button" onClick={() => setOpen(f)} className="group mb-14 grid w-full items-center gap-8 text-left lg:grid-cols-12">
+        <div className="relative aspect-video overflow-hidden rounded-2xl bg-graphite/10 lg:col-span-8">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={f.cover} alt={f.title} className="size-full object-cover transition-transform duration-[1.2s] group-hover:scale-105" />
+        </div>
+        <div className="lg:col-span-4">
+          <p className="text-sm font-medium uppercase tracking-[0.14em] text-red-ink">Featured · {svc.workLabel}</p>
+          <h3 className="mt-3 font-display text-3xl font-semibold tracking-tight">{f.title}</h3>
+          {f.client && <p className="mt-1 text-graphite/70">{f.client}</p>}
+          {f.description && <p className="mt-4 text-[15px] leading-relaxed text-graphite/75">{f.description}</p>}
+          <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-blue">
+            {f.video ? "Watch" : "View project"} <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+          </span>
+        </div>
+      </button>
+      <Lightbox item={open} onClose={() => setOpen(null)} />
+    </>
+  );
+}
+
 /* --------------------------------------------------------------- Lightbox */
 
-function embedUrl(v: string): string | null {
-  const yt = v.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]{6,})/);
-  if (yt) return `https://www.youtube-nocookie.com/embed/${yt[1]}?autoplay=1&rel=0`;
-  const vm = v.match(/vimeo\.com\/(?:video\/)?(\d+)/);
-  if (vm) return `https://player.vimeo.com/video/${vm[1]}?autoplay=1`;
-  return null;
-}
 
 function Lightbox({ item, onClose }: { item: Entry | null; onClose: () => void }) {
   const [idx, setIdx] = useState(0);
