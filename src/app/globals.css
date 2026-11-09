@@ -47,6 +47,242 @@ body {
   animation: spin-slow 40s linear infinite;
 }
 
+/* ───────── Home hero: atmosphere + goddess lighting ─────────
+   Everything sits behind the artwork (z-index) and is pointer-events: none.
+   --px / --py (-1…1) are set on the hero <section> by <HeroLighting />. */
+
+/* Section-wide: layered blue illumination + navy vignette over the brand blue */
+.hero-backdrop {
+  --gx: 76%;
+  --gy: 46%;
+  position: absolute;
+  inset: -4%;
+  z-index: -10;
+  pointer-events: none;
+  background:
+    /* navy depth around the edges */
+    radial-gradient(ellipse 120% 100% at 50% 50%, transparent 52%, rgba(0, 22, 72, 0.42) 100%),
+    /* soft icy-white core */
+    radial-gradient(ellipse 30% 36% at var(--gx) var(--gy), rgba(200, 230, 255, 0.2), transparent 70%),
+    /* layered blue illumination */
+    radial-gradient(ellipse 52% 62% at var(--gx) var(--gy), rgba(70, 155, 255, 0.24), rgba(30, 110, 235, 0.1) 52%, transparent 78%);
+  transform: translate3d(calc(var(--px, 0) * -16px), calc(var(--py, 0) * -10px), 0);
+  will-change: transform;
+}
+@media (max-width: 1023px) {
+  .hero-backdrop {
+    --gx: 50%;
+    --gy: 74%;
+  }
+}
+
+.hero-visual {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Parallax wrapper for every lighting layer (moves opposite to the goddess for depth) */
+.hero-fx {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  transform: translate3d(calc(var(--px, 0) * -12px), calc(var(--py, 0) * -8px), 0);
+}
+
+/* Large diffused blue glow */
+.goddess-glow {
+  position: absolute;
+  inset: 5% -15%;
+  background: radial-gradient(
+    ellipse at 50% 42%,
+    rgba(190, 225, 255, 0.32) 0%,
+    rgba(70, 155, 255, 0.2) 28%,
+    rgba(20, 100, 220, 0.1) 48%,
+    transparent 72%
+  );
+  filter: blur(35px);
+  will-change: transform, opacity;
+  animation: divineGlow 6s ease-in-out infinite;
+}
+
+/* Smaller white-blue halo directly behind the figure */
+.goddess-halo {
+  position: absolute;
+  width: 75%;
+  aspect-ratio: 1;
+  left: 12.5%;
+  top: 8.9%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), rgba(120, 190, 255, 0.12) 38%, transparent 70%);
+  filter: blur(22px);
+  will-change: transform, opacity;
+  animation: divineGlow 6s ease-in-out -1.5s infinite;
+}
+
+/* Faint concentric rings, fading out towards the base */
+.goddess-ring {
+  position: absolute;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 230, 255, 0.17);
+  box-shadow: 0 0 40px rgba(120, 190, 255, 0.1), inset 0 0 40px rgba(120, 190, 255, 0.07);
+  -webkit-mask-image: linear-gradient(to bottom, #000 38%, transparent 92%);
+  mask-image: linear-gradient(to bottom, #000 38%, transparent 92%);
+  animation: ringBreathe 7s ease-in-out infinite;
+}
+.goddess-ring-1 {
+  width: 98%;
+  left: 1%;
+  top: -1.2%;
+}
+.goddess-ring-2 {
+  width: 122%;
+  left: -11%;
+  top: -11.8%;
+  border-color: rgba(200, 230, 255, 0.1);
+  animation-delay: -2.5s;
+}
+
+/* Subtle red accent near the base of the statue (brand red) */
+.goddess-red {
+  position: absolute;
+  left: 15%;
+  width: 70%;
+  bottom: -2%;
+  height: 20%;
+  background: radial-gradient(ellipse at 50% 55%, rgba(237, 28, 36, 0.3), rgba(237, 28, 36, 0.1) 45%, transparent 70%);
+  filter: blur(24px);
+  will-change: transform, opacity;
+  animation: divineGlow 7s ease-in-out -3s infinite;
+}
+
+/* Goddess: mouse parallax (outer) + gentle float (inner) */
+.hero-parallax {
+  position: relative;
+  z-index: 10;
+  transform: translate3d(calc(var(--px, 0) * 9px), calc(var(--py, 0) * 6px), 0);
+}
+.goddess-float {
+  will-change: transform;
+  animation: goddessFloat 8s ease-in-out infinite;
+}
+
+/* Tiny floating crystals */
+.crystal {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--s);
+  height: var(--s);
+  margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  opacity: 0;
+  background: radial-gradient(circle, rgba(220, 240, 255, 0.5) 0, rgba(150, 205, 255, 0.16) 42%, transparent 70%);
+  animation: crystalDrift var(--d) ease-in-out var(--delay) infinite;
+}
+.crystal::before {
+  content: "";
+  position: absolute;
+  inset: 34%;
+  background: linear-gradient(135deg, #fff 0%, #cfe8ff 55%, #86bcff 100%);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+@keyframes divineGlow {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+@keyframes ringBreathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.99);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.015);
+  }
+}
+@keyframes goddessFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-0.8deg);
+  }
+  50% {
+    transform: translateY(-13px) rotate(0.8deg);
+  }
+}
+@keyframes crystalDrift {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.8);
+  }
+  25%,
+  75% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate3d(var(--dx), calc(var(--dy) * -1), 0) scale(1);
+  }
+}
+
+/* Mobile: lighter blur, smaller motion, fewer particles */
+@media (max-width: 767px) {
+  .goddess-glow {
+    filter: blur(24px);
+  }
+  .goddess-halo,
+  .goddess-red {
+    filter: blur(16px);
+  }
+  .goddess-float {
+    animation-name: goddessFloatSm;
+  }
+  .goddess-ring-2 {
+    display: none;
+  }
+  .crystal-extra {
+    display: none;
+  }
+}
+@keyframes goddessFloatSm {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-0.4deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(0.4deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .goddess-glow,
+  .goddess-halo,
+  .goddess-red,
+  .goddess-ring,
+  .goddess-float {
+    animation: none !important;
+  }
+  .crystal {
+    animation: none !important;
+    opacity: 0.45;
+  }
+  .hero-backdrop,
+  .hero-fx,
+  .hero-parallax {
+    transform: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

@@ -1,5 +1,6 @@
 import { ClientGrid, CTA, SectionHead } from "@/components/blocks";
 import { FAQ } from "@/components/FAQ";
+import { HeroLighting } from "@/components/HeroLighting";
 import { Reveal } from "@/components/motion";
 import { FeaturedProject, Portfolio } from "@/components/Portfolio";
 import { Reel } from "@/components/Reel";
@@ -7,6 +8,20 @@ import { ServiceSwitcher } from "@/components/ServiceSwitcher";
 import { Button, Container, Eyebrow, H1, H2, Mark, TextLink } from "@/components/ui";
 
 const TAGS = ["Brand Creatives", "Ad Campaigns", "AI Commercials", "AI Films", "Mobile Apps", "Websites & Web Apps"];
+
+/** Tiny drifting crystals around the goddess: [left %, top %, glow px, seconds, delay s, drift x px, drift y px] */
+const CRYSTALS: [number, number, number, number, number, number, number][] = [
+  [-6, 22, 26, 17, 0, 10, 26],
+  [104, 30, 22, 19, -4, -12, 30],
+  [8, 62, 18, 15, -7, 8, 22],
+  [96, 70, 28, 21, -2, -10, 28],
+  [22, 6, 16, 16, -9, 6, 18],
+  [80, 10, 20, 18, -5, -8, 24],
+  [-2, 86, 20, 20, -11, 12, 20],
+  [101, 90, 16, 14, -3, -6, 18],
+  [30, -4, 14, 22, -8, 5, 16],
+  [68, 98, 18, 17, -13, -9, 20],
+];
 
 const PIPELINE = [
   { t: "Strategy", items: ["Discovery & research", "Creative concepts", "Product & technical planning"] },
@@ -33,7 +48,8 @@ export default function Home() {
   return (
     <>
       {/* 1 — Hero */}
-      <section className="relative overflow-hidden bg-blue text-white">
+      <section className="relative isolate overflow-hidden bg-blue text-white">
+        <HeroLighting />
         <Container className="grid min-h-[100svh] items-center gap-12 pb-16 pt-28 lg:grid-cols-12 lg:pt-24">
           <div className="relative z-10 lg:col-span-7">
             <Reveal fade={false}>
@@ -64,16 +80,45 @@ export default function Home() {
           </div>
           <Reveal delay={0.15} fade={false} className="lg:col-span-5">
             <div className="relative mx-auto w-[min(78vw,460px)]">
-              <div aria-hidden className="absolute inset-x-[8%] top-[6%] aspect-square rounded-full bg-white/[0.07] blur-2xl" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/hero/meenakshi.webp"
-                alt="Crystal Meenakshi holding a clapperboard, laptop, phone and pen — the four AQRO disciplines"
-                width={1059}
-                height={1200}
-                fetchPriority="high"
-                className="relative h-auto w-full drop-shadow-[0_30px_50px_rgba(0,20,60,0.45)]"
-              />
+              <div className="hero-visual">
+                <div aria-hidden className="hero-fx">
+                  <span className="goddess-glow" />
+                  <span className="goddess-ring goddess-ring-2" />
+                  <span className="goddess-ring goddess-ring-1" />
+                  <span className="goddess-halo" />
+                  <span className="goddess-red" />
+                  {CRYSTALS.map(([x, y, s, d, delay, dx, dy], i) => (
+                    <span
+                      key={i}
+                      className={i < 4 ? "crystal" : "crystal crystal-extra"}
+                      style={
+                        {
+                          "--x": `${x}%`,
+                          "--y": `${y}%`,
+                          "--s": `${s}px`,
+                          "--d": `${d}s`,
+                          "--delay": `${delay}s`,
+                          "--dx": `${dx}px`,
+                          "--dy": `${dy}px`,
+                        } as React.CSSProperties
+                      }
+                    />
+                  ))}
+                </div>
+                <div className="hero-parallax">
+                  <div className="goddess-float">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/hero/meenakshi.webp"
+                      alt="Crystal Meenakshi holding a clapperboard, laptop, phone and pen — the four AQRO disciplines"
+                      width={1059}
+                      height={1200}
+                      fetchPriority="high"
+                      className="relative z-10 h-auto w-full drop-shadow-[0_30px_50px_rgba(0,20,60,0.45)]"
+                    />
+                  </div>
+                </div>
+              </div>
               <p className="relative mt-4 flex items-center justify-center gap-2 font-display text-lg font-semibold">
                 <Mark className="size-3" /> Creative, but engineered.
               </p>
