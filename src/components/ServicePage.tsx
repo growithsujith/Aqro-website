@@ -4,7 +4,7 @@ import { FAQ } from "./FAQ";
 import { Glyph } from "./Glyph";
 import { Reveal } from "./motion";
 import { Portfolio } from "./Portfolio";
-import { Button, Container, Eyebrow, H1, H2, Mark, TextLink } from "./ui";
+import { Button, Container, Eyebrow, H1, H2, Mark } from "./ui";
 
 const THEME = {
   ivory: { bg: "bg-ivory", text: "text-graphite", sub: "text-graphite/75", accent: "text-blue", glyph: "text-blue", disc: "bg-white", light: false, btn2: "outline" as const },
@@ -73,7 +73,6 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
           <SectionHead
             eyebrow="Portfolio"
             title={<>Selected {s.workLabel.toLowerCase() === "ai videos" ? "AI videos" : s.workLabel.toLowerCase()}.</>}
-            aside={<TextLink href="/work">All work</TextLink>}
           />
           <Portfolio service={slug} />
         </Container>

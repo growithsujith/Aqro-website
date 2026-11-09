@@ -10,7 +10,7 @@ npm run build && npm start
 
 ## Routes
 
-`/` · `/about` · `/services/creatives` · `/services/ai-video-production` · `/services/app-development` · `/services/web-development` · `/work` · `/contact`
+`/` · `/services/creatives` · `/services/ai-video-production` · `/services/app-development` · `/services/web-development` · `/work` · `/contact`
 
 ## Adding portfolio projects
 

@@ -49,7 +49,7 @@ export default function Home() {
                 <Button href="/contact" variant="white">
                   Book a call
                 </Button>
-                <Button href="/work" variant="outline-light">
+                <Button href="#work" variant="outline-light">
                   Explore our work
                 </Button>
               </div>
@@ -102,9 +102,9 @@ export default function Home() {
       </section>
 
       {/* 3 — Work */}
-      <section className="bg-ivory py-20 md:py-28">
+      <section id="work" className="scroll-mt-20 bg-ivory py-20 md:py-28">
         <Container>
-          <SectionHead eyebrow="Our work" title="Ideas brought to life." aside={<TextLink href="/work">View all work</TextLink>} />
+          <SectionHead eyebrow="Our work" title="Ideas brought to life." />
           <FeaturedProject />
           <Portfolio filters limit={6} />
         </Container>

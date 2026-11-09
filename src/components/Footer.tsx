@@ -15,7 +15,7 @@ export function Footer() {
             </p>
           </div>
           <nav aria-label="Footer" className="grid grid-cols-2 gap-10 sm:grid-cols-3 md:col-span-7">
-            <FooterCol title="Company" links={[["About", "/about"], ["Work", "/work"], ["Contact", "/contact"]]} />
+            <FooterCol title="Company" links={[["Work", "/#work"], ["Contact", "/contact"]]} />
             <FooterCol title="Services" links={services.map((s) => [s.name, s.href] as [string, string])} />
             <div className="col-span-2 sm:col-span-1">
               <h2 className="text-xs font-medium uppercase tracking-[0.14em] text-white/55">Get in touch</h2>
