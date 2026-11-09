@@ -4,30 +4,65 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useLenis } from "lenis/react";
 import { services } from "@/content/site";
 import { Glyph } from "./Glyph";
 import { Logo } from "./ui";
+import { Magnetic } from "./motion/Magnetic";
+import { useScrollLock } from "./motion/SmoothScroll";
 
 /** Routes whose hero is dark (blue/graphite), so the bar starts in white. */
-const DARK_HEROES = ["/", "/services/ai-video-production", "/services/app-development"];
+const DARK_HEROES = ["/", "/about", "/services/ai-video-production", "/services/app-development"];
 
 const links = [
   { label: "Home", href: "/" },
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "/#work" },
+  { label: "Services", href: "/#services" },
+  { label: "Work", href: "/work" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
 export function Nav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [svcOpen, setSvcOpen] = useState(false);
   const svcRef = useRef<HTMLLIElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scrolledRef = useRef(false);
+  const hiddenRef = useRef(false);
+
+  useScrollLock(menuOpen);
+
+  useLenis(({ scroll, direction }) => {
+    const nextScrolled = scroll > 40;
+    if (nextScrolled !== scrolledRef.current) {
+      scrolledRef.current = nextScrolled;
+      setScrolled(nextScrolled);
+    }
+
+    if (scroll > 180 && direction === 1 && !menuOpen && !svcOpen) {
+      if (!hiddenRef.current) {
+        hiddenRef.current = true;
+        setHidden(true);
+      }
+    } else if (direction === -1 || scroll <= 120) {
+      if (hiddenRef.current) {
+        hiddenRef.current = false;
+        setHidden(false);
+      }
+    }
+  });
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      const next = window.scrollY > 40;
+      if (next !== scrolledRef.current) {
+        scrolledRef.current = next;
+        setScrolled(next);
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -36,6 +71,10 @@ export function Nav() {
   useEffect(() => {
     setMenuOpen(false);
     setSvcOpen(false);
+    hiddenRef.current = false;
+    setHidden(false);
+    scrolledRef.current = false;
+    setScrolled(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -56,13 +95,13 @@ export function Nav() {
     };
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-  }, [menuOpen]);
-
   const dark = DARK_HEROES.includes(pathname) && !scrolled && !menuOpen;
   const isActive = (href: string) =>
-    href === "#services" ? pathname.startsWith("/services") : href === "/" ? pathname === "/" : pathname.startsWith(href);
+    href === "/#services"
+      ? pathname.startsWith("/services")
+      : href === "/"
+        ? pathname === "/"
+        : pathname.startsWith(href);
 
   const openSvc = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -74,7 +113,9 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,color] duration-500 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,color,transform] duration-500 ease-[cubic-bezier(.22,1,.36,1)] ${
+        hidden && !menuOpen ? "-translate-y-full" : "translate-y-0"
+      } ${
         menuOpen ? "bg-ivory" : scrolled ? "bg-ivory/90 shadow-[0_1px_0_#2929291f] backdrop-blur-md" : "bg-transparent"
       } ${dark ? "text-white" : "text-graphite"}`}
     >
@@ -124,8 +165,13 @@ export function Nav() {
                     >
                       <div className="overflow-hidden rounded-2xl border border-graphite/15 bg-paper p-2 text-graphite shadow-[0_30px_60px_-30px_#29292966]">
                         <ul className="grid grid-cols-2 gap-1">
-                          {services.map((s) => (
-                            <li key={s.slug}>
+                          {services.map((s, i) => (
+                            <motion.li
+                              key={s.slug}
+                              initial={{ opacity: 0, y: 8 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: i * 0.04, duration: 0.28 }}
+                            >
                               <Link
                                 href={s.href}
                                 className="group flex items-center gap-4 rounded-xl p-3 transition-colors hover:bg-ivory"
@@ -139,7 +185,7 @@ export function Nav() {
                                   <span className="block text-xs text-graphite/70">{s.short}</span>
                                 </span>
                               </Link>
-                            </li>
+                            </motion.li>
                           ))}
                         </ul>
                       </div>
@@ -166,16 +212,30 @@ export function Nav() {
         </ul>
 
         <div className="flex items-center gap-3">
-          <Link
-            href="/contact"
-            className="group relative hidden overflow-hidden rounded-full bg-red px-5 py-2.5 text-sm font-medium text-white sm:inline-flex"
-          >
-            <span className="absolute inset-0 origin-left scale-x-0 bg-graphite transition-transform duration-500 group-hover:scale-x-100" aria-hidden />
-            <span className="relative flex items-center gap-2">
-              Start a Project
-              <span aria-hidden className="transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
-            </span>
-          </Link>
+          <div className="hidden sm:block">
+            <Magnetic>
+              <Link
+                href="/contact"
+                className="group relative inline-flex overflow-hidden rounded-full bg-red px-5 py-2.5 text-sm font-medium text-white"
+              >
+                <span className="absolute inset-0 origin-left scale-x-0 bg-graphite transition-transform duration-500 group-hover:scale-x-100" aria-hidden />
+                <span className="relative flex items-center gap-2">
+                  <span className="relative inline-flex overflow-hidden">
+                    <span className="inline-block transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:-translate-y-full">
+                      Start a Project
+                    </span>
+                    <span
+                      aria-hidden
+                      className="absolute inset-0 inline-block translate-y-full transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-y-0"
+                    >
+                      Start a Project
+                    </span>
+                  </span>
+                  <span aria-hidden className="transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+                </span>
+              </Link>
+            </Magnetic>
+          </div>
           <button
             type="button"
             className="relative z-10 grid size-11 place-items-center rounded-full border border-current/25 lg:hidden"
@@ -197,6 +257,7 @@ export function Nav() {
         {menuOpen && (
           <motion.div
             id="mobile-menu"
+            data-lenis-prevent
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 @theme {
   --color-blue: #004aad;
@@ -13,15 +14,12 @@
   --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background: var(--color-paper);
   color: var(--color-graphite);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 ::selection {
@@ -38,6 +36,22 @@ body {
   text-wrap: balance;
 }
 
+/* Split text mask helpers */
+.motion-line-mask,
+.motion-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.motion-line,
+.motion-word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
 @keyframes spin-slow {
   to {
     transform: rotate(360deg);
@@ -47,11 +61,31 @@ body {
   animation: spin-slow 40s linear infinite;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+@keyframes scroll-line {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
   }
-  .animate-spin-slow {
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+.animate-scroll-line {
+  animation: scroll-line 2.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin-slow,
+  .animate-scroll-line {
     animation: none !important;
   }
 }

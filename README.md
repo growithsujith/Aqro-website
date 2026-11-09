@@ -1,6 +1,6 @@
 # AQRO — website
 
-Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · Framer Motion. No GSAP — every effect here is handled by Framer Motion and CSS, so it wasn't needed.
+Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · GSAP (ScrollTrigger, CustomEase, `@gsap/react`) · Lenis smooth scrolling · Framer Motion (hybrid UI state).
 
 ```bash
 npm install
@@ -10,7 +10,7 @@ npm run build && npm start
 
 ## Routes
 
-`/` · `/services/creatives` · `/services/ai-video-production` · `/services/app-development` · `/services/web-development` · `/work` · `/contact`
+`/` · `/services/creatives` · `/services/ai-video-production` · `/services/app-development` · `/services/web-development` · `/work` · `/about` · `/contact`
 
 ## Adding portfolio projects
 
@@ -28,7 +28,8 @@ video or flips through the images. Until a service has projects, its page shows 
 | What | Where |
 |---|---|
 | Client logos | `src/content/data.ts` → `clients` (files in `public/clients/`) |
-| Team | `src/content/data.ts` → `team` |
+| Team & founders | `src/content/data.ts` → `founders`, `teamGroups` |
+| Statistics | `src/content/data.ts` → `stats` |
 | Email / phone / location / socials | `src/content/site.ts` → `site.contact`, `site.social` |
 | Service copy, offers, steps, FAQs | `src/content/site.ts` → `services` |
 | Domain | `src/content/site.ts` → `site.url` |
@@ -42,9 +43,10 @@ video or flips through the images. Until a service has projects, its page shows 
 
 Until then the form clearly tells visitors their message was not sent.
 
-## Brand
+## Brand & Motion Architecture
 
 - `public/brand/aqro-logo.svg` (blue + red, for light backgrounds) and `aqro-logo-reverse.svg` (white + red, for blue/dark), vectorised from the supplied logo. Favicon: `src/app/icon.svg`.
 - Visual elements are built from the logo itself: the red corner mark (`Mark`), and the ring/stem/shoulder shapes in the hero (`Composition`). Service glyphs live in `src/components/Glyph.tsx`.
 - Fonts (self-hosted): Sora for headings, Instrument Sans for body.
+- Smooth scrolling via `lenis/react` (`SmoothScroll`), synchronized to `gsap.ticker` with `ScrollTrigger.update`.
 - All motion respects `prefers-reduced-motion`.

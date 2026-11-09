@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import StarBorder from "@/components/reactbits/StarBorder/StarBorder";
 
 const SERVICES = ["Creatives", "AI Video Production", "App Development", "Web Development", "Not sure yet"];
 const BUDGETS = ["Under ₹1L", "₹1L – ₹5L", "₹5L – ₹15L", "₹15L+", "Not sure yet"];
@@ -137,15 +138,29 @@ export function ContactForm() {
       <Field name="message" label="Project description" required error={errors.message} textarea hint="What are you building, for whom, and by when?" />
 
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <button
-          type="submit"
-          disabled={status === "sending"}
-          className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-red px-8 py-4 text-[15px] font-medium text-white disabled:opacity-70"
+        <StarBorder
+          as="div"
+          radius={9999}
+          thickness={1.5}
+          color="#ED1C24"
+          trailColor="#004AAD"
+          backgroundColor="transparent"
+          borderColor="rgba(41, 41, 41, 0.16)"
+          glow={0.6}
+          hover="lap"
+          clickPulse
+          style={{ padding: "2px" }}
         >
-          <span className="absolute inset-0 origin-left scale-x-0 bg-graphite transition-transform duration-500 group-hover:scale-x-100" aria-hidden />
-          <span className="relative">{status === "sending" ? "Sending…" : "Send enquiry"}</span>
-          <span aria-hidden className="relative transition-transform duration-500 group-hover:translate-x-1">→</span>
-        </button>
+          <button
+            type="submit"
+            disabled={status === "sending"}
+            className="group relative inline-flex cursor-pointer items-center gap-3 overflow-hidden rounded-full bg-red px-8 py-4 text-[15px] font-medium text-white disabled:opacity-70"
+          >
+            <span className="absolute inset-0 origin-left scale-x-0 bg-graphite transition-transform duration-500 group-hover:scale-x-100" aria-hidden />
+            <span className="relative">{status === "sending" ? "Sending…" : "Send enquiry"}</span>
+            <span aria-hidden className="relative transition-transform duration-500 group-hover:translate-x-1">→</span>
+          </button>
+        </StarBorder>
         <p className="text-sm text-graphite/65">We reply to every enquiry personally.</p>
       </div>
 
