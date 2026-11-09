@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Composition } from "@/components/Composition";
 import { CTA } from "@/components/blocks";
 import { Glyph } from "@/components/Glyph";
 import { Reveal } from "@/components/motion";
@@ -46,10 +45,14 @@ export default function AboutPage() {
       <section className="bg-paper pt-24 md:pt-28">
         <Container>
           <div className="relative overflow-hidden rounded-3xl bg-blue px-6 pb-12 pt-20 text-white sm:px-12 md:pb-16 md:pt-28">
-            <div aria-hidden className="pointer-events-none absolute -right-24 -top-16 w-[min(80vw,520px)] opacity-30 md:-right-6 md:top-6 md:opacity-100">
-              <Composition className="w-full" />
-            </div>
-            <Reveal fade={false} className="relative max-w-2xl">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/hero/meenakshi.webp"
+              alt=""
+              aria-hidden
+              className="pointer-events-none absolute bottom-0 -right-10 h-[88%] w-auto max-w-none opacity-25 drop-shadow-[0_30px_50px_rgba(0,20,60,0.45)] lg:right-8 lg:opacity-100"
+            />
+            <Reveal fade={false} className="relative max-w-2xl lg:max-w-[540px]">
               <Eyebrow light>About aqro</Eyebrow>
               <h1 className={`mt-6 ${H1}`}>Building what&apos;s next through creativity and technology.</h1>
               <div className="mt-8 flex flex-wrap items-center gap-5">
@@ -94,7 +97,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-2 gap-4">
               {(["creatives", "ai-video-production", "app-development", "web-development"] as const).map((g, i) => (
                 <div key={g} className={`grid aspect-square place-items-center rounded-2xl ${i === 1 || i === 2 ? "bg-blue text-white" : "bg-ivory text-blue"}`}>
-                  <Glyph slug={g} className="w-2/3" />
+                  <Glyph slug={g} tone={i === 1 || i === 2 ? "silver" : "blue"} className="w-[82%]" />
                 </div>
               ))}
             </div>

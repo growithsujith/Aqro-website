@@ -128,7 +128,7 @@ function Slot({ slug, index }: { slug: ServiceSlug; index: number }) {
   return (
     <div className="group">
       <div className="relative flex aspect-video flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-graphite/15 bg-white/60 text-blue/25 transition-colors hover:border-blue/30 hover:text-blue/40">
-        <Glyph slug={slug} className="w-28" />
+        <Glyph slug={slug} className="w-28 opacity-40" />
         <span className="absolute left-4 top-4 text-xs font-medium uppercase tracking-[0.14em] text-graphite/60">{svc.workLabel}</span>
       </div>
       <div className="mt-4">

@@ -42,9 +42,8 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
             </Reveal>
           </div>
           <Reveal delay={0.2} className="group lg:col-span-5">
-            <div className={`relative mx-auto grid aspect-square w-[min(80vw,420px)] place-items-center rounded-full ${t.disc}`}>
-              <Glyph slug={slug} className={`w-3/4 ${t.glyph}`} />
-              <Mark className="absolute right-[8%] top-[8%] size-8" />
+            <div className={`relative mx-auto grid aspect-square w-[min(80vw,420px)] place-items-center rounded-[2.5rem] ${t.disc}`}>
+              <Glyph slug={slug} tone={t.light ? "silver" : "blue"} className="w-[88%]" />
             </div>
           </Reveal>
         </Container>

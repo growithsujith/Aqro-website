@@ -30,8 +30,8 @@ export function ServiceCards() {
             className="group relative flex h-full flex-col rounded-2xl border border-graphite/10 bg-white p-6 transition-all duration-500 hover:-translate-y-1 hover:border-blue hover:shadow-[0_24px_50px_-30px_#004aad80]"
           >
             <span className="text-sm font-medium text-graphite/60">{s.no}</span>
-            <div className="my-8 text-blue">
-              <Glyph slug={s.slug} className="mx-auto w-40" />
+            <div className="my-6">
+              <Glyph slug={s.slug} className="mx-auto w-44" />
             </div>
             <h3 className="font-display text-xl font-semibold tracking-tight">{s.name}</h3>
             <p className="mt-2 text-[15px] leading-relaxed text-graphite/70">{s.short}</p>

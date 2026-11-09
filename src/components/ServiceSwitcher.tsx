@@ -24,9 +24,9 @@ export function ServiceSwitcher() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.03 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0 grid place-items-center"
+            className="absolute inset-0 flex items-center justify-center px-8 pb-14 pt-10"
           >
-            <Glyph slug={s.slug} className="w-[46%]" />
+            <Glyph slug={s.slug} tone="silver" className="max-h-full w-auto max-w-full" />
           </motion.div>
         </AnimatePresence>
         <p className="absolute bottom-5 left-6 text-sm font-medium text-white/80">{s.short}</p>

@@ -1,4 +1,3 @@
-import { Composition } from "@/components/Composition";
 import { ClientGrid, CTA, SectionHead } from "@/components/blocks";
 import { FAQ } from "@/components/FAQ";
 import { Reveal } from "@/components/motion";
@@ -63,14 +62,23 @@ export default function Home() {
               </ul>
             </Reveal>
           </div>
-          <div className="lg:col-span-5">
-            <div className="relative mx-auto aspect-square w-[min(80vw,480px)] rounded-3xl bg-white/[0.06] p-6">
-              <Composition className="size-full" />
-              <p className="absolute bottom-5 left-6 flex items-center gap-2 font-display text-lg font-semibold">
+          <Reveal delay={0.15} fade={false} className="lg:col-span-5">
+            <div className="relative mx-auto w-[min(78vw,460px)]">
+              <div aria-hidden className="absolute inset-x-[8%] top-[6%] aspect-square rounded-full bg-white/[0.07] blur-2xl" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/hero/meenakshi.webp"
+                alt="Crystal Meenakshi holding a clapperboard, laptop, phone and pen — the four AQRO disciplines"
+                width={1059}
+                height={1200}
+                fetchPriority="high"
+                className="relative h-auto w-full drop-shadow-[0_30px_50px_rgba(0,20,60,0.45)]"
+              />
+              <p className="relative mt-4 flex items-center justify-center gap-2 font-display text-lg font-semibold">
                 <Mark className="size-3" /> Creative, but engineered.
               </p>
             </div>
-          </div>
+          </Reveal>
         </Container>
       </section>
 

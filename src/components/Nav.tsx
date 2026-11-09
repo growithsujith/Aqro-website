@@ -132,7 +132,7 @@ export function Nav() {
                                 className="group flex items-center gap-4 rounded-xl p-3 transition-colors hover:bg-ivory"
                               >
                                 <span className="grid size-14 shrink-0 place-items-center rounded-lg border border-graphite/10 bg-ivory transition-colors group-hover:bg-white">
-                                  <Glyph slug={s.slug} className="w-11 text-blue" />
+                                  <Glyph slug={s.slug} className="w-12" />
                                 </span>
                                 <span>
                                   <span className="block text-[11px] font-medium text-graphite/60">{s.no}</span>
@@ -227,7 +227,7 @@ export function Nav() {
               {services.map((s) => (
                 <li key={s.slug}>
                   <Link href={s.href} className="flex h-full flex-col gap-2 rounded-xl border border-graphite/15 bg-paper p-3">
-                    <Glyph slug={s.slug} className="w-14 text-blue" />
+                    <Glyph slug={s.slug} className="w-14" />
                     <span className="font-display text-base font-semibold leading-tight">{s.name}</span>
                   </Link>
                 </li>
