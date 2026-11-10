@@ -1,6 +1,6 @@
-import type { CSSProperties, FC } from 'react';
+import type { CSSProperties, ReactNode } from "react";
 
-export interface GradientASCIIProps {
+declare function GradientASCII(props: {
   colors?: string[];
   shape?: 'horizon' | 'pinch' | 'rise' | 'eclipse';
   characters?: string;
@@ -26,7 +26,8 @@ export interface GradientASCIIProps {
   dpr?: number;
   className?: string;
   style?: CSSProperties;
-}
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}): ReactNode;
 
-declare const GradientASCII: FC<GradientASCIIProps>;
 export default GradientASCII;

@@ -1,15 +1,13 @@
-import type { CSSProperties, ReactNode, MouseEvent } from 'react';
+import type { CSSProperties, ReactNode, MouseEvent } from "react";
 
-export interface TiltedCardLayerProps {
+export declare function TiltedCardLayer(props: {
   depth?: number;
   className?: string;
   style?: CSSProperties;
   children?: ReactNode;
-}
+}): ReactNode;
 
-export declare const TiltedCardLayer: React.FC<TiltedCardLayerProps>;
-
-export interface TiltedCardProps {
+declare function TiltedCard(props: {
   imageSrc?: string;
   altText?: string;
   captionText?: string;
@@ -45,7 +43,8 @@ export interface TiltedCardProps {
   introDelay?: number;
   className?: string;
   style?: CSSProperties;
-}
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}): ReactNode;
 
-declare const TiltedCard: React.FC<TiltedCardProps>;
 export default TiltedCard;
