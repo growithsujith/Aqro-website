@@ -3,7 +3,7 @@ import { CTA } from "@/components/blocks";
 import { Glyph } from "@/components/Glyph";
 import { Reveal } from "@/components/motion";
 import { Button, Container, Eyebrow, H1, H2, Mark } from "@/components/ui";
-import { ClientLoop, SilkBackdrop } from "@/components/fx";
+import { ClientLoop, FounderCard, SilkBackdrop } from "@/components/fx";
 import { founders, stats, teamGroups } from "@/content/data";
 
 export const metadata: Metadata = {
@@ -125,14 +125,17 @@ export default function AboutPage() {
           </Reveal>
 
           {/* Founders */}
-          <ul className="mt-12 grid gap-5 md:grid-cols-2">
+          <ul className="mt-12 grid gap-10 md:grid-cols-2">
             {founderCards.map((f, i) => (
-              <Reveal as="li" key={f?.name ?? i} delay={i * 0.08} className="grid gap-6 rounded-2xl bg-white p-5 sm:grid-cols-[180px_1fr]">
-                <Portrait src={f?.photo} alt={f?.name ?? "Founder"} />
-                <div className="self-center">
+              <Reveal as="li" key={f?.name ?? i} delay={i * 0.08} className="grid items-center gap-8 rounded-3xl bg-white p-6 sm:grid-cols-[auto_1fr] sm:p-8 md:grid-cols-1 xl:grid-cols-[auto_1fr]">
+                <div className="mx-auto">
+                  <FounderCard name={f?.name ?? "Founder name"} role={f?.role ?? "Co-founder"} index={i} />
+                </div>
+                <div>
                   <p className="text-sm font-medium uppercase tracking-[0.14em] text-red-ink">{f?.role ?? "Co-founder"}</p>
                   <p className="mt-2 font-display text-2xl font-semibold tracking-tight">{f?.name ?? "Profile coming soon"}</p>
                   <p className="mt-2 text-[15px] leading-relaxed text-graphite/70">{f?.bio ?? "Founder profiles will be added here."}</p>
+                  <p className="mt-4 text-xs text-graphite/50">Move your cursor over the card to tilt it.</p>
                 </div>
               </Reveal>
             ))}

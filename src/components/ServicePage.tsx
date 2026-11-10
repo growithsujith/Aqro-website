@@ -5,7 +5,7 @@ import { Glyph } from "./Glyph";
 import { Reveal } from "./motion";
 import { Portfolio } from "./Portfolio";
 import { Button, Container, Eyebrow, H1, H2, Mark, TextLink } from "./ui";
-import { CreativeCarousel, CreativeWall, StarButton } from "./fx";
+import { CreativeCarousel, CreativeWall, PremiereTicket, PrismBackdrop, StarButton, WebFlexBackdrop } from "./fx";
 
 const THEME = {
   ivory: { bg: "bg-ivory", text: "text-graphite", sub: "text-graphite/75", accent: "text-blue", glyph: "text-blue", disc: "bg-white", light: false, btn2: "outline" as const },
@@ -20,6 +20,11 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
   const s = serviceBySlug(slug);
   const t = THEME[s.hero.theme];
   const wall = slug === "creatives";
+  const flex = slug === "web-development";
+  const prism = slug === "app-development";
+  const ticket = slug === "ai-video-production";
+  /** Heroes with an interactive full-bleed backdrop: let the pointer reach it through the copy. */
+  const backdrop = wall || flex || prism;
   return (
     <>
       {/* Hero */}
@@ -33,9 +38,36 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
             <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-navy to-transparent" />
           </>
         )}
+        {flex && (
+          <>
+            <div className="absolute inset-0 top-16 lg:left-[34%]">
+              <WebFlexBackdrop />
+            </div>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#fff_0%,rgba(255,255,255,0.92)_55%,rgba(255,255,255,0.35)_100%)] lg:bg-[linear-gradient(90deg,#fff_0%,#fff_36%,rgba(255,255,255,0.7)_46%,transparent_62%)]"
+            />
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent" />
+          </>
+        )}
+        {prism && (
+          <>
+            <div aria-hidden className="absolute inset-0">
+              <PrismBackdrop />
+            </div>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#004aad_0%,rgba(0,74,173,0.85)_50%,rgba(0,74,173,0.4)_100%)] lg:bg-[linear-gradient(90deg,#004aad_0%,rgba(0,74,173,0.7)_32%,transparent_55%)]"
+            />
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-blue to-transparent" />
+          </>
+        )}
+        {ticket && (
+          <div aria-hidden className="pointer-events-none absolute -right-40 top-1/3 size-[620px] rounded-full bg-red/25 blur-[140px]" />
+        )}
         <Container
           className={`grid items-center gap-12 pb-20 pt-32 md:pt-40 lg:grid-cols-12 ${
-            wall ? "pointer-events-none relative min-h-[92svh] [&_a]:pointer-events-auto" : ""
+            backdrop ? "pointer-events-none relative min-h-[92svh] [&_a]:pointer-events-auto" : "relative"
           }`}
         >
           <div className="lg:col-span-7">
@@ -55,7 +87,12 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
               </div>
             </Reveal>
           </div>
-          {!wall && (
+          {ticket && (
+            <Reveal delay={0.2} className="lg:col-span-5">
+              <PremiereTicket />
+            </Reveal>
+          )}
+          {!backdrop && !ticket && (
             <Reveal delay={0.2} className="group lg:col-span-5">
               <div className={`relative mx-auto grid aspect-square w-[min(80vw,420px)] place-items-center rounded-[2.5rem] ${t.disc}`}>
                 <Glyph slug={slug} tone={t.light ? "silver" : "blue"} className="w-[88%]" />

@@ -37,8 +37,8 @@ body {
   outline-offset: 3px;
 }
 
-/* StarBorder buttons: keep the arrow/label aligned with our pill buttons */
-.aqro-star {
+/* Specular CTA buttons: keep the arrow/label aligned with our pill buttons */
+.aqro-cta {
   white-space: nowrap;
   gap: 0.75rem;
 }

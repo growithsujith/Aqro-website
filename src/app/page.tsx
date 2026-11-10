@@ -1,10 +1,10 @@
 import { CTA, SectionHead } from "@/components/blocks";
-import { ClientLoop, SilkBackdrop, StarButton } from "@/components/fx";
+import { ClientLoop, HeroHeadline, SilkBackdrop, SpotlightFrame, StarButton } from "@/components/fx";
 import { FAQ } from "@/components/FAQ";
 import { Reveal } from "@/components/motion";
 import { FeaturedProject, Portfolio } from "@/components/Portfolio";
 import { Reel } from "@/components/Reel";
-import { ServiceSwitcher } from "@/components/ServiceSwitcher";
+import { ServiceFolders } from "@/components/ServiceSwitcher";
 import { Button, Container, Eyebrow, H1, H2, Mark, TextLink } from "@/components/ui";
 
 const TAGS = ["Brand Creatives", "Ad Campaigns", "AI Commercials", "AI Films", "Mobile Apps", "Websites & Web Apps"];
@@ -42,9 +42,7 @@ export default function Home() {
           <div className="relative z-10 lg:col-span-7">
             <Reveal fade={false}>
               <Eyebrow light>Creative & technology studio</Eyebrow>
-              <h1 className={`mt-6 ${H1}`}>
-                Ideas deserve <span className="text-white/55">extraordinary execution.</span>
-              </h1>
+              <HeroHeadline lead="Ideas deserve" accent="extraordinary execution." className={`mt-6 ${H1}`} />
               <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/80">
                 We bring creativity, AI and technology together to build visuals, films and digital products that move brands
                 forward.
@@ -65,7 +63,8 @@ export default function Home() {
             </Reveal>
           </div>
           <Reveal delay={0.15} fade={false} className="lg:col-span-5">
-            <div className="relative mx-auto w-[min(78vw,460px)]">
+            <div className="pointer-events-auto relative mx-auto w-[min(82vw,480px)]">
+              <SpotlightFrame>
               <div aria-hidden className="absolute inset-x-[8%] top-[6%] aspect-square rounded-full bg-white/[0.07] blur-2xl" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -79,6 +78,7 @@ export default function Home() {
               <p className="relative mt-4 flex items-center justify-center gap-2 font-display text-lg font-semibold">
                 <Mark className="size-3" /> Creative, but engineered.
               </p>
+              </SpotlightFrame>
             </div>
           </Reveal>
         </Container>
@@ -132,9 +132,9 @@ export default function Home() {
           <SectionHead
             eyebrow="Built on purpose, driven by creativity"
             title="Our services."
-            aside={<p className="max-w-sm text-[15px] leading-relaxed text-graphite/75">Four disciplines that work alone or together. The best work happens where they overlap.</p>}
+            aside={<p className="max-w-sm text-[15px] leading-relaxed text-graphite/75">Four disciplines that work alone or together. Open a folder to see what each one covers.</p>}
           />
-          <ServiceSwitcher />
+          <ServiceFolders />
         </Container>
       </section>
 
@@ -174,7 +174,7 @@ export default function Home() {
             <h2 className={`mt-5 ${H2}`}>Partner with us to bring your idea to life.</h2>
             <p className="mt-5 text-lg text-graphite/75">Powered by technology, imagined by people.</p>
             <div className="mt-8">
-              <Button href="/contact">Get in touch</Button>
+              <StarButton href="/contact">Get in touch</StarButton>
             </div>
           </Reveal>
           <ul className="grid gap-4 lg:col-span-7">

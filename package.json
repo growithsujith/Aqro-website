@@ -11,9 +11,13 @@
   "dependencies": {
     "@fontsource-variable/instrument-sans": "^5.3.0",
     "@fontsource-variable/sora": "^5.3.0",
+    "@hugeicons/core-free-icons": "^4.4.0",
+    "@hugeicons/react": "^1.1.10",
     "framer-motion": "^14.10.1",
     "gsap": "^3.12.7",
+    "motion": "^14.11.1",
     "next": "15.5.29",
+    "ogl": "^1.0.11",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },

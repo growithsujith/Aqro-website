@@ -6,6 +6,7 @@ import { useState } from "react";
 import { services } from "@/content/site";
 import { Glyph } from "./Glyph";
 import { Mark } from "./ui";
+import Folder from "./reactbits/Folder";
 
 /**
  * Services: a large panel on the left shows the glyph of whichever service
@@ -51,5 +52,56 @@ export function ServiceSwitcher() {
         ))}
       </ol>
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------ Folders */
+
+const FOLDER_STYLE: Record<string, { color: string; label: string }> = {
+  creatives: { color: "#ED1C24", label: "Creatives" },
+  "ai-video-production": { color: "#292929", label: "AI Video" },
+  "app-development": { color: "#004AAD", label: "Apps" },
+  "web-development": { color: "#5B9BFF", label: "Web" },
+};
+
+/**
+ * Services as four React Bits folders. Click a folder to open it and see what
+ * the service covers; click a page to bring it up close. The link underneath
+ * goes to the service page.
+ */
+export function ServiceFolders() {
+  return (
+    <ul className="grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+      {services.map((sv) => {
+        const f = FOLDER_STYLE[sv.slug];
+        return (
+          <li key={sv.slug} className="flex flex-col items-center text-center">
+            <div className="grid h-[260px] w-full place-items-center">
+              <Folder
+                label={f.label}
+                color={f.color}
+                paperColor="#FFFFFF"
+                items={sv.offer.slice(0, 6).map((o) => ({ title: o.t, description: o.d }))}
+                mode="flap"
+                variant="solid"
+                layout="spread"
+                tabPosition="right"
+                size={1}
+                theme="light"
+                tilt={0.6}
+              />
+            </div>
+            <Link href={sv.href} className="group mt-4 block max-w-[260px]">
+              <span className="font-display text-sm font-semibold text-red-ink">{sv.no}</span>
+              <span className="mt-1 flex items-center justify-center gap-2 font-display text-2xl font-semibold tracking-tight transition-colors group-hover:text-blue">
+                {sv.name}
+                <span aria-hidden className="text-graphite/40 transition-transform duration-500 group-hover:translate-x-1 group-hover:text-blue">→</span>
+              </span>
+              <span className="mt-1 block text-[15px] leading-relaxed text-graphite/70">{sv.short}</span>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
   );
 }

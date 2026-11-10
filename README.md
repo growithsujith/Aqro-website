@@ -2,6 +2,19 @@
 
 Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · Framer Motion · React Bits components (GSAP is used only by the depth carousel).
 
+React Bits in use (sources in `src/components/reactbits/`, brand wrappers in `src/components/fx.tsx`):
+
+| Component | Where |
+|---|---|
+| BlurText | Home hero headline |
+| SpotlightCard | Home hero — spotlight behind the Meenakshi PNG |
+| Folder | Home "Our services" (`ServiceFolders` in `ServiceSwitcher.tsx`) |
+| SpecularButton | Every red CTA (`StarButton` in `fx.tsx`) |
+| FlexCarousel | Web Development hero backdrop (uses web projects from `portfolio.ts`, sample posters until then) |
+| TearTicket | AI Video Production hero |
+| Prism | App Development hero backdrop |
+| ReflectiveCard | About → founder cards |
+
 ```bash
 npm install
 npm run dev      # http://localhost:3000
