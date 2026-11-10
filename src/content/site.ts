@@ -29,7 +29,7 @@ export type Service = {
   href: string;
   /** label used for the portfolio filter */
   workLabel: string;
-  hero: { title: string; accent: string; body: string; theme: "ivory" | "graphite" | "blue" | "white"; cta: string };
+  hero: { title: string; accent: string; body: string; theme: "ivory" | "graphite" | "blue" | "white" | "navy"; cta: string };
   offer: { t: string; d: string }[];
   steps: { t: string; d: string }[];
   faqs: { q: string; a: string }[];
@@ -47,7 +47,7 @@ export const services: Service[] = [
       title: "Make your brand",
       accent: "impossible to ignore.",
       body: "Identity, campaigns and everyday creatives with one clear point of view.",
-      theme: "ivory",
+      theme: "navy",
       cta: "Start a creative project",
     },
     offer: [

@@ -16,7 +16,7 @@ export function ServiceSwitcher() {
   const s = services[active];
   return (
     <div className="grid gap-8 lg:grid-cols-12 lg:items-stretch">
-      <div className="relative aspect-video overflow-hidden rounded-2xl bg-blue text-white lg:col-span-7 lg:aspect-auto">
+      <div className="relative aspect-video overflow-hidden rounded-2xl bg-gradient-to-br from-blue via-blue-deep to-navy text-white lg:col-span-7 lg:aspect-auto">
         <AnimatePresence mode="wait">
           <motion.div
             key={s.slug}

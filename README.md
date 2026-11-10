@@ -1,6 +1,6 @@
 # AQRO — website
 
-Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · GSAP (ScrollTrigger, CustomEase, `@gsap/react`) · Lenis smooth scrolling · Framer Motion (hybrid UI state).
+Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · Framer Motion · React Bits components (GSAP is used only by the depth carousel).
 
 ```bash
 npm install
@@ -10,7 +10,7 @@ npm run build && npm start
 
 ## Routes
 
-`/` · `/services/creatives` · `/services/ai-video-production` · `/services/app-development` · `/services/web-development` · `/work` · `/about` · `/contact`
+`/` · `/about` · `/services/creatives` · `/services/ai-video-production` · `/services/app-development` · `/services/web-development` · `/work` · `/contact`
 
 ## Adding portfolio projects
 
@@ -28,8 +28,7 @@ video or flips through the images. Until a service has projects, its page shows 
 | What | Where |
 |---|---|
 | Client logos | `src/content/data.ts` → `clients` (files in `public/clients/`) |
-| Team & founders | `src/content/data.ts` → `founders`, `teamGroups` |
-| Statistics | `src/content/data.ts` → `stats` |
+| Team | `src/content/data.ts` → `team` |
 | Email / phone / location / socials | `src/content/site.ts` → `site.contact`, `site.social` |
 | Service copy, offers, steps, FAQs | `src/content/site.ts` → `services` |
 | Domain | `src/content/site.ts` → `site.url` |
@@ -43,10 +42,25 @@ video or flips through the images. Until a service has projects, its page shows 
 
 Until then the form clearly tells visitors their message was not sent.
 
-## Brand & Motion Architecture
+## Brand
 
 - `public/brand/aqro-logo.svg` (blue + red, for light backgrounds) and `aqro-logo-reverse.svg` (white + red, for blue/dark), vectorised from the supplied logo. Favicon: `src/app/icon.svg`.
 - Visual elements are built from the logo itself: the red corner mark (`Mark`), and the ring/stem/shoulder shapes in the hero (`Composition`). Service glyphs live in `src/components/Glyph.tsx`.
 - Fonts (self-hosted): Sora for headings, Instrument Sans for body.
-- Smooth scrolling via `lenis/react` (`SmoothScroll`), synchronized to `gsap.ticker` with `ScrollTrigger.update`.
 - All motion respects `prefers-reduced-motion`.
+
+## React Bits components
+
+Vendored in `src/components/reactbits/` (JS + CSS, with `.d.ts` types). Brand wiring lives in `src/components/fx.tsx`.
+
+| Component | Where |
+|---|---|
+| Silk | Home hero, About hero, closing CTA on every page (`SilkBackdrop`) |
+| StarBorder | Primary red CTAs — nav, hero, service heroes, CTA (`StarButton`) |
+| LogoLoop | Clients on Home and About (`ClientLoop`) — fills from `clients` in `src/content/data.ts` |
+| DriftWall | Backdrop of the Creatives hero (`CreativeWall`) |
+| DepthCarousel | Creatives portfolio (`CreativeCarousel`) — click the front card to open the project |
+
+Until real creatives are added to `portfolio.creatives`, the wall and carousel use the sample posters in
+`public/placeholders/` (delete them once you have 6+ real projects). Until client logos are added, the loop shows
+placeholder slots.

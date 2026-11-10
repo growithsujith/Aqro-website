@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Magnetic } from "./motion/Magnetic";
 
 /** The official AQRO wordmark (traced from the supplied logo). */
 export function Logo({ reverse = false, className = "h-8" }: { reverse?: boolean; className?: string }) {
@@ -46,12 +45,11 @@ type BtnProps = {
   href: string;
   children: ReactNode;
   variant?: "red" | "blue" | "white" | "outline" | "outline-light";
-  magnetic?: boolean;
   className?: string;
 };
 
-/** Pill button with a fill sweep, vertical text roll, arrow shift and optional magnetic pull. */
-export function Button({ href, children, variant = "red", magnetic = true, className = "" }: BtnProps) {
+/** Pill button with a fill that sweeps in on hover. */
+export function Button({ href, children, variant = "red", className = "" }: BtnProps) {
   const base: Record<string, string> = {
     red: "bg-red text-white border-red",
     blue: "bg-blue text-white border-blue",
@@ -73,8 +71,7 @@ export function Button({ href, children, variant = "red", magnetic = true, class
     outline: "group-hover:text-white",
     "outline-light": "group-hover:text-blue",
   };
-
-  const inner = (
+  return (
     <Link
       href={href}
       className={`group relative inline-flex items-center gap-3 overflow-hidden rounded-full border px-6 py-3.5 text-[15px] font-medium transition-colors ${base[variant]} ${className}`}
@@ -83,17 +80,7 @@ export function Button({ href, children, variant = "red", magnetic = true, class
         aria-hidden
         className={`absolute inset-0 origin-left scale-x-0 transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-x-100 ${sweep[variant]}`}
       />
-      <span className={`relative inline-flex overflow-hidden transition-colors duration-500 ${hoverText[variant]}`}>
-        <span className="inline-block transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:-translate-y-full">
-          {children}
-        </span>
-        <span
-          aria-hidden
-          className="absolute inset-0 inline-block translate-y-full transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-y-0"
-        >
-          {children}
-        </span>
-      </span>
+      <span className={`relative transition-colors duration-500 ${hoverText[variant]}`}>{children}</span>
       <svg
         aria-hidden
         viewBox="0 0 20 20"
@@ -106,8 +93,6 @@ export function Button({ href, children, variant = "red", magnetic = true, class
       </svg>
     </Link>
   );
-
-  return magnetic ? <Magnetic>{inner}</Magnetic> : inner;
 }
 
 export function TextLink({ href, children, light = false }: { href: string; children: ReactNode; light?: boolean }) {
