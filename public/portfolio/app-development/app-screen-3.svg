@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="390" height="844">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#140608"/>
+      <stop offset="100%" stop-color="#2D0B12"/>
+    </linearGradient>
+    <linearGradient id="filmCard" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ED1C24"/>
+      <stop offset="100%" stop-color="#FF5A60"/>
+    </linearGradient>
+  </defs>
+  <rect width="390" height="844" fill="url(#bg3)"/>
+  
+  <g transform="translate(24, 60)">
+    <text x="0" y="20" fill="#ED1C24" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" letter-spacing="1">AQRO STUDIO</text>
+    <text x="0" y="50" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="26" font-weight="700">AI Video Director</text>
+  </g>
+
+  <!-- Video Preview Canvas -->
+  <g transform="translate(24, 135)">
+    <rect width="342" height="230" rx="20" fill="#200B0F" stroke="#3D1219" stroke-width="1"/>
+    <circle cx="171" cy="105" r="32" fill="#ED1C24"/>
+    <polygon points="165,92 183,105 165,118" fill="#FFFFFF"/>
+    <text x="24" y="195" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="15" font-weight="600">Cyberpunk Odyssey — Scene 04</text>
+    <text x="24" y="215" fill="#A0AEC0" font-family="-apple-system, sans-serif" font-size="12">4K 60fps • Generative Motion Pass</text>
+  </g>
+
+  <!-- Prompt Bar -->
+  <g transform="translate(24, 385)">
+    <rect width="342" height="52" rx="14" fill="#200B0F" stroke="#ED1C24" stroke-opacity="0.4"/>
+    <text x="18" y="32" fill="#FFFFFF" opacity="0.8" font-family="-apple-system, sans-serif" font-size="13">Cinematic wide angle, anamorphic flare...</text>
+    <rect x="270" y="8" width="60" height="36" rx="10" fill="url(#filmCard)"/>
+    <text x="300" y="31" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Render</text>
+  </g>
+
+  <!-- Storyboard Tracks -->
+  <g transform="translate(24, 465)">
+    <text x="0" y="0" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">Timeline Cuts (00:45)</text>
+    <g transform="translate(0, 16)">
+      <rect x="0" y="0" width="105" height="110" rx="14" fill="#200B0F" stroke="#3D1219"/>
+      <rect x="10" y="10" width="85" height="55" rx="8" fill="#3D1219"/>
+      <text x="52" y="90" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12" text-anchor="middle">Cut 01: Intro</text>
+      
+      <rect x="118" y="0" width="105" height="110" rx="14" fill="#200B0F" stroke="#ED1C24" stroke-width="1.5"/>
+      <rect x="128" y="10" width="85" height="55" rx="8" fill="#5E1622"/>
+      <text x="170" y="90" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Cut 02: Climax</text>
+
+      <rect x="236" y="0" width="105" height="110" rx="14" fill="#200B0F" stroke="#3D1219"/>
+      <rect x="246" y="10" width="85" height="55" rx="8" fill="#3D1219"/>
+      <text x="288" y="90" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12" text-anchor="middle">Cut 03: Outro</text>
+    </g>
+  </g>
+</svg>

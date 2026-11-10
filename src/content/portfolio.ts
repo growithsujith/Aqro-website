@@ -51,7 +51,29 @@ export const portfolio: Record<ServiceSlug, PortfolioItem[]> = {
     // AI commercials, brand films, product videos, microdramas…
   ],
   "app-development": [
-    // mobile apps, product apps — add screens in `images`, store link in `url`
+    {
+      title: "Fintech & Wealth Mobile App",
+      client: "AQRO Pay",
+      year: "2026",
+      description: "Realtime multi-currency wallet with instant peer-to-peer settlement, biometrics, and physical card control.",
+      cover: "/portfolio/app-development/app-screen-1.svg",
+      images: [
+        "/portfolio/app-development/app-screen-1.svg",
+        "/portfolio/app-development/app-screen-2.svg",
+      ],
+      featured: true,
+    },
+    {
+      title: "Studio AI Video Director Suite",
+      client: "AQRO AI Studio",
+      year: "2026",
+      description: "Interactive timeline editor, video cut sequence generator, and cloud render manager designed for high-resolution mobile workflows.",
+      cover: "/portfolio/app-development/app-screen-3.svg",
+      images: [
+        "/portfolio/app-development/app-screen-3.svg",
+        "/portfolio/app-development/app-screen-4.svg",
+      ],
+    },
   ],
   "web-development": [
     // websites, landing pages, web apps — add the live site in `url`

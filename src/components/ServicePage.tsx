@@ -5,7 +5,7 @@ import { Glyph } from "./Glyph";
 import { Reveal } from "./motion";
 import { Portfolio } from "./Portfolio";
 import { Button, Container, Eyebrow, H1, H2, Mark, TextLink } from "./ui";
-import { CreativeCarousel, CreativeWall, PremiereTicket, PrismBackdrop, StarButton, WebFlexBackdrop } from "./fx";
+import { AppMockup, CreativeCarousel, CreativeWall, GradientASCIIBackdrop, PremiereTicket, PrismBackdrop, SilkBackdrop, StarButton, WebFlexBackdrop } from "./fx";
 
 const THEME = {
   ivory: { bg: "bg-ivory", text: "text-graphite", sub: "text-graphite/75", accent: "text-blue", glyph: "text-blue", disc: "bg-white", light: false, btn2: "outline" as const },
@@ -29,6 +29,9 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
     <>
       {/* Hero */}
       <section className={`${t.bg} ${t.text} relative overflow-hidden ${wall ? "grain" : ""}`}>
+        {/* Silk backdrop behind EVERY service hero section */}
+        <SilkBackdrop tone={t.light ? "blue" : "deep"} className="opacity-45" />
+
         {wall && (
           <>
             <div className="absolute inset-0 lg:left-[28%]">
@@ -52,12 +55,16 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
         )}
         {prism && (
           <>
+            {/* GradientASCII over the silk effect behind it */}
+            <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60">
+              <GradientASCIIBackdrop />
+            </div>
             <div aria-hidden className="absolute inset-0">
               <PrismBackdrop />
             </div>
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#004aad_0%,rgba(0,74,173,0.85)_50%,rgba(0,74,173,0.4)_100%)] lg:bg-[linear-gradient(90deg,#004aad_0%,rgba(0,74,173,0.7)_32%,transparent_55%)]"
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#004aad_0%,rgba(0,74,173,0.75)_50%,rgba(0,74,173,0.35)_100%)] lg:bg-[linear-gradient(90deg,#004aad_0%,rgba(0,74,173,0.65)_32%,transparent_55%)]"
             />
             <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-blue to-transparent" />
           </>
@@ -147,8 +154,36 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
         </section>
       )}
 
+      {/* App UI Showcase (iPhone Mockup) — for App Development */}
+      {prism && (
+        <section className="bg-paper py-20 md:py-28">
+          <Container>
+            <div className="grid items-center gap-12 lg:grid-cols-12">
+              <div className="lg:col-span-5">
+                <AppMockup />
+              </div>
+              <div className="lg:col-span-7">
+                <Eyebrow>Crafted for iOS &amp; Android</Eyebrow>
+                <h2 className={`mt-5 ${H2}`}>
+                  High-performance applications with <span className="text-blue">intuitive UI &amp; UX.</span>
+                </h2>
+                <p className="mt-6 max-w-xl text-lg leading-relaxed text-graphite/75">
+                  Swipe through or click the previews to explore real interface layouts built by AQRO — engineered with fluid animations, micro-interactions, and bulletproof native performance.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <StarButton href="/contact">Start your app build</StarButton>
+                  <Button href="#portfolio" variant="outline">
+                    Explore app features
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </section>
+      )}
+
       {/* Process */}
-      <section className="bg-paper py-20 md:py-28">
+      <section id="process" className="bg-paper py-20 md:py-28">
         <Container>
           <SectionHead eyebrow="Process" title="How it comes together." />
           <Steps steps={s.steps} />

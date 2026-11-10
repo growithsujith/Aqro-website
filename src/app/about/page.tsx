@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { CTA } from "@/components/blocks";
-import { Glyph } from "@/components/Glyph";
 import { Reveal } from "@/components/motion";
-import { Button, Container, Eyebrow, H1, H2, Mark } from "@/components/ui";
-import { ClientLoop, FounderCard, SilkBackdrop } from "@/components/fx";
+import { Container, Eyebrow, H2, Mark } from "@/components/ui";
+import { ClientLoop, FounderCard } from "@/components/fx";
 import { founders, stats, teamGroups } from "@/content/data";
 
 export const metadata: Metadata = {
@@ -42,32 +41,6 @@ export default function AboutPage() {
   const founderCards = founders.length ? founders : [null, null];
   return (
     <>
-      {/* 1 — Hero: full-bleed panel with the headline over it */}
-      <section className="bg-paper pt-24 md:pt-28">
-        <Container>
-          <div className="grain relative overflow-hidden rounded-3xl bg-navy px-6 pb-12 pt-20 text-white sm:px-12 md:pb-16 md:pt-28">
-            <SilkBackdrop />
-            <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy/80 via-navy/30 to-transparent" />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/hero/meenakshi.webp"
-              alt=""
-              aria-hidden
-              className="pointer-events-none absolute bottom-0 -right-10 h-[88%] w-auto max-w-none opacity-25 drop-shadow-[0_30px_50px_rgba(0,20,60,0.45)] lg:right-8 lg:opacity-100"
-            />
-            <Reveal fade={false} className="relative max-w-2xl lg:max-w-[540px]">
-              <Eyebrow light>About aqro</Eyebrow>
-              <h1 className={`mt-6 ${H1}`}>Building what&apos;s next through creativity and technology.</h1>
-              <div className="mt-8 flex flex-wrap items-center gap-5">
-                <Button href="/work" variant="white">
-                  See our work
-                </Button>
-                <span className="text-white/80">Ideas, extraordinarily executed.</span>
-              </div>
-            </Reveal>
-          </div>
-        </Container>
-      </section>
 
       {/* 2 — Stats strip */}
       <section className="bg-paper py-12 md:py-16">
@@ -91,30 +64,6 @@ export default function AboutPage() {
         <ClientLoop />
       </section>
 
-      {/* 3 — Philosophy */}
-      <section className="bg-paper py-16 md:py-24">
-        <Container className="grid items-center gap-12 lg:grid-cols-12">
-          <Reveal className="lg:col-span-7">
-            <Eyebrow>Our philosophy</Eyebrow>
-            <h2 className={`mt-5 ${H2}`}>
-              We don&apos;t automate creativity. <span className="text-blue">We amplify it.</span>
-            </h2>
-            <div className="mt-6 max-w-xl space-y-4 text-[17px] leading-relaxed text-graphite/75">
-              <p>Technology changes how we create. Creativity defines why we create. We use AI and modern engineering to move faster and go further — never to replace taste or judgement.</p>
-              <p>Every frame, screen and line of code is directed and reviewed by people who care how it lands.</p>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1} className="lg:col-span-5">
-            <div className="grid grid-cols-2 gap-4">
-              {(["creatives", "ai-video-production", "app-development", "web-development"] as const).map((g, i) => (
-                <div key={g} className={`grid aspect-square place-items-center rounded-2xl ${i === 1 || i === 2 ? "bg-blue text-white" : "bg-ivory text-blue"}`}>
-                  <Glyph slug={g} tone={i === 1 || i === 2 ? "silver" : "blue"} className="w-[82%]" />
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </Container>
-      </section>
 
       {/* 4 — Team */}
       <section className="bg-ivory py-20 md:py-28">
@@ -143,15 +92,10 @@ export default function AboutPage() {
 
           {/* Grouped roster */}
           <div className="mt-16 grid gap-10 md:grid-cols-2">
-            {teamGroups.map((g, gi) => (
+            {teamGroups.map((g) => (
               <div key={g.title}>
-                <h3 className="flex items-baseline gap-3 border-b border-graphite/15 pb-4 font-display text-xl font-semibold tracking-tight">
-                  <span className="text-sm text-blue">{String(gi + 1).padStart(2, "0")}</span>
-                  {g.title}
-                  {g.members.length > 0 && <span className="text-sm font-normal text-graphite/60">({g.members.length})</span>}
-                </h3>
-                {g.members.length ? (
-                  <ul className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+                {g.members.length > 0 && (
+                  <ul className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
                     {g.members.map((m, i) => (
                       <Reveal as="li" key={m.name} delay={i * 0.05}>
                         <Portrait src={m.photo} alt={m.name} bg="bg-white" />
@@ -160,8 +104,6 @@ export default function AboutPage() {
                       </Reveal>
                     ))}
                   </ul>
-                ) : (
-                  <p className="mt-4 text-[15px] text-graphite/60">Profiles coming soon.</p>
                 )}
               </div>
             ))}

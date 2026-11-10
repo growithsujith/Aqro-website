@@ -5,7 +5,7 @@
  * Brand colours and content wiring live here so pages stay simple.
  */
 import Link from "next/link";
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import Silk from "./reactbits/Silk";
 import SpecularButton from "./reactbits/SpecularButton";
 import BlurText from "./reactbits/BlurText";
@@ -21,6 +21,10 @@ import { clients } from "@/content/data";
 import { portfolio, type PortfolioItem } from "@/content/portfolio";
 import { Lightbox } from "./Portfolio";
 import { Mark } from "./ui";
+import TiltedCard from "./reactbits/TiltedCard";
+import GradientASCII from "./reactbits/GradientASCII";
+import { Glyph } from "./Glyph";
+import { services } from "@/content/site";
 
 export const BRAND = {
   blue: "#004AAD",
@@ -151,6 +155,77 @@ export function SpotlightFrame({ children, className = "" }: { children: ReactNo
     >
       {children}
     </SpotlightCard>
+  );
+}
+
+/* --------------------------------------------------------- ParallaxImage */
+
+/** Image that subtly moves in the direction of the cursor — adds life to the hero goddess figure. */
+export function ParallaxImage({
+  src,
+  alt,
+  width,
+  height,
+  className = "",
+  caption,
+}: {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  className?: string;
+  caption?: ReactNode;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const rafRef = useRef<number>(0);
+  const targetRef = useRef({ x: 0, y: 0 });
+  const currentRef = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const MAX_SHIFT = 14;
+
+    const onMove = (e: PointerEvent) => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      targetRef.current.x = ((e.clientX - cx) / cx) * MAX_SHIFT;
+      targetRef.current.y = ((e.clientY - cy) / cy) * MAX_SHIFT;
+    };
+
+    const animate = () => {
+      rafRef.current = requestAnimationFrame(animate);
+      const img = imgRef.current;
+      if (!img) return;
+      const LERP = 0.06;
+      currentRef.current.x += (targetRef.current.x - currentRef.current.x) * LERP;
+      currentRef.current.y += (targetRef.current.y - currentRef.current.y) * LERP;
+      img.style.transform = `translate(${currentRef.current.x.toFixed(2)}px, ${currentRef.current.y.toFixed(2)}px)`;
+    };
+
+    window.addEventListener("pointermove", onMove, { passive: true });
+    rafRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  return (
+    <div ref={containerRef}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        ref={imgRef}
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        fetchPriority={"high" as "high"}
+        className={className}
+        draggable={false}
+      />
+      {caption}
+    </div>
   );
 }
 
@@ -430,6 +505,275 @@ export function CreativeCarousel() {
         </p>
       </div>
       <Lightbox item={open} onClose={() => setOpen(null)} />
+    </div>
+  );
+}
+
+/* --------------------------------------------------------- ServiceTiltedCards */
+
+const SERVICE_THEMES: Record<
+  string,
+  {
+    bg: string;
+    border: string;
+    glareColor: string;
+    tagBg: string;
+    tagText: string;
+    badge: string;
+  }
+> = {
+  creatives: {
+    bg: "linear-gradient(145deg, #1A0507 0%, #B8141B 50%, #ED1C24 100%)",
+    border: "rgba(237, 28, 36, 0.4)",
+    glareColor: "#FFA4A7",
+    tagBg: "rgba(255, 255, 255, 0.18)",
+    tagText: "#FFFFFF",
+    badge: "#ED1C24",
+  },
+  "ai-video-production": {
+    bg: "linear-gradient(145deg, #0A0A0C 0%, #1F1F24 55%, #33333D 100%)",
+    border: "rgba(255, 255, 255, 0.2)",
+    glareColor: "#FFFFFF",
+    tagBg: "rgba(237, 28, 36, 0.25)",
+    tagText: "#FFA4A7",
+    badge: "#ED1C24",
+  },
+  "app-development": {
+    bg: "linear-gradient(145deg, #02122B 0%, #003680 50%, #004AAD 100%)",
+    border: "rgba(91, 155, 255, 0.35)",
+    glareColor: "#BBD3FF",
+    tagBg: "rgba(255, 255, 255, 0.16)",
+    tagText: "#FFFFFF",
+    badge: "#5B9BFF",
+  },
+  "web-development": {
+    bg: "linear-gradient(145deg, #072552 0%, #0E4EAB 50%, #3B86F7 100%)",
+    border: "rgba(91, 155, 255, 0.45)",
+    glareColor: "#E0ECFF",
+    tagBg: "rgba(255, 255, 255, 0.2)",
+    tagText: "#FFFFFF",
+    badge: "#5B9BFF",
+  },
+};
+
+/** Four interactive tilted cards matching each service's distinct colors. */
+export function ServiceTiltedCards() {
+  return (
+    <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {services.map((sv, i) => {
+        const theme = SERVICE_THEMES[sv.slug] ?? SERVICE_THEMES["app-development"];
+        return (
+          <li key={sv.slug} className="flex flex-col items-center">
+            <Link href={sv.href} className="group block w-full focus:outline-none">
+              <TiltedCard
+                containerHeight="420px"
+                containerWidth="100%"
+                imageHeight="400px"
+                imageWidth="100%"
+                rotateAmplitude={12}
+                scaleOnHover={1.04}
+                glare={0.45}
+                glareColor={theme.glareColor}
+                shadow={0.55}
+                radius={24}
+                intro
+                introDelay={i * 80}
+                showTooltip={false}
+              >
+                <div
+                  className="relative flex h-full w-full flex-col justify-between overflow-hidden rounded-[24px] p-6 text-white transition-all duration-300"
+                  style={{
+                    background: theme.bg,
+                    boxShadow: `inset 0 0 0 1px ${theme.border}`,
+                  }}
+                >
+                  {/* Top Bar */}
+                  <div className="flex items-center justify-between">
+                    <span className="font-display text-sm font-bold tracking-widest text-white/70">
+                      {sv.no}
+                    </span>
+                    <span
+                      className="rounded-full px-2.5 py-0.5 text-xs font-semibold backdrop-blur-md"
+                      style={{ background: theme.tagBg, color: theme.tagText }}
+                    >
+                      {sv.workLabel}
+                    </span>
+                  </div>
+
+                  {/* Centered Service Glyph */}
+                  <div className="relative my-auto flex items-center justify-center py-4">
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute size-36 rounded-full blur-2xl"
+                      style={{ background: theme.badge, opacity: 0.28 }}
+                    />
+                    <Glyph
+                      slug={sv.slug}
+                      tone="silver"
+                      className="relative max-h-32 w-auto max-w-[70%] drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+
+                  {/* Bottom Info */}
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="font-display text-xl font-bold tracking-tight text-white group-hover:text-white sm:text-2xl">
+                        {sv.name}
+                      </h3>
+                      <span
+                        aria-hidden
+                        className="translate-x-0 font-display text-lg text-white/60 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-white"
+                      >
+                        →
+                      </span>
+                    </div>
+                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-white/75 sm:text-[13px]">
+                      {sv.short}
+                    </p>
+                  </div>
+                </div>
+              </TiltedCard>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+/* --------------------------------------------------- GradientASCIIBackdrop */
+
+/** Gradient ASCII art canvas for the app development hero background. */
+export function GradientASCIIBackdrop({ className = "" }: { className?: string }) {
+  return (
+    <div className={`relative h-full w-full overflow-hidden ${className}`}>
+      <GradientASCII
+        colors={["#001A40", "#004AAD", "#5B9BFF", "#D6E4FF"]}
+        shape="horizon"
+        characters=" =+xX0S8#@"
+        cellSize={16}
+        density={0.8}
+        glyphOpacity={0.7}
+        glow={0.35}
+        softness={0.65}
+        scale={1.15}
+        flow={0.5}
+        speed={0.7}
+        gradientOpacity={0.85}
+        grain={0.06}
+        mouseInteraction={true}
+        intro={true}
+      />
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------ AppMockup */
+
+const DEFAULT_APP_SCREENS = [
+  "/portfolio/app-development/app-screen-1.svg",
+  "/portfolio/app-development/app-screen-2.svg",
+  "/portfolio/app-development/app-screen-3.svg",
+  "/portfolio/app-development/app-screen-4.svg",
+];
+
+/**
+ * Interactive iPhone screen mockup displaying application UI in a smooth carousel.
+ * Pulls uploaded UI screens from portfolio['app-development'] or defaults to AQRO app designs.
+ */
+export function AppMockup() {
+  const [current, setCurrent] = useState(0);
+
+  const screens = useMemo(() => {
+    const realScreens = portfolio["app-development"].flatMap((p) => [
+      p.cover,
+      ...(p.images ?? []),
+    ]);
+    return realScreens.length > 0 ? realScreens : DEFAULT_APP_SCREENS;
+  }, []);
+
+  useEffect(() => {
+    if (screens.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % screens.length);
+    }, 3800);
+    return () => clearInterval(interval);
+  }, [screens.length]);
+
+  return (
+    <div className="relative mx-auto w-full max-w-[320px] sm:max-w-[340px]">
+      {/* Ambient background glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-4 rounded-[3.5rem] bg-gradient-to-b from-blue/30 to-sky/20 blur-2xl"
+      />
+
+      {/* iPhone Body */}
+      <div className="relative overflow-hidden rounded-[3rem] border-[9px] border-[#1C1F26] bg-[#0E1116] p-1 shadow-[0_30px_70px_-15px_rgba(0,10,40,0.6)] ring-1 ring-white/10">
+        {/* Dynamic Island / Speaker notch */}
+        <div className="absolute left-1/2 top-4 z-30 h-6 w-28 -translate-x-1/2 rounded-full bg-black">
+          <div className="absolute right-4 top-2 size-2 rounded-full bg-black/60 ring-1 ring-white/10" />
+        </div>
+
+        {/* Screen Display */}
+        <div
+          className="relative aspect-[9/19] w-full overflow-hidden rounded-[2.3rem] bg-black"
+          style={{ minHeight: "560px" }}
+        >
+          {screens.map((src, i) => (
+            <div
+              key={src + i}
+              className="absolute inset-0 transition-opacity duration-700 ease-in-out"
+              style={{
+                opacity: i === current ? 1 : 0,
+                pointerEvents: i === current ? "auto" : "none",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={src}
+                alt={`AQRO App UI Screen ${i + 1}`}
+                className="h-full w-full object-cover"
+                draggable={false}
+              />
+            </div>
+          ))}
+
+          {/* Swipe / Click overlay buttons */}
+          <button
+            type="button"
+            onClick={() =>
+              setCurrent((prev) => (prev - 1 + screens.length) % screens.length)
+            }
+            className="absolute inset-y-0 left-0 z-20 w-1/4 cursor-w-resize bg-transparent"
+            aria-label="Previous screen"
+          />
+          <button
+            type="button"
+            onClick={() => setCurrent((prev) => (prev + 1) % screens.length)}
+            className="absolute inset-y-0 right-0 z-20 w-1/4 cursor-e-resize bg-transparent"
+            aria-label="Next screen"
+          />
+
+          {/* Home indicator bar */}
+          <div className="pointer-events-none absolute bottom-2 left-1/2 z-20 h-1 w-32 -translate-x-1/2 rounded-full bg-white/40" />
+        </div>
+      </div>
+
+      {/* Carousel Dots Navigation */}
+      <div className="mt-5 flex items-center justify-center gap-2">
+        {screens.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => setCurrent(i)}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              i === current ? "w-7 bg-blue" : "w-2 bg-graphite/30 hover:bg-graphite/50"
+            }`}
+            aria-label={`Show screen ${i + 1}`}
+          />
+        ))}
+      </div>
     </div>
   );
 }

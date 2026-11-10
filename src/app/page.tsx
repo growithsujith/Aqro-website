@@ -1,10 +1,9 @@
 import { CTA, SectionHead } from "@/components/blocks";
-import { ClientLoop, HeroHeadline, SilkBackdrop, SpotlightFrame, StarButton } from "@/components/fx";
+import { ClientLoop, HeroHeadline, ParallaxImage, ServiceTiltedCards, SilkBackdrop, StarButton } from "@/components/fx";
 import { FAQ } from "@/components/FAQ";
 import { Reveal } from "@/components/motion";
 import { FeaturedProject, Portfolio } from "@/components/Portfolio";
 import { Reel } from "@/components/Reel";
-import { ServiceFolders } from "@/components/ServiceSwitcher";
 import { Button, Container, Eyebrow, H1, H2, Mark, TextLink } from "@/components/ui";
 
 const TAGS = ["Brand Creatives", "Ad Campaigns", "AI Commercials", "AI Films", "Mobile Apps", "Websites & Web Apps"];
@@ -64,21 +63,18 @@ export default function Home() {
           </div>
           <Reveal delay={0.15} fade={false} className="lg:col-span-5">
             <div className="pointer-events-auto relative mx-auto w-[min(82vw,480px)]">
-              <SpotlightFrame>
-              <div aria-hidden className="absolute inset-x-[8%] top-[6%] aspect-square rounded-full bg-white/[0.07] blur-2xl" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <ParallaxImage
                 src="/hero/meenakshi.webp"
                 alt="Crystal Meenakshi holding a clapperboard, laptop, phone and pen — the four AQRO disciplines"
                 width={1059}
                 height={1200}
-                fetchPriority="high"
-                className="relative h-auto w-full drop-shadow-[0_30px_50px_rgba(0,20,60,0.45)]"
+                className="relative h-auto w-full drop-shadow-[0_30px_60px_rgba(0,30,80,0.55)]"
+                caption={
+                  <p className="relative mt-4 flex items-center justify-center gap-2 font-display text-lg font-semibold">
+                    <Mark className="size-3" /> Creative, but engineered.
+                  </p>
+                }
               />
-              <p className="relative mt-4 flex items-center justify-center gap-2 font-display text-lg font-semibold">
-                <Mark className="size-3" /> Creative, but engineered.
-              </p>
-              </SpotlightFrame>
             </div>
           </Reveal>
         </Container>
@@ -132,9 +128,9 @@ export default function Home() {
           <SectionHead
             eyebrow="Built on purpose, driven by creativity"
             title="Our services."
-            aside={<p className="max-w-sm text-[15px] leading-relaxed text-graphite/75">Four disciplines that work alone or together. Open a folder to see what each one covers.</p>}
+            aside={<p className="max-w-sm text-[15px] leading-relaxed text-graphite/75">Four disciplines that work alone or together. Hover or tilt each card to explore.</p>}
           />
-          <ServiceFolders />
+          <ServiceTiltedCards />
         </Container>
       </section>
 
