@@ -1,21 +1,15 @@
 import type { Metadata } from "next";
 import { CTA } from "@/components/blocks";
 import { Reveal } from "@/components/motion";
-import { Container, Eyebrow, H2, Mark } from "@/components/ui";
-import { ClientLoop, FounderCard } from "@/components/fx";
-import { founders, stats, teamGroups } from "@/content/data";
+import { Button, Container, Eyebrow, H1, H2, Mark } from "@/components/ui";
+import { AboutBeamsBackdrop, ClientLoop, FounderCard, StarButton } from "@/components/fx";
+import { founders, teamGroups } from "@/content/data";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "AQRO combines brand creatives, AI video production and digital product development in one studio.",
+  description:
+    "AQRO is a creative and technology studio combining brand creatives, AI video production, app and web development in one unified team.",
 };
-
-/** Shown until real figures are added in content/data.ts → stats. */
-const FALLBACK_STATS = [
-  { value: "04", label: "disciplines under one roof" },
-  { value: "01", label: "team from idea to launch" },
-  { value: "360°", label: "creative, video, apps and web" },
-];
 
 function Portrait({ src, alt, bg = "bg-ivory" }: { src?: string; alt: string; bg?: string }) {
   return (
@@ -37,33 +31,107 @@ function Portrait({ src, alt, bg = "bg-ivory" }: { src?: string; alt: string; bg
 }
 
 export default function AboutPage() {
-  const shownStats = stats.length >= 2 ? stats : FALLBACK_STATS;
   const founderCards = founders.length ? founders : [null, null];
+
   return (
     <>
-
-      {/* 2 — Stats strip */}
-      <section className="bg-paper py-12 md:py-16">
-        <Container>
-          <dl className="grid gap-px overflow-hidden rounded-2xl bg-graphite/10 sm:grid-cols-3">
-            {shownStats.slice(0, 3).map((s) => (
-              <Reveal key={s.label} className="flex flex-col-reverse bg-white p-8">
-                <dt className="mt-2 text-[15px] text-graphite/70">{s.label}</dt>
-                <dd className="font-display text-5xl font-semibold tracking-tight text-blue">{s.value}</dd>
-              </Reveal>
-            ))}
-          </dl>
+      {/* 1 — Full-width Hero with React Bits Beams background using Aqro brand colours */}
+      <section className="relative flex min-h-[75vh] items-center overflow-hidden bg-navy pb-20 pt-32 text-white md:pb-28 md:pt-40">
+        <AboutBeamsBackdrop className="opacity-90" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy via-navy/30 to-transparent"
+        />
+        <Container className="relative z-10">
+          <div className="max-w-3xl">
+            <Reveal fade={false}>
+              <Eyebrow light>Creative & Technology Studio</Eyebrow>
+              <h1 className={`mt-6 ${H1}`}>
+                Built on purpose, <span className="text-sky">driven by craft.</span>
+              </h1>
+              <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/80 md:text-xl">
+                AQRO brings together visionary brand design, generative AI cinema, and production software
+                engineering under one roof.
+              </p>
+              <div className="mt-9 flex flex-wrap gap-4">
+                <StarButton href="/contact">Start a Project</StarButton>
+                <Button href="/recents" variant="outline-light">
+                  Explore our recents
+                </Button>
+              </div>
+            </Reveal>
+          </div>
         </Container>
       </section>
 
-      {/* Clients */}
-      <section className="bg-paper pb-4">
+      {/* 2 — Short About Aqro section explaining who we are and what we do */}
+      <section className="bg-paper py-20 md:py-28">
         <Container>
-          <p className="mb-6 text-center text-[13px] font-medium uppercase tracking-[0.16em] text-graphite/60">Trusted by brands across industries</p>
+          <Reveal>
+            <Eyebrow>About AQRO</Eyebrow>
+            <h2 className={`mt-5 max-w-4xl ${H2}`}>
+              One integrated team bridging <span className="text-blue">creative ambition</span> and{" "}
+              <span className="text-red">modern engineering</span>.
+            </h2>
+          </Reveal>
+          <div className="mt-10 grid gap-10 lg:grid-cols-12">
+            <Reveal className="lg:col-span-7">
+              <p className="text-lg leading-relaxed text-graphite/85">
+                AQRO was founded to eliminate the friction between creative agencies, video production
+                houses, and software developers. Rather than passing your vision down a disjointed chain
+                of third-party vendors, our multidisciplinary studio owns the entire creative and
+                technical pipeline from first concept to global rollout.
+              </p>
+              <p className="mt-6 text-base leading-relaxed text-graphite/75">
+                We partner with ambitious founders, established brands, and creative leaders across
+                four key disciplines: brand identity and campaigns, AI video and commercial production,
+                native mobile applications, and web development. We direct AI as a precision
+                instrument—guided by human taste, strategic rigor, and technical excellence.
+              </p>
+            </Reveal>
+            <Reveal delay={0.1} className="lg:col-span-5">
+              <div className="rounded-3xl border border-graphite/10 bg-white p-8 shadow-sm">
+                <h3 className="font-display text-lg font-semibold tracking-tight text-graphite">
+                  Our Studio Pillars
+                </h3>
+                <ul className="mt-5 space-y-4 text-sm leading-relaxed text-graphite/75">
+                  <li className="flex items-start gap-3">
+                    <Mark className="mt-1 size-3 shrink-0" />
+                    <span>
+                      <strong className="text-graphite">End-to-End Ownership:</strong> Strategy,
+                      design, generative video, and code developed simultaneously.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Mark className="mt-1 size-3 shrink-0" />
+                    <span>
+                      <strong className="text-graphite">Human Direction, AI Speed:</strong> Generative
+                      models calibrated and elevated by senior artists.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Mark className="mt-1 size-3 shrink-0" />
+                    <span>
+                      <strong className="text-graphite">Engineering Rigor:</strong> Responsive
+                      layouts, smooth 60fps interactions, and scalable architectures.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </Reveal>
+          </div>
+        </Container>
+      </section>
+
+      {/* 3 — Clients */}
+      <section className="border-y border-graphite/10 bg-white py-12">
+        <Container>
+          <p className="mb-6 text-center text-[13px] font-medium uppercase tracking-[0.16em] text-graphite/60">
+            Trusted by brands across industries
+          </p>
         </Container>
         <ClientLoop />
       </section>
-
 
       {/* 4 — Team */}
       <section className="bg-ivory py-20 md:py-28">
@@ -76,14 +144,29 @@ export default function AboutPage() {
           {/* Founders */}
           <ul className="mt-12 grid gap-10 md:grid-cols-2">
             {founderCards.map((f, i) => (
-              <Reveal as="li" key={f?.name ?? i} delay={i * 0.08} className="grid items-center gap-8 rounded-3xl bg-white p-6 sm:grid-cols-[auto_1fr] sm:p-8 md:grid-cols-1 xl:grid-cols-[auto_1fr]">
+              <Reveal
+                as="li"
+                key={f?.name ?? i}
+                delay={i * 0.08}
+                className="grid items-center gap-8 rounded-3xl bg-white p-6 sm:grid-cols-[auto_1fr] sm:p-8 md:grid-cols-1 xl:grid-cols-[auto_1fr]"
+              >
                 <div className="mx-auto">
-                  <FounderCard name={f?.name ?? "Founder name"} role={f?.role ?? "Co-founder"} index={i} />
+                  <FounderCard
+                    name={f?.name ?? "Founder name"}
+                    role={f?.role ?? "Co-founder"}
+                    index={i}
+                  />
                 </div>
                 <div>
-                  <p className="text-sm font-medium uppercase tracking-[0.14em] text-red-ink">{f?.role ?? "Co-founder"}</p>
-                  <p className="mt-2 font-display text-2xl font-semibold tracking-tight">{f?.name ?? "Profile coming soon"}</p>
-                  <p className="mt-2 text-[15px] leading-relaxed text-graphite/70">{f?.bio ?? "Founder profiles will be added here."}</p>
+                  <p className="text-sm font-medium uppercase tracking-[0.14em] text-red-ink">
+                    {f?.role ?? "Co-founder"}
+                  </p>
+                  <p className="mt-2 font-display text-2xl font-semibold tracking-tight">
+                    {f?.name ?? "Profile coming soon"}
+                  </p>
+                  <p className="mt-2 text-[15px] leading-relaxed text-graphite/70">
+                    {f?.bio ?? "Founder profiles will be added here."}
+                  </p>
                   <p className="mt-4 text-xs text-graphite/50">Move your cursor over the card to tilt it.</p>
                 </div>
               </Reveal>
@@ -111,7 +194,11 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <CTA title="Let's create something extraordinary." body="Tell us what you're building — we'll show you how we'd bring it to life." cta="Work With AQRO" />
+      <CTA
+        title="Let's create something extraordinary."
+        body="Tell us what you're building — we'll show you how we'd bring it to life."
+        cta="Work With AQRO"
+      />
     </>
   );
 }

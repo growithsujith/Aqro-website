@@ -9,14 +9,14 @@ import { Glyph } from "./Glyph";
 import { Logo } from "./ui";
 import { StarButton } from "./fx";
 
-/** Routes whose hero is dark (blue/graphite), so the bar starts in white. */
-const DARK_HEROES = ["/", "/services/creatives", "/services/ai-video-production", "/services/app-development"];
+/** Routes whose hero is dark (navy/blue/graphite), so the bar starts in white. */
+const DARK_HEROES = ["/", "/about", "/services/creatives", "/services/ai-video-production", "/services/app-development"];
 
 const links = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Services", href: "#services" },
-  { label: "Work", href: "/work" },
+  { label: "Recents", href: "/recents" },
   { label: "Contact", href: "/contact" },
 ];
 

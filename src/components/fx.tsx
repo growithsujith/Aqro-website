@@ -22,6 +22,8 @@ import { portfolio, type PortfolioItem } from "@/content/portfolio";
 import { Lightbox } from "./Portfolio";
 import { Mark } from "./ui";
 import TiltedCard from "./reactbits/TiltedCard";
+import BounceCards from "./reactbits/BounceCards";
+import Beams from "./reactbits/Beams";
 import GradientASCII from "./reactbits/GradientASCII";
 import { Glyph } from "./Glyph";
 import { services } from "@/content/site";
@@ -556,7 +558,7 @@ const SERVICE_THEMES: Record<
   },
 };
 
-/** Four interactive tilted cards matching each service's distinct colors. */
+/** Four interactive tilted cards matching each service's distinct colors with animated Silk effect background. */
 export function ServiceTiltedCards() {
   return (
     <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -587,8 +589,43 @@ export function ServiceTiltedCards() {
                     boxShadow: `inset 0 0 0 1px ${theme.border}`,
                   }}
                 >
+                  {/* React Bits Silk effect background */}
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 overflow-hidden rounded-[24px] opacity-35 mix-blend-screen"
+                  >
+                    <Silk
+                      color={
+                        sv.slug === "creatives"
+                          ? "#ED1C24"
+                          : sv.slug === "ai-video-production"
+                          ? "#6B6B78"
+                          : sv.slug === "app-development"
+                          ? "#004AAD"
+                          : "#0E4EAB"
+                      }
+                      sheenColor={
+                        sv.slug === "creatives"
+                          ? "#FFA4A7"
+                          : sv.slug === "ai-video-production"
+                          ? "#FFFFFF"
+                          : sv.slug === "app-development"
+                          ? "#BBD3FF"
+                          : "#E0ECFF"
+                      }
+                      speed={2.4}
+                      scale={1.2}
+                      rotation={0.4}
+                      sheen={0.65}
+                      depth={0.65}
+                      glow={0.4}
+                      noiseIntensity={0.8}
+                      mouseInteraction={false}
+                    />
+                  </div>
+
                   {/* Top Bar */}
-                  <div className="flex items-center justify-between">
+                  <div className="relative z-10 flex items-center justify-between">
                     <span className="font-display text-sm font-bold tracking-widest text-white/70">
                       {sv.no}
                     </span>
@@ -601,7 +638,7 @@ export function ServiceTiltedCards() {
                   </div>
 
                   {/* Centered Service Glyph */}
-                  <div className="relative my-auto flex items-center justify-center py-4">
+                  <div className="relative z-10 my-auto flex items-center justify-center py-4">
                     <div
                       aria-hidden
                       className="pointer-events-none absolute size-36 rounded-full blur-2xl"
@@ -638,6 +675,68 @@ export function ServiceTiltedCards() {
         );
       })}
     </ul>
+  );
+}
+
+/* -------------------------------------------------------- ScrollBounceCards */
+
+/** Sequential scroll-revealed BounceCards showcasing Aqro deliverables in the How We Work section. */
+export function ScrollBounceCards() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const images = [
+    { src: "/placeholders/creative-01.svg", alt: "Brand strategy & identity design" },
+    { src: "/portfolio/app-development/app-screen-1.svg", alt: "Fintech & wealth mobile application" },
+    { src: "/placeholders/creative-03.svg", alt: "AI cinema & cinematic narrative frame" },
+    { src: "/portfolio/app-development/app-screen-3.svg", alt: "AI studio director application interface" },
+    { src: "/placeholders/creative-05.svg", alt: "Multi-platform rollout & visual delivery" },
+  ];
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative flex min-h-[340px] w-full max-w-[560px] items-center justify-center overflow-visible"
+    >
+      {inView ? (
+        <BounceCards
+          images={images}
+          containerWidth={520}
+          containerHeight={320}
+          cardSize={180}
+          spread={72}
+          rotation={12}
+          arc={14}
+          pushDistance={140}
+          hoverScale={1.08}
+          bounciness={0.65}
+          animationDelay={0.25}
+          animationStagger={0.14}
+          borderWidth={3}
+          borderColor="rgba(255, 255, 255, 0.25)"
+          cardRadius={20}
+          enableHover
+        />
+      ) : (
+        <div className="h-[320px] w-[520px]" />
+      )}
+    </div>
   );
 }
 
@@ -774,6 +873,30 @@ export function AppMockup() {
           />
         ))}
       </div>
+    </div>
+  );
+}
+
+/* -------------------------------------------------------- AboutBeamsBackdrop */
+
+/** Full-width glowing Beams backdrop for the About page hero with Aqro brand colors. */
+export function AboutBeamsBackdrop({ className = "" }: { className?: string }) {
+  return (
+    <div aria-hidden className={`pointer-events-none absolute inset-0 ${className}`}>
+      <Beams
+        color="#5B9BFF"
+        backgroundColor="#001A40"
+        beamWidth={140}
+        rotation={35}
+        speed={1.2}
+        waveLength={260}
+        depth={1.1}
+        sharpness={0.7}
+        brightness={1.7}
+        glow={0.7}
+        opacity={0.85}
+        mouseInteraction
+      />
     </div>
   );
 }

@@ -6,6 +6,50 @@ import { Reveal } from "./motion";
 import { Portfolio } from "./Portfolio";
 import { Button, Container, Eyebrow, H1, H2, Mark, TextLink } from "./ui";
 import { AppMockup, CreativeCarousel, CreativeWall, GradientASCIIBackdrop, PremiereTicket, PrismBackdrop, SilkBackdrop, StarButton, WebFlexBackdrop } from "./fx";
+import { TiltedGridHero } from "@/components/ui/tilted-grid-hero";
+
+const AI_VIDEO_IMAGES = [
+  {
+    src: "https://pub-940ccf6255b54fa799a9b01050e6c227.r2.dev/stock-images/767d99bb371a54d0d36751e8cecae43c.jpg",
+    alt: "Diver silhouetted inside a sunset seascape shaped like a profile",
+  },
+  {
+    src: "https://pub-940ccf6255b54fa799a9b01050e6c227.r2.dev/gradients/hero_gradient/hero-gradients-01.png",
+    alt: "Soft multi-tone gradient wash",
+  },
+  {
+    src: "https://pub-940ccf6255b54fa799a9b01050e6c227.r2.dev/stock-images/821d815affa6496c39cbdeeec7a84603.jpg",
+    alt: "Double-exposure portrait blended with a city skyline at dusk",
+  },
+  {
+    src: "https://pub-940ccf6255b54fa799a9b01050e6c227.r2.dev/gradients/moon/moon-grade-03.png",
+    alt: "Moon-toned gradient",
+  },
+  {
+    src: "https://pub-940ccf6255b54fa799a9b01050e6c227.r2.dev/stock-images/937438c560ada1c83317f2c11b3454b0.jpg",
+    alt: "Motion-blurred side-profile portrait against a deep orange backdrop",
+  },
+  {
+    src: "https://pub-940ccf6255b54fa799a9b01050e6c227.r2.dev/gradients/shade_shiters/shade-shifters-05.png",
+    alt: "Shifting shade gradient",
+  },
+  {
+    src: "https://pub-940ccf6255b54fa799a9b01050e6c227.r2.dev/stock-images/98f89cb9994f5c382ab964062c4039db.jpg",
+    alt: "Figure holding a racket that dissolves into a swirling colourful cloud",
+  },
+  {
+    src: "https://pub-940ccf6255b54fa799a9b01050e6c227.r2.dev/gradients/shade_shiters/shade-shifters-09.png",
+    alt: "Shifting shade gradient",
+  },
+  {
+    src: "https://pub-940ccf6255b54fa799a9b01050e6c227.r2.dev/stock-images/ddcbee38be8b7274e19e132d7ab35b53.jpg",
+    alt: "Hand gesture with a colourful cutout of a bird flying through the fingers",
+  },
+  {
+    src: "https://pub-940ccf6255b54fa799a9b01050e6c227.r2.dev/gradients/moon/moon-grade-06.png",
+    alt: "Moon-toned gradient",
+  },
+];
 
 const THEME = {
   ivory: { bg: "bg-ivory", text: "text-graphite", sub: "text-graphite/75", accent: "text-blue", glyph: "text-blue", disc: "bg-white", light: false, btn2: "outline" as const },
@@ -109,6 +153,32 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
         </Container>
       </section>
 
+      {/* AI Video Production: React Bits Tilted Grid Hero directly below the hero */}
+      {slug === "ai-video-production" && (
+        <section className="relative overflow-hidden border-y border-white/10 bg-graphite py-16 text-white">
+          <Container className="mb-6 text-center">
+            <Eyebrow light>Curved Visual Reel</Eyebrow>
+            <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-white sm:text-3xl lg:text-4xl">
+              Cinematic AI visual reel
+            </h2>
+            <p className="mx-auto mt-2 max-w-xl text-sm text-white/70">
+              Interactive 3D cylinder loop of generative sequences, cinematic worlds, and high-impact style frames.
+            </p>
+          </Container>
+          <div className="relative mx-auto h-[440px] w-full max-w-[1400px]">
+            <TiltedGridHero
+              images={AI_VIDEO_IMAGES}
+              speed={3.5}
+              tileHeight={28}
+              aspectRatio={16 / 9}
+              gap={6}
+              curve={75}
+              fade={14}
+            />
+          </div>
+        </section>
+      )}
+
       {/* What we offer */}
       <section className="bg-paper py-20 md:py-28">
         <Container>
@@ -136,7 +206,7 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
               light
               eyebrow="Portfolio"
               title={<>Selected creatives, <span className="text-white/55">in depth.</span></>}
-              aside={<TextLink href="/work" light>All work</TextLink>}
+              aside={<TextLink href="/recents" light>All recents</TextLink>}
             />
             <CreativeCarousel />
           </Container>
@@ -147,7 +217,7 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
             <SectionHead
               eyebrow="Portfolio"
               title={<>Selected {s.workLabel.toLowerCase() === "ai videos" ? "AI videos" : s.workLabel.toLowerCase()}.</>}
-              aside={<TextLink href="/work">All work</TextLink>}
+              aside={<TextLink href="/recents">All recents</TextLink>}
             />
             <Portfolio service={slug} />
           </Container>

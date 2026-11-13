@@ -1,32 +1,82 @@
 import { CTA, SectionHead } from "@/components/blocks";
-import { ClientLoop, HeroHeadline, ParallaxImage, ServiceTiltedCards, SilkBackdrop, StarButton } from "@/components/fx";
+import {
+  ClientLoop,
+  HeroHeadline,
+  ParallaxImage,
+  ScrollBounceCards,
+  ServiceTiltedCards,
+  SilkBackdrop,
+  StarButton,
+} from "@/components/fx";
 import { FAQ } from "@/components/FAQ";
 import { Reveal } from "@/components/motion";
-import { FeaturedProject, Portfolio } from "@/components/Portfolio";
-import { Reel } from "@/components/Reel";
 import { Button, Container, Eyebrow, H1, H2, Mark, TextLink } from "@/components/ui";
+import { stats } from "@/content/data";
 
-const TAGS = ["Brand Creatives", "Ad Campaigns", "AI Commercials", "AI Films", "Mobile Apps", "Websites & Web Apps"];
+const TAGS = [
+  "Brand Creatives",
+  "Ad Campaigns",
+  "AI Commercials",
+  "AI Films",
+  "Mobile Apps",
+  "Websites & Web Apps",
+];
 
 const PIPELINE = [
-  { t: "Strategy", items: ["Discovery & research", "Creative concepts", "Product & technical planning"] },
-  { t: "Creation", items: ["Brand & campaign design", "AI video production", "App & web development"] },
-  { t: "Delivery", items: ["Testing & refinement", "Finishing & versioning", "Launch & support"] },
+  {
+    t: "Strategy",
+    items: ["Discovery & research", "Creative concepts", "Product & technical planning"],
+  },
+  {
+    t: "Creation",
+    items: ["Brand & campaign design", "AI video production", "App & web development"],
+  },
+  {
+    t: "Delivery",
+    items: ["Testing & refinement", "Finishing & versioning", "Launch & support"],
+  },
 ];
 
 const PILLARS = [
-  { t: "Creative-first, tech-enabled", d: "The idea leads. We pick the tools — AI included — that make it better." },
-  { t: "One team, end to end", d: "Design, film and code planned together, so nothing gets lost between vendors." },
-  { t: "Built around outcomes", d: "We agree what success looks like upfront and design towards it." },
+  {
+    t: "Creative-first, tech-enabled",
+    d: "The idea leads. We pick the tools — AI included — that make it better.",
+  },
+  {
+    t: "One team, end to end",
+    d: "Design, film and code planned together, so nothing gets lost between vendors.",
+  },
+  {
+    t: "Built around outcomes",
+    d: "We agree what success looks like upfront and design towards it.",
+  },
 ];
 
 const FAQS = [
-  { q: "What kinds of projects do you take on?", a: "Brand creatives and campaigns, AI-produced commercials and films, mobile and product apps, and websites or web apps — on their own or combined." },
-  { q: "Can you work with our existing brand guidelines?", a: "Yes. We extend existing identities all the time and keep everything consistent with your style." },
-  { q: "How long does a typical project take?", a: "It depends on scope. After a short discovery call we share a timeline with clear milestones before any work starts." },
-  { q: "How do you use AI in your work?", a: "As a production tool, not a replacement for judgement. People direct, review and approve everything we deliver." },
-  { q: "Do you work with agencies?", a: "Yes. We can work as your production or development partner, under your brand or ours." },
-  { q: "Can one project cover several formats?", a: "Yes — a campaign can include key visuals, video cut-downs for every platform and a landing page, planned together." },
+  {
+    q: "What kinds of projects do you take on?",
+    a: "Brand creatives and campaigns, AI-produced commercials and films, mobile and product apps, and websites or web apps — on their own or combined.",
+  },
+  {
+    q: "Can you work with our existing brand guidelines?",
+    a: "Yes. We extend existing identities all the time and keep everything consistent with your style.",
+  },
+  {
+    q: "How long does a typical project take?",
+    a: "It depends on scope. After a short discovery call we share a timeline with clear milestones before any work starts.",
+  },
+  {
+    q: "How do you use AI in your work?",
+    a: "As a production tool, not a replacement for judgement. People direct, review and approve everything we deliver.",
+  },
+  {
+    q: "Do you work with agencies?",
+    a: "Yes. We can work as your production or development partner, under your brand or ours.",
+  },
+  {
+    q: "Can one project cover several formats?",
+    a: "Yes — a campaign can include key visuals, video cut-downs for every platform and a landing page, planned together.",
+  },
 ];
 
 export default function Home() {
@@ -35,26 +85,39 @@ export default function Home() {
       {/* 1 — Hero */}
       <section className="grain relative overflow-hidden bg-navy text-white">
         <SilkBackdrop />
-        <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy/80 via-navy/30 to-transparent" />
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy/70 to-transparent" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy/80 via-navy/30 to-transparent"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy/70 to-transparent"
+        />
         <Container className="pointer-events-none relative grid min-h-[100svh] items-center gap-12 pb-16 pt-28 lg:grid-cols-12 lg:pt-24 [&_a]:pointer-events-auto">
           <div className="relative z-10 lg:col-span-7">
             <Reveal fade={false}>
               <Eyebrow light>Creative & technology studio</Eyebrow>
-              <HeroHeadline lead="Ideas deserve" accent="extraordinary execution." className={`mt-6 ${H1}`} />
+              <HeroHeadline
+                lead="Ideas deserve"
+                accent="extraordinary execution."
+                className={`mt-6 ${H1}`}
+              />
               <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/80">
-                We bring creativity, AI and technology together to build visuals, films and digital products that move brands
-                forward.
+                We bring creativity, AI and technology together to build visuals, films and digital
+                products that move brands forward.
               </p>
               <div className="mt-9 flex flex-wrap gap-3">
                 <StarButton href="/contact">Book a call</StarButton>
-                <Button href="/work" variant="outline-light">
-                  Explore our work
+                <Button href="/recents" variant="outline-light">
+                  Explore our recents
                 </Button>
               </div>
               <ul className="mt-10 flex flex-wrap gap-2">
                 {TAGS.map((t) => (
-                  <li key={t} className="rounded-full border border-white/20 bg-white/[0.06] px-3.5 py-1.5 text-sm text-white/85 backdrop-blur-sm">
+                  <li
+                    key={t}
+                    className="rounded-full border border-white/20 bg-white/[0.06] px-3.5 py-1.5 text-sm text-white/85 backdrop-blur-sm"
+                  >
                     {t}
                   </li>
                 ))}
@@ -80,73 +143,122 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 2 — What we do */}
+      {/* 2 — Client marquee directly below the Hero */}
+      <section className="border-y border-graphite/10 bg-white py-10">
+        <Container className="mb-4">
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-graphite/50">
+            Trusted by brands & creators across disciplines
+          </p>
+        </Container>
+        <ClientLoop />
+      </section>
+
+      {/* 3 — What we do (video showreel removed) */}
       <section className="bg-paper py-20 md:py-28">
         <Container>
           <Reveal>
             <Eyebrow>What we do</Eyebrow>
             <p className="mt-6 max-w-5xl font-display text-[clamp(1.9rem,3.8vw,3.4rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-balance">
-              AQRO is a creative and technology partner — <span className="text-blue">one team from the first idea to the final launch.</span>
+              AQRO is a creative and technology partner —{" "}
+              <span className="text-blue">one team from the first idea to the final launch.</span>
             </p>
             <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-graphite/75">
-              Brand creatives, AI-powered video, apps and websites run through one integrated pipeline, so your idea keeps its
-              shape from concept to finish.
+              Brand creatives, AI-powered video, apps and websites run through one integrated
+              pipeline, so your idea keeps its shape from concept to finish.
             </p>
           </Reveal>
-          <Reveal delay={0.1} className="mt-12">
-            <Reel />
-          </Reveal>
         </Container>
       </section>
 
-      {/* 3 — Work */}
+      {/* 4 — Metrics Snapshot (replacing old Our Work section with actual verified data) */}
       <section className="bg-ivory py-20 md:py-28">
         <Container>
-          <SectionHead eyebrow="Our work" title="Ideas brought to life." aside={<TextLink href="/work">View all work</TextLink>} />
-          <FeaturedProject />
-          <Portfolio filters limit={6} />
-        </Container>
-      </section>
-
-      {/* 4 — Clients */}
-      <section className="bg-paper py-20 md:py-28">
-        <Container>
           <SectionHead
-            eyebrow="Clients"
-            title="Good work brings great brands together."
-            aside={<p className="max-w-xs text-[15px] leading-relaxed text-graphite/70">Brands we&apos;ve partnered with across creative, film and product.</p>}
+            eyebrow="Impact & Performance"
+            title="Measured by impact, proven by execution."
+            aside={<TextLink href="/recents">Explore our recents</TextLink>}
           />
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {stats.map((s, i) => (
+              <Reveal
+                key={s.title || s.label}
+                delay={i * 0.08}
+                className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-graphite/10 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue/30 hover:shadow-xl"
+              >
+                <div>
+                  <span className="font-display text-4xl font-bold tracking-tight text-blue sm:text-5xl lg:text-6xl">
+                    {s.value}
+                  </span>
+                  <h3 className="mt-4 font-display text-lg font-semibold text-graphite sm:text-xl">
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-graphite/70">{s.label}</p>
+                </div>
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -bottom-10 -right-10 size-28 rounded-full bg-blue/5 blur-xl transition-colors group-hover:bg-blue/15"
+                />
+              </Reveal>
+            ))}
+          </div>
         </Container>
-        <Reveal className="border-y border-graphite/10 bg-white py-10">
-          <ClientLoop />
-        </Reveal>
       </section>
 
-      {/* 5 — Services */}
+      {/* 5 — Services (Each service card enhanced with React Bits Silk effect) */}
       <section className="bg-paper pb-20 md:pb-28">
         <Container>
           <SectionHead
             eyebrow="Built on purpose, driven by creativity"
             title="Our services."
-            aside={<p className="max-w-sm text-[15px] leading-relaxed text-graphite/75">Four disciplines that work alone or together. Hover or tilt each card to explore.</p>}
+            aside={
+              <p className="max-w-sm text-[15px] leading-relaxed text-graphite/75">
+                Four disciplines that work alone or together. Hover or tilt each card to explore.
+              </p>
+            }
           />
           <ServiceTiltedCards />
         </Container>
       </section>
 
-      {/* 6 — Pipeline */}
+      {/* 6 — Pipeline / How We Work (Sequential scroll-revealed Bounce Cards) */}
       <section className="grain relative overflow-hidden bg-navy py-20 text-white md:py-28">
-        <div aria-hidden className="pointer-events-none absolute -right-40 -top-40 size-[640px] rounded-full bg-blue/50 blur-[120px]" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-40 -top-40 size-[640px] rounded-full bg-blue/50 blur-[120px]"
+        />
         <Container className="relative">
           <SectionHead
             light
             eyebrow="How we work"
-            title={<>Full-stack, <span className="text-white/55">from idea to launch.</span></>}
+            title={
+              <>
+                Full-stack, <span className="text-white/55">from idea to launch.</span>
+              </>
+            }
+            aside={
+              <p className="max-w-sm text-[15px] leading-relaxed text-white/70">
+                A single agile pipeline bridging creative direction, AI generation, and production
+                engineering.
+              </p>
+            }
           />
+
+          {/* Sequential scroll-revealed Bounce Cards */}
+          <div className="my-10 flex justify-center overflow-visible py-4">
+            <ScrollBounceCards />
+          </div>
+
           <ol className="grid gap-5 md:grid-cols-3">
             {PIPELINE.map((p, i) => (
-              <Reveal as="li" key={p.t} delay={i * 0.1} className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition-colors duration-500 hover:border-white/25 hover:bg-white/[0.07]">
-                <span className="font-display text-sm font-semibold text-red">{String(i + 1).padStart(2, "0")}</span>
+              <Reveal
+                as="li"
+                key={p.t}
+                delay={i * 0.1}
+                className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition-colors duration-500 hover:border-white/25 hover:bg-white/[0.07]"
+              >
+                <span className="font-display text-sm font-semibold text-red">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
                 <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight">{p.t}</h3>
                 <ul className="mt-5 space-y-2.5 text-[15px] text-white/75">
                   {p.items.map((it) => (

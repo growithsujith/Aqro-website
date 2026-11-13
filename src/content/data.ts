@@ -30,5 +30,10 @@ export const teamGroups: { title: string; members: TeamMember[] }[] = [
 
 /* ------------------------------------------------------------- Statistics */
 /** Real, verified figures only (e.g. { value: "120+", label: "projects delivered" }). */
-export type Stat = { value: string; label: string };
-export const stats: Stat[] = [];
+export type Stat = { value: string; label: string; title?: string };
+export const stats: Stat[] = [
+  { value: "50+", title: "Projects Completed", label: "Brand identities, AI commercials, mobile & web applications delivered" },
+  { value: "10M+", title: "Views Generated", label: "Organic impressions and video views across client campaigns" },
+  { value: "25+", title: "Brands Partnered", label: "Direct brand partnerships and agency collaborations" },
+  { value: "04", title: "Core Disciplines", label: "Creatives, AI video production, app development, and web engineering" },
+];
