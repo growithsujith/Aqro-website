@@ -387,7 +387,24 @@ export function FounderCard({ name, role, index }: { name: string; role: string;
 /** Past clients marquee. Shows tidy placeholder slots until logos are added in content/data.ts. */
 export function ClientLoop({ light = false }: { light?: boolean }) {
   const logos: LogoItem[] = useMemo(() => {
-    if (clients.length) return clients.map((c) => ({ src: c.logo, alt: c.name, title: c.name }));
+    if (clients.length)
+      return clients.map((c) => ({
+        title: c.name,
+        node: (
+          <span
+            className="inline-flex h-14 w-44 items-center justify-center rounded-2xl bg-white px-4 shadow-sm"
+            style={{ opacity: 1 }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={c.logo}
+              alt={c.name}
+              className="max-h-10 max-w-full object-contain"
+              style={{ transform: `scale(${c.scale ?? 1})` }}
+            />
+          </span>
+        ),
+      }));
     return Array.from({ length: 8 }, (_, i) => ({
       title: `Client ${i + 1}`,
       node: (
@@ -407,11 +424,11 @@ export function ClientLoop({ light = false }: { light?: boolean }) {
       logos={logos}
       speed={60}
       direction="left"
-      logoHeight={clients.length ? 44 : 56}
-      gap={clients.length ? 72 : 28}
+      logoHeight={56}
+      gap={36}
       hoverSpeed={12}
-      scaleOnHover={clients.length > 0}
-      muted={clients.length ? 0.7 : 0}
+      scaleOnHover={false}
+      muted={0}
       fadeOut
       fadeOutWidth={0.14}
       ariaLabel="Past clients"
