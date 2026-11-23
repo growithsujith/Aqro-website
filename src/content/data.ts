@@ -13,8 +13,8 @@ export type Client = {
 };
 export const clients: Client[] = [
   { name: "RENEE",           logo: "/clients/renee.png",           scale: 0.82 },
-  { name: "TATA",            logo: "/clients/tata.jpg",            scale: 0.88 },
-  { name: "Naturals Salon",  logo: "/clients/naturals.jpg",        scale: 0.82 },
+  { name: "TATA",            logo: "/clients/tata.png",            scale: 0.88 },
+  { name: "Naturals Salon",  logo: "/clients/naturals.png",        scale: 0.82 },
   { name: "BoldEdge",        logo: "/clients/boldedge.png",        scale: 0.84 },
   { name: "Good Day",        logo: "/clients/good-day.jpg",        scale: 0.85 },
   { name: "Adani",           logo: "/clients/adani.png",           scale: 0.88 },
