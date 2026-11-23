@@ -12,14 +12,13 @@ export type Client = {
   scale?: number;
 };
 export const clients: Client[] = [
-  { name: "Junior Kuppanna", logo: "/clients/junior-kuppanna.png", scale: 0.85 },
-  { name: "Naturals Salon",  logo: "/clients/naturals.png",        scale: 0.78 },
-  { name: "TATA",            logo: "/clients/tata.webp",           scale: 0.90 },
-  { name: "Good Day",        logo: "/clients/good-day.png",        scale: 0.82 },
-  { name: "Invoteo",         logo: "/clients/invoteo.png",         scale: 0.85 },
-  { name: "RENEE",           logo: "/clients/renee.png",           scale: 0.80 },
-  { name: "The Jaloodo Shop",logo: "/clients/jaloodo.png",         scale: 0.88 },
-  { name: "Adani",           logo: "/clients/adani.webp",          scale: 0.90 },
+  { name: "RENEE",           logo: "/clients/renee.png",           scale: 0.82 },
+  { name: "TATA",            logo: "/clients/tata.jpg",            scale: 0.88 },
+  { name: "Naturals Salon",  logo: "/clients/naturals.jpg",        scale: 0.82 },
+  { name: "BoldEdge",        logo: "/clients/boldedge.png",        scale: 0.84 },
+  { name: "Good Day",        logo: "/clients/good-day.jpg",        scale: 0.85 },
+  { name: "Adani",           logo: "/clients/adani.png",           scale: 0.88 },
+  { name: "Junior Kuppanna", logo: "/clients/junior-kuppanna.png", scale: 0.80 },
 ];
 
 /* ------------------------------------------------------------------- Team */
