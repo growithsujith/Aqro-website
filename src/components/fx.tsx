@@ -630,41 +630,6 @@ export function ServiceTiltedCards() {
                     className="pointer-events-none absolute inset-0 rounded-[24px]"
                     style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%)" }}
                   />
-                  {/* React Bits Silk effect background */}
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 overflow-hidden rounded-[24px] opacity-25 mix-blend-screen"
-                  >
-                    <Silk
-                      color={
-                        sv.slug === "creatives"
-                          ? "#ED1C24"
-                          : sv.slug === "ai-video-production"
-                          ? "#6B6B78"
-                          : sv.slug === "app-development"
-                          ? "#004AAD"
-                          : "#0E4EAB"
-                      }
-                      sheenColor={
-                        sv.slug === "creatives"
-                          ? "#FFA4A7"
-                          : sv.slug === "ai-video-production"
-                          ? "#FFFFFF"
-                          : sv.slug === "app-development"
-                          ? "#BBD3FF"
-                          : "#E0ECFF"
-                      }
-                      speed={2.4}
-                      scale={1.2}
-                      rotation={0.4}
-                      sheen={0.65}
-                      depth={0.65}
-                      glow={0.4}
-                      noiseIntensity={0.8}
-                      mouseInteraction={false}
-                    />
-                  </div>
-
                   {/* Top Bar */}
                   <div className="relative z-10 flex items-center justify-between">
                     <span className="font-display text-sm font-bold tracking-widest text-white/70">
@@ -678,19 +643,6 @@ export function ServiceTiltedCards() {
                     </span>
                   </div>
 
-                  {/* Centered Service Glyph */}
-                  <div className="relative z-10 my-auto flex items-center justify-center py-4">
-                    <div
-                      aria-hidden
-                      className="pointer-events-none absolute size-36 rounded-full blur-2xl"
-                      style={{ background: theme.badge, opacity: 0.28 }}
-                    />
-                    <Glyph
-                      slug={sv.slug}
-                      tone="silver"
-                      className="relative max-h-32 w-auto max-w-[70%] drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
 
                   {/* Bottom Info */}
                   <div className="relative z-10">
