@@ -757,13 +757,16 @@ const HoloMosaic = ({
 
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(container);
-    const intersection = new IntersectionObserver(entries => {
-      visible = entries.some(entry => entry.isIntersecting);
-      if (visible) {
-        last = 0;
-        wake();
-      }
-    });
+    const intersection = new IntersectionObserver(
+      entries => {
+        visible = entries.some(entry => entry.isIntersecting);
+        if (visible) {
+          last = 0;
+          wake();
+        }
+      },
+      { rootMargin: '600px 0px 600px 0px' }
+    );
     intersection.observe(container);
     window.addEventListener('pointermove', onPointerMove, { passive: true });
     window.addEventListener('pointerdown', onPointerDown);
