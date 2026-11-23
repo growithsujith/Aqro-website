@@ -12,6 +12,8 @@ import { FAQ } from "@/components/FAQ";
 import { Reveal } from "@/components/motion";
 import { Button, Container, Eyebrow, H1, H2, Mark, TextLink } from "@/components/ui";
 import { stats } from "@/content/data";
+import { site } from "@/content/site";
+import { embedUrl } from "@/lib/media";
 
 const TAGS = [
   "Brand Creatives",
@@ -153,26 +155,68 @@ export default function Home() {
         <ClientLoop />
       </section>
 
-      {/* 3 — What we do (video showreel removed) */}
-      <section className="bg-paper py-20 md:py-28">
+      {/* 3 — Showreel Section (with embedded YouTube / Video player) */}
+      <section id="showreel" className="bg-paper py-20 md:py-28 border-b border-graphite/10">
         <Container>
           <Reveal>
-            <Eyebrow>What we do</Eyebrow>
-            <p className="mt-6 max-w-5xl font-display text-[clamp(1.9rem,3.8vw,3.4rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-balance">
-              AQRO is a creative and technology partner —{" "}
-              <span className="text-blue">one team from the first idea to the final launch.</span>
-            </p>
-            <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-graphite/75">
-              Brand creatives, AI-powered video, apps and websites run through one integrated
-              pipeline, so your idea keeps its shape from concept to finish.
-            </p>
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <Eyebrow>Showreel</Eyebrow>
+                <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-graphite sm:text-4xl lg:text-5xl">
+                  Work in motion. <span className="text-blue">Crafted to captivate.</span>
+                </h2>
+              </div>
+              <p className="max-w-xl text-base leading-relaxed text-graphite/75 sm:text-lg">
+                Brand creatives, AI-powered commercial films, apps and digital experiences engineered to move audiences and scale modern brands.
+              </p>
+            </div>
+
+            {/* Embedded Responsive YouTube / Video Player with liquid glass frame */}
+            <div className="relative mt-12 overflow-hidden rounded-[2.5rem] p-[3px] bg-gradient-to-br from-white/80 via-blue/20 to-sky/30 shadow-[0_30px_80px_-20px_rgba(0,26,64,0.18)]">
+              {/* Glass background shimmer */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 rounded-[2.5rem] bg-gradient-to-tr from-white/40 via-white/10 to-transparent backdrop-blur-xl"
+              />
+
+              <div className="relative aspect-video w-full overflow-hidden rounded-[2.3rem] bg-black shadow-inner">
+                {(() => {
+                  const videoSrc = site.showreel.src || "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+                  const embed = embedUrl(videoSrc);
+                  if (embed) {
+                    return (
+                      <iframe
+                        src={embed.replace("autoplay=1", "autoplay=0")}
+                        title="AQRO Showreel"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        className="size-full border-0"
+                      />
+                    );
+                  }
+                  return (
+                    <video
+                      src={videoSrc}
+                      poster={site.showreel.poster || undefined}
+                      controls
+                      playsInline
+                      className="size-full object-cover"
+                    />
+                  );
+                })()}
+              </div>
+            </div>
           </Reveal>
         </Container>
       </section>
 
-      {/* 4 — Metrics Snapshot (replacing old Our Work section with actual verified data) */}
-      <section className="bg-ivory py-20 md:py-28">
-        <Container>
+      {/* 4 — Metrics Snapshot (Liquid Glass Cards) */}
+      <section className="relative overflow-hidden bg-ivory py-20 md:py-28">
+        {/* Ambient liquid glow orbs in background */}
+        <div aria-hidden className="pointer-events-none absolute -left-20 top-1/4 size-[420px] rounded-full bg-blue/10 blur-[120px]" />
+        <div aria-hidden className="pointer-events-none absolute -right-20 bottom-1/4 size-[420px] rounded-full bg-sky/15 blur-[130px]" />
+
+        <Container className="relative">
           <SectionHead
             eyebrow="Impact & Performance"
             title="Measured by impact, proven by execution."
@@ -183,10 +227,22 @@ export default function Home() {
               <Reveal
                 key={s.title || s.label}
                 delay={i * 0.08}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-graphite/10 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue/30 hover:shadow-xl"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-[2rem] border border-white/60 bg-white/40 p-8 shadow-[0_20px_50px_-15px_rgba(0,30,80,0.08),inset_0_1px_2px_rgba(255,255,255,0.9),inset_0_-1px_2px_rgba(0,74,173,0.05)] backdrop-blur-2xl transition-all duration-500 hover:-translate-y-2 hover:border-blue/40 hover:bg-white/65 hover:shadow-[0_28px_60px_-12px_rgba(0,74,173,0.18),inset_0_1px_3px_rgba(255,255,255,1)]"
               >
-                <div>
-                  <span className="font-display text-4xl font-bold tracking-tight text-blue sm:text-5xl lg:text-6xl">
+                {/* Specular Liquid Glass Top Highlight */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/70 via-white/20 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100"
+                />
+
+                {/* Inner refractive sheen */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -right-12 -top-12 size-36 rounded-full bg-gradient-to-br from-blue/20 via-sky/15 to-transparent blur-2xl transition-transform duration-700 ease-out group-hover:scale-150"
+                />
+
+                <div className="relative z-10">
+                  <span className="font-display text-4xl font-extrabold tracking-tight bg-gradient-to-r from-blue via-[#1B68D8] to-navy bg-clip-text text-transparent drop-shadow-sm sm:text-5xl lg:text-6xl">
                     {s.value}
                   </span>
                   <h3 className="mt-4 font-display text-lg font-semibold text-graphite sm:text-xl">
@@ -194,10 +250,12 @@ export default function Home() {
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-graphite/70">{s.label}</p>
                 </div>
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -bottom-10 -right-10 size-28 rounded-full bg-blue/5 blur-xl transition-colors group-hover:bg-blue/15"
-                />
+
+                {/* Liquid bottom accent indicator */}
+                <div className="relative z-10 mt-6 flex items-center gap-1.5">
+                  <div className="h-1 w-6 rounded-full bg-blue/40 transition-all duration-300 group-hover:w-10 group-hover:bg-blue" />
+                  <div className="h-1 w-1.5 rounded-full bg-sky/40 transition-colors group-hover:bg-sky" />
+                </div>
               </Reveal>
             ))}
           </div>
