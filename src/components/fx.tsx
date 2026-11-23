@@ -608,12 +608,9 @@ export function ServiceTiltedCards() {
               >
                 <div
                   className="relative flex h-full w-full flex-col justify-between overflow-hidden rounded-[24px] p-6 text-white transition-all duration-300"
-                  style={{
-                    background: theme.bg,
-                    boxShadow: `inset 0 0 0 1px ${theme.border}`,
-                  }}
+                  style={{ background: "transparent" }}
                 >
-                  {/* Photo backdrop */}
+                  {/* Photo backdrop — full opacity, no tint */}
                   {SERVICE_BG[sv.slug] && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -621,23 +618,23 @@ export function ServiceTiltedCards() {
                       alt=""
                       aria-hidden
                       className="pointer-events-none absolute inset-0 h-full w-full rounded-[24px] object-cover object-center"
-                      style={{ opacity: 0.45 }}
+                      style={{ opacity: 1 }}
                     />
                   )}
                   {/* Dark gradient overlay so text stays legible */}
                   <div
                     aria-hidden
                     className="pointer-events-none absolute inset-0 rounded-[24px]"
-                    style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%)" }}
+                    style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%)" }}
                   />
                   {/* Top Bar */}
                   <div className="relative z-10 flex items-center justify-between">
-                    <span className="font-display text-sm font-bold tracking-widest text-white/70">
+                    <span className="font-display text-sm font-bold tracking-widest text-white/80">
                       {sv.no}
                     </span>
                     <span
-                      className="rounded-full px-2.5 py-0.5 text-xs font-semibold backdrop-blur-md"
-                      style={{ background: theme.tagBg, color: theme.tagText }}
+                      className="rounded-full px-2.5 py-0.5 text-xs font-semibold text-white backdrop-blur-md"
+                      style={{ background: "rgba(255,255,255,0.18)" }}
                     >
                       {sv.workLabel}
                     </span>
@@ -647,17 +644,17 @@ export function ServiceTiltedCards() {
                   {/* Bottom Info */}
                   <div className="relative z-10">
                     <div className="flex items-center justify-between gap-2">
-                      <h3 className="font-display text-xl font-bold tracking-tight text-white group-hover:text-white sm:text-2xl">
+                      <h3 className="font-display text-xl font-bold tracking-tight text-white sm:text-2xl">
                         {sv.name}
                       </h3>
                       <span
                         aria-hidden
-                        className="translate-x-0 font-display text-lg text-white/60 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-white"
+                        className="translate-x-0 font-display text-lg text-white transition-transform duration-300 group-hover:translate-x-1"
                       >
                         →
                       </span>
                     </div>
-                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-white/75 sm:text-[13px]">
+                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-white/85 sm:text-[13px]">
                       {sv.short}
                     </p>
                   </div>
