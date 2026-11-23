@@ -3,11 +3,11 @@ import {
   ClientLoop,
   HeroHeadline,
   ParallaxImage,
-  ScrollBounceCards,
   ServiceTiltedCards,
   SilkBackdrop,
   StarButton,
   ImpactHoloMosaicBackdrop,
+  WavesBackdrop,
 } from "@/components/fx";
 import { FAQ } from "@/components/FAQ";
 import { Reveal } from "@/components/motion";
@@ -25,18 +25,34 @@ const TAGS = [
   "Websites & Web Apps",
 ];
 
-const PIPELINE = [
+const ROADMAP_STEPS = [
   {
-    t: "Strategy",
-    items: ["Discovery & research", "Creative concepts", "Product & technical planning"],
+    step: "01",
+    phase: "Phase 1",
+    title: "Discovery",
+    summary: "Scope, strategy & tech architecture.",
+    tag: "Blueprint",
   },
   {
-    t: "Creation",
-    items: ["Brand & campaign design", "AI video production", "App & web development"],
+    step: "02",
+    phase: "Phase 2",
+    title: "Prototype",
+    summary: "Visual styleframes, UI/UX & interactive demos.",
+    tag: "Design",
   },
   {
-    t: "Delivery",
-    items: ["Testing & refinement", "Finishing & versioning", "Launch & support"],
+    step: "03",
+    phase: "Phase 3",
+    title: "Build",
+    summary: "AI pipelines, full-stack code & iterations.",
+    tag: "Engineering",
+  },
+  {
+    step: "04",
+    phase: "Phase 4",
+    title: "Launch",
+    summary: "QA validation, global deploy & scale.",
+    tag: "Go-Live",
   },
 ];
 
@@ -289,13 +305,22 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 6 — Pipeline / How We Work (Sequential scroll-revealed Bounce Cards) */}
-      <section className="grain relative overflow-hidden bg-navy py-20 text-white md:py-28">
+      {/* 6 — Roadmap / How We Work (Roadmap style with Waves backdrop) */}
+      <section className="relative overflow-hidden bg-navy py-24 text-white md:py-32">
+        {/* React Bits Waves animated interactive backdrop */}
+        <WavesBackdrop className="opacity-75" />
+
+        {/* Ambient atmospheric depth glows */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-40 -top-40 size-[640px] rounded-full bg-blue/50 blur-[120px]"
+          className="pointer-events-none absolute -right-36 -top-36 size-[550px] rounded-full bg-blue/35 blur-[130px]"
         />
-        <Container className="relative">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-36 -bottom-36 size-[550px] rounded-full bg-sky/20 blur-[130px]"
+        />
+
+        <Container className="relative z-10">
           <SectionHead
             light
             eyebrow="How we work"
@@ -306,40 +331,70 @@ export default function Home() {
             }
             aside={
               <p className="max-w-sm text-[15px] leading-relaxed text-white/70">
-                A single agile pipeline bridging creative direction, AI generation, and production
-                engineering.
+                A streamlined roadmap bridging creative vision, generative AI, and production engineering.
               </p>
             }
           />
 
-          {/* Sequential scroll-revealed Bounce Cards */}
-          <div className="my-10 flex justify-center overflow-visible py-4">
-            <ScrollBounceCards />
-          </div>
+          {/* Connected Roadmap Flow */}
+          <div className="relative mt-16 md:mt-20">
+            {/* Horizontal Timeline Connector (Desktop) */}
+            <div
+              aria-hidden
+              className="absolute left-10 right-10 top-5 hidden h-[2px] bg-gradient-to-r from-sky/20 via-sky/60 to-sky/20 lg:block"
+            />
 
-          <ol className="grid gap-5 md:grid-cols-3">
-            {PIPELINE.map((p, i) => (
-              <Reveal
-                as="li"
-                key={p.t}
-                delay={i * 0.1}
-                className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition-colors duration-500 hover:border-white/25 hover:bg-white/[0.07]"
-              >
-                <span className="font-display text-sm font-semibold text-red">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight">{p.t}</h3>
-                <ul className="mt-5 space-y-2.5 text-[15px] text-white/75">
-                  {p.items.map((it) => (
-                    <li key={it} className="flex items-center gap-3">
-                      <span className="size-1.5 rounded-full bg-white/40" aria-hidden />
-                      {it}
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            ))}
-          </ol>
+            <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {ROADMAP_STEPS.map((step, i) => (
+                <Reveal
+                  as="li"
+                  key={step.step}
+                  delay={i * 0.1}
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/15 bg-white/[0.05] p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-sky/50 hover:bg-white/[0.1] hover:shadow-[0_20px_50px_-10px_rgba(0,74,173,0.4)]"
+                >
+                  {/* Subtle top specular sheen */}
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white/20 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-100"
+                  />
+
+                  <div>
+                    {/* Milestone header: Step badge & Phase tag */}
+                    <div className="relative z-10 flex items-center justify-between">
+                      <div className="relative flex size-10 items-center justify-center rounded-full border border-sky/40 bg-navy/90 text-sm font-mono font-bold text-sky shadow-[0_0_15px_rgba(91,155,255,0.35)] backdrop-blur-md transition-transform duration-300 group-hover:scale-110">
+                        {step.step}
+                        <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-sky" />
+                      </div>
+                      <span className="rounded-full border border-white/15 bg-white/10 px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-wider text-white/80 backdrop-blur-md">
+                        {step.tag}
+                      </span>
+                    </div>
+
+                    {/* Step title & 1-line concise summary */}
+                    <h3 className="relative z-10 mt-5 font-display text-2xl font-semibold tracking-tight text-white transition-colors duration-300 group-hover:text-sky">
+                      {step.title}
+                    </h3>
+                    <p className="relative z-10 mt-2 text-sm leading-relaxed text-white/75">
+                      {step.summary}
+                    </p>
+                  </div>
+
+                  {/* Progress track bar indicator */}
+                  <div className="relative z-10 mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+                    <span className="text-[11px] font-mono uppercase tracking-widest text-white/50">
+                      {step.phase}
+                    </span>
+                    <div className="h-1.5 w-16 overflow-hidden rounded-full bg-white/10">
+                      <div
+                        className="h-full rounded-full bg-gradient-to-r from-blue to-sky transition-all duration-500 group-hover:w-full"
+                        style={{ width: `${(i + 1) * 25}%` }}
+                      />
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </ol>
+          </div>
         </Container>
       </section>
 

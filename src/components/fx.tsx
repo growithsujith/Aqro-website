@@ -27,6 +27,7 @@ import Beams from "./reactbits/Beams";
 import GradientASCII from "./reactbits/GradientASCII";
 import HoloMosaic from "./reactbits/HoloMosaic";
 import MicroSlats from "./reactbits/MicroSlats";
+import Waves from "./reactbits/Waves";
 import { Glyph } from "./Glyph";
 import { services } from "@/content/site";
 
@@ -1009,6 +1010,29 @@ export function AboutBeamsBackdrop({ className = "" }: { className?: string }) {
         glow={0.7}
         opacity={0.85}
         mouseInteraction
+      />
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------ WavesBackdrop */
+
+/** Animated flowing Waves backdrop for dark sections with Aqro brand colors. */
+export function WavesBackdrop({ className = "" }: { className?: string }) {
+  return (
+    <div aria-hidden className={`pointer-events-none absolute inset-0 ${className}`}>
+      <Waves
+        lineColor="#004AAD"
+        accentColor="#5B9BFF"
+        backgroundColor="transparent"
+        spacing={13}
+        amplitude={30}
+        twist={0.8}
+        speed={0.75}
+        mouseRadius={180}
+        mouseStrength={1.1}
+        bounce={0.25}
+        intro={false}
       />
     </div>
   );
