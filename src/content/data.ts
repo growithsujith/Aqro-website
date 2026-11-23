@@ -19,6 +19,7 @@ export const clients: Client[] = [
   { name: "Good Day",        logo: "/clients/good-day.jpg",        scale: 0.85 },
   { name: "Adani",           logo: "/clients/adani.png",           scale: 0.88 },
   { name: "Junior Kuppanna", logo: "/clients/junior-kuppanna.png", scale: 0.80 },
+  { name: "Invoteo",         logo: "/clients/invoteo.png",         scale: 0.84 },
 ];
 
 /* ------------------------------------------------------------------- Team */
