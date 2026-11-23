@@ -7,6 +7,7 @@ import {
   ServiceTiltedCards,
   SilkBackdrop,
   StarButton,
+  MicroSlatsBackdrop,
 } from "@/components/fx";
 import { FAQ } from "@/components/FAQ";
 import { Reveal } from "@/components/motion";
@@ -210,11 +211,20 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 4 — Metrics Snapshot (Liquid Glass Cards) */}
+      {/* 4 — Metrics Snapshot (Liquid Glass Cards with MicroSlats Backdrop) */}
       <section className="relative overflow-hidden bg-ivory py-20 md:py-28">
+        {/* MicroSlats interactive wavy slat backdrop in AQRO brand colors */}
+        <MicroSlatsBackdrop className="opacity-85" />
+
         {/* Ambient liquid glow orbs in background */}
-        <div aria-hidden className="pointer-events-none absolute -left-20 top-1/4 size-[420px] rounded-full bg-blue/10 blur-[120px]" />
-        <div aria-hidden className="pointer-events-none absolute -right-20 bottom-1/4 size-[420px] rounded-full bg-sky/15 blur-[130px]" />
+        <div aria-hidden className="pointer-events-none absolute -left-20 top-1/4 size-[420px] rounded-full bg-blue/15 blur-[120px]" />
+        <div aria-hidden className="pointer-events-none absolute -right-20 bottom-1/4 size-[420px] rounded-full bg-sky/20 blur-[130px]" />
+
+        {/* Soft vignette overlay so cards and headings remain crisp */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ivory/60 via-transparent to-ivory/70"
+        />
 
         <Container className="relative">
           <SectionHead

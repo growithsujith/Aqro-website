@@ -26,6 +26,7 @@ import BounceCards from "./reactbits/BounceCards";
 import Beams from "./reactbits/Beams";
 import GradientASCII from "./reactbits/GradientASCII";
 import HoloMosaic from "./reactbits/HoloMosaic";
+import MicroSlats from "./reactbits/MicroSlats";
 import { Glyph } from "./Glyph";
 import { services } from "@/content/site";
 
@@ -923,6 +924,38 @@ export function AppMockup() {
           />
         ))}
       </div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------- MicroSlatsBackdrop */
+
+/** Impact & Performance backdrop with interactive MicroSlats in Aqro brand colors */
+export function MicroSlatsBackdrop({ className = "" }: { className?: string }) {
+  return (
+    <div aria-hidden className={`pointer-events-none absolute inset-0 ${className}`}>
+      <MicroSlats
+        preset="swell"
+        color="#004AAD"
+        glintColor="#5B9BFF"
+        backgroundColor="#f6f3eb"
+        slatWidth={8}
+        slatHeight={22}
+        gap={3}
+        roundness={0.8}
+        scale={1.4}
+        speed={0.45}
+        interactive={true}
+        cursorStrength={1.2}
+        cursorSize={45}
+        swirl={0.2}
+        trail={1.6}
+        lean={0.25}
+        intro={true}
+        contrast={1.3}
+        glint={0.8}
+        fog={0.4}
+      />
     </div>
   );
 }
