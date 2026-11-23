@@ -530,6 +530,13 @@ export function CreativeCarousel() {
 
 /* --------------------------------------------------------- ServiceTiltedCards */
 
+const SERVICE_BG: Record<string, string> = {
+  "creatives":          "/services/creatives-bg.jpg",
+  "ai-video-production":"/services/ai-video-bg.jpg",
+  "app-development":    "/services/app-bg.jpg",
+  "web-development":    "/services/web-bg.jpg",
+};
+
 const SERVICE_THEMES: Record<
   string,
   {
@@ -606,10 +613,27 @@ export function ServiceTiltedCards() {
                     boxShadow: `inset 0 0 0 1px ${theme.border}`,
                   }}
                 >
+                  {/* Photo backdrop */}
+                  {SERVICE_BG[sv.slug] && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={SERVICE_BG[sv.slug]}
+                      alt=""
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 h-full w-full rounded-[24px] object-cover object-center"
+                      style={{ opacity: 0.45 }}
+                    />
+                  )}
+                  {/* Dark gradient overlay so text stays legible */}
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 rounded-[24px]"
+                    style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%)" }}
+                  />
                   {/* React Bits Silk effect background */}
                   <div
                     aria-hidden
-                    className="pointer-events-none absolute inset-0 overflow-hidden rounded-[24px] opacity-35 mix-blend-screen"
+                    className="pointer-events-none absolute inset-0 overflow-hidden rounded-[24px] opacity-25 mix-blend-screen"
                   >
                     <Silk
                       color={
