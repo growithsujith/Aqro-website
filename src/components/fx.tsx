@@ -928,6 +928,36 @@ export function AppMockup() {
   );
 }
 
+/* ---------------------------------------------------- ImpactHoloMosaicBackdrop */
+
+/** Impact & Performance backdrop with interactive HoloMosaic in Aqro brand colors */
+export function ImpactHoloMosaicBackdrop({ className = "" }: { className?: string }) {
+  return (
+    <div aria-hidden className={`pointer-events-none absolute inset-0 ${className}`}>
+      <HoloMosaic
+        color="#001A40"
+        metalColor="#5B9BFF"
+        spectrum="cool"
+        tileSize={1.1}
+        gap={0.06}
+        scatter={0.25}
+        tilt={0.3}
+        saturation={0.75}
+        intensity={1.3}
+        ripple={0.65}
+        glitter={0.8}
+        sheen={0.85}
+        grain={0.06}
+        speed={0.4}
+        intro={true}
+        mouseInteraction={true}
+        flipOnClick={false}
+        opacity={0.85}
+      />
+    </div>
+  );
+}
+
 /* ---------------------------------------------------- MicroSlatsBackdrop */
 
 /** Impact & Performance backdrop with interactive MicroSlats in Aqro brand colors */

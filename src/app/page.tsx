@@ -7,7 +7,7 @@ import {
   ServiceTiltedCards,
   SilkBackdrop,
   StarButton,
-  MicroSlatsBackdrop,
+  ImpactHoloMosaicBackdrop,
 } from "@/components/fx";
 import { FAQ } from "@/components/FAQ";
 import { Reveal } from "@/components/motion";
@@ -211,60 +211,61 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 4 — Metrics Snapshot (Liquid Glass Cards with MicroSlats Backdrop) */}
-      <section className="relative overflow-hidden bg-ivory py-20 md:py-28">
-        {/* MicroSlats interactive wavy slat backdrop in AQRO brand colors */}
-        <MicroSlatsBackdrop className="opacity-85" />
+      {/* 4 — Metrics Snapshot (Liquid Glass Cards with HoloMosaic Backdrop) */}
+      <section className="relative overflow-hidden bg-navy py-20 md:py-28 text-white">
+        {/* HoloMosaic interactive tile backdrop in AQRO brand colors */}
+        <ImpactHoloMosaicBackdrop className="opacity-90" />
 
         {/* Ambient liquid glow orbs in background */}
-        <div aria-hidden className="pointer-events-none absolute -left-20 top-1/4 size-[420px] rounded-full bg-blue/15 blur-[120px]" />
-        <div aria-hidden className="pointer-events-none absolute -right-20 bottom-1/4 size-[420px] rounded-full bg-sky/20 blur-[130px]" />
+        <div aria-hidden className="pointer-events-none absolute -left-20 top-1/4 size-[420px] rounded-full bg-blue/20 blur-[120px]" />
+        <div aria-hidden className="pointer-events-none absolute -right-20 bottom-1/4 size-[420px] rounded-full bg-sky/25 blur-[130px]" />
 
         {/* Soft vignette overlay so cards and headings remain crisp */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ivory/60 via-transparent to-ivory/70"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy/70 via-transparent to-navy/80"
         />
 
         <Container className="relative">
           <SectionHead
+            light
             eyebrow="Impact & Performance"
             title="Measured by impact, proven by execution."
-            aside={<TextLink href="/recents">Explore our recents</TextLink>}
+            aside={<TextLink href="/recents" light>Explore our recents</TextLink>}
           />
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map((s, i) => (
               <Reveal
                 key={s.title || s.label}
                 delay={i * 0.08}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-[2rem] border border-white/60 bg-white/40 p-8 shadow-[0_20px_50px_-15px_rgba(0,30,80,0.08),inset_0_1px_2px_rgba(255,255,255,0.9),inset_0_-1px_2px_rgba(0,74,173,0.05)] backdrop-blur-2xl transition-all duration-500 hover:-translate-y-2 hover:border-blue/40 hover:bg-white/65 hover:shadow-[0_28px_60px_-12px_rgba(0,74,173,0.18),inset_0_1px_3px_rgba(255,255,255,1)]"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 p-8 shadow-[0_20px_50px_-15px_rgba(0,10,40,0.4),inset_0_1px_2px_rgba(255,255,255,0.4)] backdrop-blur-2xl transition-all duration-500 hover:-translate-y-2 hover:border-sky/50 hover:bg-white/20 hover:shadow-[0_28px_60px_-12px_rgba(0,74,173,0.35),inset_0_1px_3px_rgba(255,255,255,0.8)]"
               >
                 {/* Specular Liquid Glass Top Highlight */}
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/70 via-white/20 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100"
+                  className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/30 via-white/10 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100"
                 />
 
                 {/* Inner refractive sheen */}
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute -right-12 -top-12 size-36 rounded-full bg-gradient-to-br from-blue/20 via-sky/15 to-transparent blur-2xl transition-transform duration-700 ease-out group-hover:scale-150"
+                  className="pointer-events-none absolute -right-12 -top-12 size-36 rounded-full bg-gradient-to-br from-blue/30 via-sky/20 to-transparent blur-2xl transition-transform duration-700 ease-out group-hover:scale-150"
                 />
 
                 <div className="relative z-10">
-                  <span className="font-display text-4xl font-extrabold tracking-tight bg-gradient-to-r from-blue via-[#1B68D8] to-navy bg-clip-text text-transparent drop-shadow-sm sm:text-5xl lg:text-6xl">
+                  <span className="font-display text-4xl font-extrabold tracking-tight bg-gradient-to-r from-sky via-white to-sky/90 bg-clip-text text-transparent drop-shadow-sm sm:text-5xl lg:text-6xl">
                     {s.value}
                   </span>
-                  <h3 className="mt-4 font-display text-lg font-semibold text-graphite sm:text-xl">
+                  <h3 className="mt-4 font-display text-lg font-semibold text-white sm:text-xl">
                     {s.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-graphite/70">{s.label}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-white/75">{s.label}</p>
                 </div>
 
                 {/* Liquid bottom accent indicator */}
                 <div className="relative z-10 mt-6 flex items-center gap-1.5">
-                  <div className="h-1 w-6 rounded-full bg-blue/40 transition-all duration-300 group-hover:w-10 group-hover:bg-blue" />
-                  <div className="h-1 w-1.5 rounded-full bg-sky/40 transition-colors group-hover:bg-sky" />
+                  <div className="h-1 w-6 rounded-full bg-sky/60 transition-all duration-300 group-hover:w-10 group-hover:bg-sky" />
+                  <div className="h-1 w-1.5 rounded-full bg-blue/60 transition-colors group-hover:bg-blue" />
                 </div>
               </Reveal>
             ))}
