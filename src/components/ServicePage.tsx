@@ -5,7 +5,7 @@ import { Glyph } from "./Glyph";
 import { Reveal } from "./motion";
 import { Portfolio } from "./Portfolio";
 import { Button, Container, Eyebrow, H1, H2, Mark, TextLink } from "./ui";
-import { AppMockup, CreativeCarousel, CreativeWall, GradientASCIIBackdrop, PremiereTicket, PrismBackdrop, SilkBackdrop, StarButton, WebFlexBackdrop } from "./fx";
+import { AppHoloMosaicBackdrop, AppMockup, CreativeCarousel, CreativeWall, PremiereTicket, SilkBackdrop, StarButton, WebFlexBackdrop } from "./fx";
 import { TiltedGridHero } from "@/components/ui/tilted-grid-hero";
 
 const AI_VIDEO_IMAGES = [
@@ -65,10 +65,10 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
   const t = THEME[s.hero.theme];
   const wall = slug === "creatives";
   const flex = slug === "web-development";
-  const prism = slug === "app-development";
+  const appDev = slug === "app-development";
   const ticket = slug === "ai-video-production";
   /** Heroes with an interactive full-bleed backdrop: let the pointer reach it through the copy. */
-  const backdrop = wall || flex || prism;
+  const backdrop = wall || flex || appDev;
   return (
     <>
       {/* Hero */}
@@ -97,20 +97,15 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
             <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent" />
           </>
         )}
-        {prism && (
+        {appDev && (
           <>
-            {/* GradientASCII over the silk effect behind it */}
-            <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60">
-              <GradientASCIIBackdrop />
-            </div>
-            <div aria-hidden className="absolute inset-0">
-              <PrismBackdrop />
-            </div>
+            {/* Interactive HoloMosaic with Aqro brand colors */}
+            <AppHoloMosaicBackdrop />
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#004aad_0%,rgba(0,74,173,0.75)_50%,rgba(0,74,173,0.35)_100%)] lg:bg-[linear-gradient(90deg,#004aad_0%,rgba(0,74,173,0.65)_32%,transparent_55%)]"
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#001A40_0%,rgba(0,26,64,0.85)_45%,rgba(0,74,173,0.35)_100%)] lg:bg-[linear-gradient(90deg,#001A40_0%,rgba(0,26,64,0.8)_36%,transparent_60%)]"
             />
-            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-blue to-transparent" />
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-navy to-transparent" />
           </>
         )}
         {ticket && (
@@ -179,6 +174,34 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
         </section>
       )}
 
+      {/* App UI Showcase (iPhone Mockup) — for App Development directly under Hero */}
+      {appDev && (
+        <section className="bg-paper py-20 md:py-28 border-b border-graphite/10">
+          <Container>
+            <div className="grid items-center gap-12 lg:grid-cols-12">
+              <div className="lg:col-span-5">
+                <AppMockup />
+              </div>
+              <div className="lg:col-span-7">
+                <Eyebrow>Crafted for iOS &amp; Android</Eyebrow>
+                <h2 className={`mt-5 ${H2}`}>
+                  High-performance applications with <span className="text-blue">intuitive UI &amp; UX.</span>
+                </h2>
+                <p className="mt-6 max-w-xl text-lg leading-relaxed text-graphite/75">
+                  Swipe through or click the previews to explore real interface layouts built by AQRO — engineered with fluid animations, micro-interactions, and bulletproof native performance.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <StarButton href="/contact">Start your app build</StarButton>
+                  <Button href="#portfolio" variant="outline">
+                    Explore app features
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </section>
+      )}
+
       {/* What we offer */}
       <section className="bg-paper py-20 md:py-28">
         <Container>
@@ -220,34 +243,6 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
               aside={<TextLink href="/recents">All recents</TextLink>}
             />
             <Portfolio service={slug} />
-          </Container>
-        </section>
-      )}
-
-      {/* App UI Showcase (iPhone Mockup) — for App Development */}
-      {prism && (
-        <section className="bg-paper py-20 md:py-28">
-          <Container>
-            <div className="grid items-center gap-12 lg:grid-cols-12">
-              <div className="lg:col-span-5">
-                <AppMockup />
-              </div>
-              <div className="lg:col-span-7">
-                <Eyebrow>Crafted for iOS &amp; Android</Eyebrow>
-                <h2 className={`mt-5 ${H2}`}>
-                  High-performance applications with <span className="text-blue">intuitive UI &amp; UX.</span>
-                </h2>
-                <p className="mt-6 max-w-xl text-lg leading-relaxed text-graphite/75">
-                  Swipe through or click the previews to explore real interface layouts built by AQRO — engineered with fluid animations, micro-interactions, and bulletproof native performance.
-                </p>
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <StarButton href="/contact">Start your app build</StarButton>
-                  <Button href="#portfolio" variant="outline">
-                    Explore app features
-                  </Button>
-                </div>
-              </div>
-            </div>
           </Container>
         </section>
       )}

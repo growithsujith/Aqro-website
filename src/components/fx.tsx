@@ -25,6 +25,7 @@ import TiltedCard from "./reactbits/TiltedCard";
 import BounceCards from "./reactbits/BounceCards";
 import Beams from "./reactbits/Beams";
 import GradientASCII from "./reactbits/GradientASCII";
+import HoloMosaic from "./reactbits/HoloMosaic";
 import { Glyph } from "./Glyph";
 import { services } from "@/content/site";
 
@@ -757,6 +758,36 @@ export function GradientASCIIBackdrop({ className = "" }: { className?: string }
   );
 }
 
+/* ---------------------------------------------------- AppHoloMosaicBackdrop */
+
+/** App development hero backdrop: interactive HoloMosaic with AQRO brand colors */
+export function AppHoloMosaicBackdrop({ className = "" }: { className?: string }) {
+  return (
+    <div aria-hidden className={`pointer-events-none absolute inset-0 ${className}`}>
+      <HoloMosaic
+        color="#001a40"
+        metalColor="#5b9bff"
+        spectrum="cool"
+        tileSize={0.9}
+        gap={0.06}
+        scatter={0.25}
+        tilt={0.3}
+        saturation={0.7}
+        intensity={1.35}
+        ripple={0.65}
+        glitter={0.8}
+        sheen={0.85}
+        grain={0.06}
+        speed={0.4}
+        intro={true}
+        mouseInteraction={true}
+        flipOnClick={false}
+        opacity={0.85}
+      />
+    </div>
+  );
+}
+
 /* ------------------------------------------------------------ AppMockup */
 
 const DEFAULT_APP_SCREENS = [
@@ -794,58 +825,87 @@ export function AppMockup() {
       {/* Ambient background glow */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -inset-4 rounded-[3.5rem] bg-gradient-to-b from-blue/30 to-sky/20 blur-2xl"
+        className="pointer-events-none absolute -inset-6 rounded-[3.5rem] bg-gradient-to-b from-blue/40 via-sky/25 to-transparent blur-3xl opacity-70"
       />
 
-      {/* iPhone Body */}
-      <div className="relative overflow-hidden rounded-[3rem] border-[9px] border-[#1C1F26] bg-[#0E1116] p-1 shadow-[0_30px_70px_-15px_rgba(0,10,40,0.6)] ring-1 ring-white/10">
-        {/* Dynamic Island / Speaker notch */}
-        <div className="absolute left-1/2 top-4 z-30 h-6 w-28 -translate-x-1/2 rounded-full bg-black">
-          <div className="absolute right-4 top-2 size-2 rounded-full bg-black/60 ring-1 ring-white/10" />
-        </div>
+      {/* Realistic Titanium / Space Black Frame */}
+      <div className="relative rounded-[54px] p-[3px] bg-gradient-to-b from-[#71767B] via-[#2D3136] to-[#121417] shadow-[0_25px_60px_-15px_rgba(0,10,35,0.7),0_12px_24px_-8px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.4),inset_0_-1px_2px_rgba(0,0,0,0.8)]">
+        {/* Antenna band breaks & inner bezel */}
+        <div className="relative rounded-[51px] p-[10px] bg-[#16181D] shadow-[inset_0_0_4px_rgba(0,0,0,0.9)]">
+          
+          {/* Action button (Left top) */}
+          <div className="absolute -left-[5px] top-[108px] h-8 w-[3px] rounded-l-sm bg-[#3A3F45]" />
+          {/* Volume Up */}
+          <div className="absolute -left-[5px] top-[152px] h-12 w-[3px] rounded-l-sm bg-[#3A3F45]" />
+          {/* Volume Down */}
+          <div className="absolute -left-[5px] top-[214px] h-12 w-[3px] rounded-l-sm bg-[#3A3F45]" />
+          {/* Power button (Right) */}
+          <div className="absolute -right-[5px] top-[168px] h-16 w-[3px] rounded-r-sm bg-[#3A3F45]" />
 
-        {/* Screen Display */}
-        <div
-          className="relative aspect-[9/19] w-full overflow-hidden rounded-[2.3rem] bg-black"
-          style={{ minHeight: "560px" }}
-        >
-          {screens.map((src, i) => (
-            <div
-              key={src + i}
-              className="absolute inset-0 transition-opacity duration-700 ease-in-out"
-              style={{
-                opacity: i === current ? 1 : 0,
-                pointerEvents: i === current ? "auto" : "none",
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={src}
-                alt={`AQRO App UI Screen ${i + 1}`}
-                className="h-full w-full object-cover"
-                draggable={false}
-              />
+          {/* Dynamic Island Pill with Camera & Sensor */}
+          <div className="absolute left-1/2 top-[18px] z-30 flex h-[28px] w-[100px] -translate-x-1/2 items-center justify-between rounded-full bg-black px-2.5 shadow-[0_2px_8px_rgba(0,0,0,0.8)] ring-1 ring-white/10">
+            {/* Front Camera Lens with subtle reflection */}
+            <div className="size-3 rounded-full bg-[#0a0a0f] p-[2px] ring-1 ring-blue/20">
+              <div className="size-full rounded-full bg-[#040814] relative">
+                <div className="absolute top-[1px] right-[1px] size-1 rounded-full bg-blue/40 blur-[0.5px]" />
+              </div>
             </div>
-          ))}
+            {/* TrueDepth / FaceID Sensor */}
+            <div className="size-2.5 rounded-full bg-[#06080c] ring-1 ring-white/5" />
+          </div>
 
-          {/* Swipe / Click overlay buttons */}
-          <button
-            type="button"
-            onClick={() =>
-              setCurrent((prev) => (prev - 1 + screens.length) % screens.length)
-            }
-            className="absolute inset-y-0 left-0 z-20 w-1/4 cursor-w-resize bg-transparent"
-            aria-label="Previous screen"
-          />
-          <button
-            type="button"
-            onClick={() => setCurrent((prev) => (prev + 1) % screens.length)}
-            className="absolute inset-y-0 right-0 z-20 w-1/4 cursor-e-resize bg-transparent"
-            aria-label="Next screen"
-          />
+          {/* OLED Glass Screen */}
+          <div
+            className="relative aspect-[9/19.5] w-full overflow-hidden rounded-[42px] bg-black shadow-inner"
+            style={{ minHeight: "560px" }}
+          >
+            {/* Speaker Ear-piece slit */}
+            <div className="absolute top-1.5 left-1/2 -translate-x-1/2 z-30 h-[3px] w-12 rounded-full bg-[#222]" />
 
-          {/* Home indicator bar */}
-          <div className="pointer-events-none absolute bottom-2 left-1/2 z-20 h-1 w-32 -translate-x-1/2 rounded-full bg-white/40" />
+            {/* Screen Glass Reflection Sheen */}
+            <div 
+              aria-hidden
+              className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-tr from-transparent via-white/[0.04] to-white/[0.12] rounded-[42px]"
+            />
+
+            {screens.map((src, i) => (
+              <div
+                key={src + i}
+                className="absolute inset-0 transition-opacity duration-700 ease-in-out"
+                style={{
+                  opacity: i === current ? 1 : 0,
+                  pointerEvents: i === current ? "auto" : "none",
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={src}
+                  alt={`AQRO App UI Screen ${i + 1}`}
+                  className="h-full w-full object-cover select-none"
+                  draggable={false}
+                />
+              </div>
+            ))}
+
+            {/* Swipe / Click overlay buttons */}
+            <button
+              type="button"
+              onClick={() =>
+                setCurrent((prev) => (prev - 1 + screens.length) % screens.length)
+              }
+              className="absolute inset-y-0 left-0 z-25 w-1/4 cursor-w-resize bg-transparent"
+              aria-label="Previous screen"
+            />
+            <button
+              type="button"
+              onClick={() => setCurrent((prev) => (prev + 1) % screens.length)}
+              className="absolute inset-y-0 right-0 z-25 w-1/4 cursor-e-resize bg-transparent"
+              aria-label="Next screen"
+            />
+
+            {/* iOS Home Indicator Bar */}
+            <div className="pointer-events-none absolute bottom-2 left-1/2 z-30 h-1 w-32 -translate-x-1/2 rounded-full bg-white/60 shadow-[0_1px_3px_rgba(0,0,0,0.5)]" />
+          </div>
         </div>
       </div>
 
