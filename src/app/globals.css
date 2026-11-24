@@ -12,6 +12,13 @@
   --color-navy-soft: #0a2a5c;
   --color-sky: #5b9bff;
 
+  /* shadcn color tokens mapped to Aqro theme */
+  --color-background: #001a40;
+  --color-foreground: #ffffff;
+  --color-border: rgba(255, 255, 255, 0.15);
+  --color-muted-foreground: rgba(255, 255, 255, 0.65);
+  --color-accent: #5b9bff;
+
   --font-display: "Sora Variable", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
 }
