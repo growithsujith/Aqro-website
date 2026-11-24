@@ -7,12 +7,10 @@ import {
   SilkBackdrop,
   StarButton,
   ImpactHoloMosaicBackdrop,
-  WavesBackdrop,
 } from "@/components/fx";
 import { FAQ } from "@/components/FAQ";
 import { Reveal } from "@/components/motion";
 import { Button, Container, Eyebrow, H1, H2, Mark, TextLink } from "@/components/ui";
-import { Testimonial } from "@/components/ui/design-testimonial";
 import { stats } from "@/content/data";
 import { site } from "@/content/site";
 import { embedUrl } from "@/lib/media";
@@ -24,33 +22,6 @@ const TAGS = [
   "AI Films",
   "Mobile Apps",
   "Websites & Web Apps",
-];
-
-const HOW_WE_WORK_STEPS = [
-  {
-    company: "Phase 01 · Blueprint",
-    quote: "Discovery & strategy to align your creative vision with technical scope.",
-    author: "01 · Discovery",
-    role: "Scope, Creative Strategy & Architecture",
-  },
-  {
-    company: "Phase 02 · Design",
-    quote: "Rapid prototyping, visual styleframes, and interactive product UX.",
-    author: "02 · Prototype",
-    role: "Wireframes, Design Systems & Styleframes",
-  },
-  {
-    company: "Phase 03 · Engineering",
-    quote: "Production-ready code, generative AI pipelines, and agile execution.",
-    author: "03 · Build",
-    role: "Generative AI & Full-Stack Development",
-  },
-  {
-    company: "Phase 04 · Go-Live",
-    quote: "Rigorous QA testing, global deployment, and performance scaling.",
-    author: "04 · Launch",
-    role: "Testing, Deployment & Growth Scaling",
-  },
 ];
 
 const PILLARS = [
@@ -286,7 +257,7 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 5 — Services (Each service card enhanced with React Bits Silk effect) */}
+      {/* 5 — Services */}
       <section className="bg-paper pb-20 md:pb-28">
         <Container>
           <SectionHead
@@ -302,31 +273,7 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 6 — How We Work (Interactive workflow pipeline with magnetic parallax & word reveal) */}
-      <section className="relative overflow-hidden bg-navy text-white">
-        {/* Subtle flowing waves in Aqro brand blue behind the interactive workflow */}
-        <WavesBackdrop className="opacity-35" />
-
-        {/* Ambient atmospheric depth glows */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -right-36 -top-36 size-[550px] rounded-full bg-blue/30 blur-[140px]"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -left-36 -bottom-36 size-[550px] rounded-full bg-sky/15 blur-[140px]"
-        />
-
-        <div className="relative z-10">
-          <Testimonial
-            label="How we work"
-            items={HOW_WE_WORK_STEPS}
-            className="!bg-transparent"
-          />
-        </div>
-      </section>
-
-      {/* 7 — Partner */}
+      {/* 6 — Partner */}
       <section className="bg-ivory py-20 md:py-28">
         <Container className="grid gap-12 lg:grid-cols-12">
           <Reveal className="lg:col-span-5">
@@ -351,7 +298,7 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 8 — FAQ */}
+      {/* 7 — FAQ */}
       <section className="bg-paper py-20 md:py-28">
         <Container className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
