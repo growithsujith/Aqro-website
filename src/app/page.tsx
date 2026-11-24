@@ -26,6 +26,33 @@ const TAGS = [
   "Websites & Web Apps",
 ];
 
+const HOW_WE_WORK_STEPS = [
+  {
+    company: "Phase 01 · Blueprint",
+    quote: "Discovery & strategy to align your creative vision with technical scope.",
+    author: "01 · Discovery",
+    role: "Scope, Creative Strategy & Architecture",
+  },
+  {
+    company: "Phase 02 · Design",
+    quote: "Rapid prototyping, visual styleframes, and interactive product UX.",
+    author: "02 · Prototype",
+    role: "Wireframes, Design Systems & Styleframes",
+  },
+  {
+    company: "Phase 03 · Engineering",
+    quote: "Production-ready code, generative AI pipelines, and agile execution.",
+    author: "03 · Build",
+    role: "Generative AI & Full-Stack Development",
+  },
+  {
+    company: "Phase 04 · Go-Live",
+    quote: "Rigorous QA testing, global deployment, and performance scaling.",
+    author: "04 · Launch",
+    role: "Testing, Deployment & Growth Scaling",
+  },
+];
+
 const PILLARS = [
   {
     t: "Creative-first, tech-enabled",
@@ -275,9 +302,9 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 6 — Testimonials (Interactive design testimonial with magnetic parallax & word reveal) */}
+      {/* 6 — How We Work (Interactive workflow pipeline with magnetic parallax & word reveal) */}
       <section className="relative overflow-hidden bg-navy text-white">
-        {/* Subtle flowing waves in Aqro brand blue behind the magnetic testimonial */}
+        {/* Subtle flowing waves in Aqro brand blue behind the interactive workflow */}
         <WavesBackdrop className="opacity-35" />
 
         {/* Ambient atmospheric depth glows */}
@@ -291,7 +318,11 @@ export default function Home() {
         />
 
         <div className="relative z-10">
-          <Testimonial className="!bg-transparent" />
+          <Testimonial
+            label="How we work"
+            items={HOW_WE_WORK_STEPS}
+            className="!bg-transparent"
+          />
         </div>
       </section>
 

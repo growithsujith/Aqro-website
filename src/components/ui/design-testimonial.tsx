@@ -13,31 +13,39 @@ export interface TestimonialItem {
 
 export const defaultTestimonials: TestimonialItem[] = [
   {
-    quote: "Transformed our entire creative process overnight.",
-    author: "Sarah Chen",
-    role: "Design Director",
-    company: "Linear",
+    quote: "Discovery & strategy to align your creative vision with technical scope.",
+    author: "01 · Discovery",
+    role: "Blueprint & Architecture",
+    company: "Phase 01",
   },
   {
-    quote: "The most elegant solution we've ever implemented.",
-    author: "Marcus Webb",
-    role: "Creative Lead",
-    company: "Vercel",
+    quote: "Rapid prototyping, visual styleframes, and interactive product UX.",
+    author: "02 · Prototype",
+    role: "Design & User Experience",
+    company: "Phase 02",
   },
   {
-    quote: "Pure craftsmanship in every single detail.",
-    author: "Elena Frost",
-    role: "Head of Product",
-    company: "Stripe",
+    quote: "Production-ready code, generative AI pipelines, and agile execution.",
+    author: "03 · Engineering",
+    role: "Full-Stack Build & AI Integration",
+    company: "Phase 03",
+  },
+  {
+    quote: "Rigorous QA testing, global deployment, and performance scaling.",
+    author: "04 · Launch",
+    role: "Deployment, Go-Live & Scale",
+    company: "Phase 04",
   },
 ]
 
 export interface TestimonialProps {
   items?: TestimonialItem[]
+  /** Side vertical label — defaults to "Testimonials" */
+  label?: string
   className?: string
 }
 
-export function Testimonial({ items = defaultTestimonials, className = "" }: TestimonialProps) {
+export function Testimonial({ items = defaultTestimonials, label = "How we work", className = "" }: TestimonialProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -106,7 +114,7 @@ export function Testimonial({ items = defaultTestimonials, className = "" }: Tes
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              Testimonials
+              {label}
             </motion.span>
 
             {/* Vertical progress line */}
@@ -270,16 +278,16 @@ export function Testimonial({ items = defaultTestimonials, className = "" }: Tes
           </div>
         </div>
 
-        {/* Bottom ticker - subtle repeating company names */}
-        <div className="absolute -bottom-16 left-0 right-0 overflow-hidden opacity-[0.07] pointer-events-none">
+        {/* Bottom ticker - subtle repeating process steps */}
+        <div className="absolute -bottom-16 left-0 right-0 overflow-hidden opacity-[0.06] pointer-events-none">
           <motion.div
-            className="flex whitespace-nowrap text-6xl font-bold tracking-tight"
+            className="flex whitespace-nowrap text-5xl font-mono uppercase font-bold tracking-widest"
             animate={{ x: [0, -1000] }}
             transition={{ duration: 25, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
           >
             {[...Array(10)].map((_, i) => (
               <span key={i} className="mx-8 text-foreground">
-                {items.map((t) => t.company).join(" • ")} •
+                {items.map((t) => `${t.company} — ${t.role}`).join(" • ")} •
               </span>
             ))}
           </motion.div>
