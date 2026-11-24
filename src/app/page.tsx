@@ -261,7 +261,6 @@ export default function Home() {
       <section className="bg-paper pb-20 md:pb-28">
         <Container>
           <SectionHead
-            eyebrow="Built on purpose, driven by creativity"
             title="Our services."
             aside={
               <p className="max-w-sm text-[15px] leading-relaxed text-graphite/75">

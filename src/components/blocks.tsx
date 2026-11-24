@@ -8,12 +8,12 @@ import { Container, Eyebrow, H2, Mark } from "./ui";
 import { SilkBackdrop, StarButton } from "./fx";
 
 /** Section heading: eyebrow, title, optional right-hand slot. */
-export function SectionHead({ eyebrow, title, aside, light = false }: { eyebrow: string; title: ReactNode; aside?: ReactNode; light?: boolean }) {
+export function SectionHead({ eyebrow, title, aside, light = false }: { eyebrow?: string; title: ReactNode; aside?: ReactNode; light?: boolean }) {
   return (
     <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
       <Reveal>
-        <Eyebrow light={light}>{eyebrow}</Eyebrow>
-        <h2 className={`mt-5 max-w-3xl ${H2}`}>{title}</h2>
+        {eyebrow && <Eyebrow light={light}>{eyebrow}</Eyebrow>}
+        <h2 className={`${eyebrow ? "mt-5 " : ""}max-w-3xl ${H2}`}>{title}</h2>
       </Reveal>
       {aside && <Reveal delay={0.1}>{aside}</Reveal>}
     </div>
