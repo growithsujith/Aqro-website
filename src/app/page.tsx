@@ -273,24 +273,38 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 6 — Partner */}
-      <section className="bg-ivory py-20 md:py-28">
-        <Container className="grid gap-12 lg:grid-cols-12">
+      {/* 6 — Why aqro / Partner */}
+      <section className="grain relative overflow-hidden bg-navy py-20 text-white md:py-28">
+        {/* Animated flowing silk fabric in AQRO blue */}
+        <SilkBackdrop tone="blue" className="opacity-75" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/60 to-navy/75"
+        />
+
+        <Container className="relative z-10 grid gap-12 lg:grid-cols-12">
           <Reveal className="lg:col-span-5">
-            <Eyebrow>Why aqro</Eyebrow>
-            <h2 className={`mt-5 ${H2}`}>Partner with us to bring your idea to life.</h2>
-            <p className="mt-5 text-lg text-graphite/75">Powered by technology, imagined by people.</p>
+            <Eyebrow light>Why aqro</Eyebrow>
+            <h2 className={`mt-5 ${H2} text-white`}>Partner with us to bring your idea to life.</h2>
+            <p className="mt-5 text-lg text-white/75">Powered by technology, imagined by people.</p>
             <div className="mt-8">
               <StarButton href="/contact">Get in touch</StarButton>
             </div>
           </Reveal>
           <ul className="grid gap-4 lg:col-span-7">
             {PILLARS.map((p, i) => (
-              <Reveal as="li" key={p.t} delay={i * 0.08} className="flex gap-5 rounded-2xl bg-white p-6">
+              <Reveal
+                as="li"
+                key={p.t}
+                delay={i * 0.08}
+                className="group flex gap-5 rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-sky/50 hover:bg-white/15 hover:shadow-[0_20px_40px_-15px_rgba(0,74,173,0.35)]"
+              >
                 <Mark className="mt-1.5 size-3 shrink-0" />
                 <div>
-                  <h3 className="font-display text-xl font-semibold tracking-tight">{p.t}</h3>
-                  <p className="mt-1 text-[15px] leading-relaxed text-graphite/70">{p.d}</p>
+                  <h3 className="font-display text-xl font-semibold tracking-tight text-white transition-colors group-hover:text-sky">
+                    {p.t}
+                  </h3>
+                  <p className="mt-1 text-[15px] leading-relaxed text-white/75">{p.d}</p>
                 </div>
               </Reveal>
             ))}
