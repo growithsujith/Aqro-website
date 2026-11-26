@@ -73,8 +73,8 @@ export function ServicePage({ slug }: { slug: ServiceSlug }) {
     <>
       {/* Hero */}
       <section className={`${t.bg} ${t.text} relative overflow-hidden ${wall ? "grain" : ""}`}>
-        {/* Silk backdrop behind EVERY service hero section */}
-        <SilkBackdrop tone={t.light ? "blue" : "deep"} className="opacity-45" />
+        {/* Silk backdrop behind other service hero sections (disabled on creatives for clean wall visuals) */}
+        {!wall && <SilkBackdrop tone={t.light ? "blue" : "deep"} className="opacity-45" />}
 
         {wall && (
           <>

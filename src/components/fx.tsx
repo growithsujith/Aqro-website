@@ -443,10 +443,21 @@ export function ClientLoop({ light = false }: { light?: boolean }) {
 
 const PLACEHOLDERS = Array.from({ length: 12 }, (_, i) => `/placeholders/creative-${String(i + 1).padStart(2, "0")}.svg`);
 
-/** Real creatives when they exist, else the brand sample posters. */
+const HERO_CREATIVE_WALL_IMAGES = [
+  "/portfolio/creatives/hero-wall/hero_01_onam.webp",
+  "/portfolio/creatives/hero-wall/hero_02_chatkah.webp",
+  "/portfolio/creatives/hero-wall/hero_03_flash.webp",
+  "/portfolio/creatives/hero-wall/hero_04_bellydance.webp",
+  "/portfolio/creatives/hero-wall/hero_05_muse.webp",
+  "/portfolio/creatives/hero-wall/hero_06_sevendays.webp",
+  "/portfolio/creatives/hero-wall/hero_07_doughlicious.webp",
+];
+
+/** Real creatives when they exist, prioritized by hero packshots. */
 function creativeImages() {
-  const real = portfolio.creatives.flatMap((p) => [p.cover, ...(p.images ?? [])]);
-  return real.length >= 6 ? real : [...real, ...PLACEHOLDERS];
+  const portfolioList = portfolio.creatives.flatMap((p) => [p.cover, ...(p.images ?? [])]);
+  const all = [...HERO_CREATIVE_WALL_IMAGES, ...portfolioList];
+  return all.length > 0 ? all : PLACEHOLDERS;
 }
 
 /** Tilted, drifting wall of creatives — used as the Creatives hero backdrop. */
@@ -456,21 +467,21 @@ export function CreativeWall() {
     <DriftWall
       items={items}
       columns={6}
-      tileWidth={190}
-      tileHeight={238}
-      gap={18}
-      radius={16}
+      tileWidth={200}
+      tileHeight={255}
+      gap={20}
+      radius={18}
       tilt={18}
       turn={-18}
       roll={-6}
       perspective={1100}
       depth={80}
-      speed={26}
+      speed={24}
       variance={0.5}
       parallax={0.5}
       lift={56}
-      fade={0.55}
-      dim={0.7}
+      fade={0.35}
+      dim={0.2}
       overlayColor={BRAND.navy}
     />
   );
