@@ -258,7 +258,7 @@ export default function Home() {
       </section>
 
       {/* 5 — Services */}
-      <section className="bg-paper pb-20 md:pb-28">
+      <section className="bg-paper pt-10 pb-20 md:pt-14 md:pb-28">
         <Container>
           <SectionHead
             title="Our services."
