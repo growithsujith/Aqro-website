@@ -45,7 +45,9 @@ const DriftWall = ({
   grayscale = false,
   overlayColor = '#060010',
   className = '',
-  style
+  style,
+  eagerLoad = false,
+  eagerCount = 12,
 }) => {
   const containerRef = useRef(null);
   const planeRef = useRef(null);
@@ -228,10 +230,18 @@ const DriftWall = ({
     [tileWidth, tileHeight, gap, radius, perspective, lift, dim, grayscale, overlayColor, fade, style]
   );
 
-  const renderTile = (item, id, colIndex) => {
+  const renderTile = (item, id, colIndex, itemIndex) => {
+    const shouldEager = eagerLoad && itemIndex < eagerCount;
     const inner = (
       <span className="drift-wall__inner">
-        <img src={item.image} alt={item.title ?? ''} loading="lazy" decoding="async" draggable={false} />
+        <img
+          src={item.image}
+          alt={item.title ?? ''}
+          loading={shouldEager ? 'eager' : 'lazy'}
+          fetchPriority={shouldEager ? 'high' : 'auto'}
+          decoding={shouldEager ? 'sync' : 'async'}
+          draggable={false}
+        />
         <span className="drift-wall__overlay" aria-hidden="true" />
       </span>
     );
@@ -275,11 +285,15 @@ const DriftWall = ({
         {columnItems.map((col, c) => {
           const meta = columnMeta[c];
           const copies = Array.from({ length: meta.copies });
+          let globalIdx = 0;
           return (
             <div className="drift-wall__col" key={`col-${c}`}>
               <div className="drift-wall__track" ref={el => (trackRefs.current[c] = el)}>
                 {copies.map((_, copyIndex) =>
-                  col.map((item, itemIndex) => renderTile(item, `${c}-${copyIndex}-${itemIndex}`, c))
+                  col.map((item, itemIndex) => {
+                    const idx = copyIndex * col.length + itemIndex;
+                    return renderTile(item, `${c}-${copyIndex}-${itemIndex}`, c, c * col.length + idx);
+                  })
                 )}
               </div>
             </div>

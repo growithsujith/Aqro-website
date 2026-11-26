@@ -455,9 +455,17 @@ const HERO_CREATIVE_WALL_IMAGES = [
 
 /** Real creatives when they exist, prioritized by hero packshots. */
 function creativeImages() {
-  const portfolioList = portfolio.creatives.flatMap((p) => [p.cover, ...(p.images ?? [])]);
-  const all = [...HERO_CREATIVE_WALL_IMAGES, ...portfolioList];
-  return all.length > 0 ? all : PLACEHOLDERS;
+  // Only use hero-wall images to avoid duplicate loads from portfolio covers
+  const seen = new Set<string>();
+  const unique: string[] = [];
+  for (const img of HERO_CREATIVE_WALL_IMAGES) {
+    if (!seen.has(img)) { seen.add(img); unique.push(img); }
+  }
+  // Add portfolio covers that aren't already in hero-wall
+  for (const p of portfolio.creatives) {
+    if (!seen.has(p.cover)) { seen.add(p.cover); unique.push(p.cover); }
+  }
+  return unique.length > 0 ? unique : PLACEHOLDERS;
 }
 
 /** Tilted, drifting wall of creatives — used as the Creatives hero backdrop. */
@@ -483,6 +491,8 @@ export function CreativeWall() {
       fade={0.35}
       dim={0.2}
       overlayColor={BRAND.navy}
+      eagerLoad={true}
+      eagerCount={12}
     />
   );
 }
